@@ -2,34 +2,48 @@ import Link from "next/link";
 import Image from "next/image";
 import { categories } from "@/data/categories";
 import {
-  Laptop,
-  Monitor,
-  Video,
-  HardDrive,
-  Headphones,
-  Keyboard,
-  Speaker,
-  Printer,
-  Mic,
-  Mouse,
-  Smartphone,
-  Cpu,
+  Pizza,
+  Coffee,
+  CupSoda,
+  Utensils,
+  IceCream,
+  Users,
+  PlusCircle,
+  Soup,
+  Beef,
+  Flame,
+  Salad,
+  Sandwich,
 } from "lucide-react";
 
 const IconMap: Record<string, any> = {
-  PC: Monitor,
-  LAPTOP: Laptop,
-  WEBCAMS: Video,
-  HARD_DRIVES: HardDrive,
-  HEADSETS: Headphones,
-  KEYBOARDS: Keyboard,
-  SPEAKERS: Speaker,
-  PRINTERS: Printer,
-  MICROPHONES: Mic,
-  MONITORS: Monitor,
-  SSD: Cpu,
-  MOUSES: Mouse,
-  TABLETS: Smartphone,
+  PC: Pizza,
+  LAPTOP: Sandwich,
+  WEBCAMS: Utensils,
+  HARD_DRIVES: CupSoda,
+  HEADSETS: Coffee,
+  KEYBOARDS: IceCream,
+  SPEAKERS: Salad,
+  PRINTERS: Users,
+  MICROPHONES: PlusCircle,
+  MONITORS: Pizza,
+  SSD: Pizza,
+  MOUSES: Sandwich,
+};
+
+const LabelMap: Record<string, string> = {
+  PC: "بيتزا",
+  LAPTOP: "ساندوتشات",
+  WEBCAMS: "مقبلات",
+  HARD_DRIVES: "مشروبات باردة",
+  HEADSETS: "مشروبات ساخنة",
+  KEYBOARDS: "حلويات",
+  SPEAKERS: "سلطات",
+  PRINTERS: "وجبات عائلية",
+  MICROPHONES: "إضافات",
+  MONITORS: "بيتزا إيطالية",
+  SSD: "بيتزا شرقية",
+  MOUSES: "وجبات سريعة",
 };
 
 export default function Categories() {
@@ -39,18 +53,18 @@ export default function Categories() {
         <div className="flex flex-col items-center mb-10 text-center">
           <div className="w-12 h-1 bg-primary rounded-full mb-4" />
           <h2 className="text-3xl md:text-4xl font-black text-foreground tracking-tight mb-3 transition-colors">
-            Shop by Category
+            تصفح حسب التصنيف
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto font-medium">
-            Explore our professional-grade hardware inventory
+            اكتشف مجموعة متنوعة من الأطباق والوجبات السريعة
           </p>
         </div>
 
         <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-4 md:gap-6">
           {categories.map((cat) => {
-            const Icon = IconMap[cat];
+            const Icon = IconMap[cat] || Utensils;
             const imageUrl = `https://lzmijym9f9dkp5qm.public.blob.vercel-storage.com/icons/${cat}.png`;
-            const label = cat.replace(/_/g, " ");
+            const label = LabelMap[cat] || cat.replace(/_/g, " ");
 
             return (
               <Link

@@ -5,6 +5,21 @@ import Link from "next/link";
 import { useCart, dispatchCartUpdate } from "@/hooks/useCart";
 import CheckoutBtn from "./components/CheckoutBtn";
 
+const LabelMap: Record<string, string> = {
+  PC: "بيتزا",
+  LAPTOP: "ساندوتشات",
+  WEBCAMS: "مقبلات",
+  HARD_DRIVES: "مشروبات باردة",
+  HEADSETS: "مشروبات ساخنة",
+  KEYBOARDS: "حلويات",
+  SPEAKERS: "سلطات",
+  PRINTERS: "وجبات عائلية",
+  MICROPHONES: "إضافات",
+  MONITORS: "بيتزا إيطالية",
+  SSD: "بيتزا شرقية",
+  MOUSES: "وجبات سريعة",
+};
+
 function page() {
   const { cart } = useCart();
 
@@ -68,13 +83,13 @@ function page() {
                     {product.p_name}
                   </Link>
                   <p className="text-sm text-muted-foreground font-medium">
-                    {product.p_cat}
+                    {LabelMap[product.p_cat] || product.p_cat}
                   </p>
                 </div>
                 <button
                   onClick={() => removeFromCart(product.id)}
                   className="text-muted-foreground hover:text-error hover:bg-error/10 p-2 rounded-xl transition-all"
-                  aria-label="Remove item"
+                  aria-label="إزالة"
                 >
                   <Trash size={18} />
                 </button>
@@ -83,8 +98,8 @@ function page() {
               <div className="flex items-end justify-between pt-2">
                 <span className="text-lg font-black text-foreground">
                   {Number(product.p_cost).toLocaleString()}
-                  <span className="text-[10px] ml-1 text-muted-foreground font-bold uppercase">
-                    SDG
+                  <span className="text-[10px] mr-1 text-muted-foreground font-bold uppercase">
+                    جنية
                   </span>
                 </span>
 
@@ -122,12 +137,12 @@ function page() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h1 className="text-xl md:text-2xl font-black text-foreground">
-              Shopping Cart
+              سلة المشتريات
             </h1>
             <p className="text-sm text-muted-foreground mt-1 font-medium m-0">
               {cart.length > 0
-                ? `You have ${cart.length} items in your cart`
-                : "Your cart is currently empty"}
+                ? `لديك ${cart.length} أصناف في سلتك`
+                : "سلة المشتريات فارغة حالياً"}
             </p>
           </div>
         </div>
@@ -154,19 +169,19 @@ function page() {
             </div>
 
             <h2 className="text-2xl font-bold text-foreground mb-2">
-              Your cart is empty
+              سلة المشتريات فارغة
             </h2>
             <p className="text-muted-foreground max-w-sm text-center mb-8">
-              Looks like you haven't added anything to your cart yet. Browse our
-              categories to find cool gadgets!
+              يبدو أنك لم تضف أي شيء للسلة بعد. تصفح القائمة لتجد ما لذ وطاب من
+              البيتزا!
             </p>
 
             <Link
               href="/products"
               className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-primary/20 active:scale-95"
             >
-              Start Shopping
-              <ArrowRight className="w-4 h-4 ml-1" />
+              ابدأ الطلب
+              <ArrowRight className="w-4 h-4 mr-1 rotate-180" />
             </Link>
           </div>
         )}

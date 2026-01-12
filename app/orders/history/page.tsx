@@ -46,7 +46,7 @@ export default function HistoryPage() {
   }, [orders]);
 
   if (status === "loading" || isLoading) {
-    return <Loading size="lg" text="Loading Archives..." />;
+    return <Loading size="lg" text="جاري تحميل السجل..." />;
   }
 
   return (
@@ -62,7 +62,7 @@ export default function HistoryPage() {
               <ArrowLeft size={20} />
             </Link>
             <h1 className="text-xl font-black text-foreground uppercase tracking-tighter m-0">
-              Mission <span className="text-success">History</span>
+              سجل <span className="text-success">الطلبات</span>
             </h1>
           </div>
         </div>
@@ -75,16 +75,16 @@ export default function HistoryPage() {
             <div className="grid grid-cols-3 gap-2 bg-card border border-border p-2 pb-0   rounded shadow-sm">
               <div className="flex flex-col items-center justify-center py-1 border-border">
                 <span className="text-[12px] font-black text-muted-foreground uppercase tracking-tighter">
-                  Spend
+                  الإنفاق
                 </span>
                 <p className="text-xs font-black text-foreground">
                   {Math.round(stats.totalSpend / 1000)}k{" "}
-                  <span className="text-[7px] text-primary">SDG</span>
+                  <span className="text-[7px] text-primary">جنية</span>
                 </p>
               </div>
               <div className="flex flex-col items-center justify-center py-1 border-border">
                 <span className="text-[12px] font-black text-muted-foreground uppercase tracking-tighter">
-                  Units
+                  الوحدات
                 </span>
                 <p className="text-xs font-black text-foreground">
                   {stats.totalItems}
@@ -92,7 +92,7 @@ export default function HistoryPage() {
               </div>
               <div className="flex flex-col items-center justify-center py-1">
                 <span className="text-[12px] font-black text-muted-foreground uppercase tracking-tighter">
-                  Orders
+                  الطلبات
                 </span>
                 <p className="text-xs font-black text-foreground">
                   {stats.count}
@@ -103,10 +103,10 @@ export default function HistoryPage() {
             {/* List Header */}
             <div className="flex items-center justify-between px-1">
               <h2 className="text-[12px] font-black text-muted-foreground uppercase tracking-[0.2em]">
-                Deployment Log
+                سجل الطلبات المستلمة
               </h2>
               <span className="text-[12px] font-bold text-muted-foreground bg-muted px-2 py-1 rounded-md">
-                {stats.count} Total
+                {stats.count} إجمالي
               </span>
             </div>
 
@@ -123,10 +123,10 @@ export default function HistoryPage() {
               <PackageSearch className="w-8 h-8 text-muted-foreground/30 " />
             </div>
             <h2 className="text-lg font-black text-foreground uppercase tracking-tighter">
-              No History Found
+              لا يوجد سجل
             </h2>
             <p className="text-muted-foreground max-w-xs mx-auto text-[12px] font-bold uppercase tracking-widest mt-2">
-              You haven't received any orders yet.
+              لم تستلم أي طلبات بعد.
             </p>
           </div>
         )}

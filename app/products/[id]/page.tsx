@@ -9,14 +9,29 @@ import CartBtn from "./components/cartBtn";
 import { ChevronLeft, Info, Package, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
+const LabelMap: Record<string, string> = {
+  PC: "بيتزا",
+  LAPTOP: "ساندوتشات",
+  WEBCAMS: "مقبلات",
+  HARD_DRIVES: "مشروبات باردة",
+  HEADSETS: "مشروبات ساخنة",
+  KEYBOARDS: "حلويات",
+  SPEAKERS: "سلطات",
+  PRINTERS: "وجبات عائلية",
+  MICROPHONES: "إضافات",
+  MONITORS: "بيتزا إيطالية",
+  SSD: "بيتزا شرقية",
+  MOUSES: "وجبات سريعة",
+};
+
 export async function generateStaticParams() {
   return await getProductsIds();
 }
 
 export const revalidate = 15;
 export const metadata = {
-  title: `SPS | Product Detail`,
-  description: "Product technical details and specifications",
+  title: `لييبر بيتزا | تفاصيل المنتج`,
+  description: "تفاصيل وجبة البيتزا والمكونات",
 };
 
 export default async function ProductsDetails({
@@ -33,13 +48,13 @@ export default async function ProductsDetails({
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
         <Package size={48} className="text-muted-foreground/30" />
         <h1 className="text-xl font-black text-foreground uppercase tracking-tighter">
-          Product not found
+          الوجبة غير موجودة
         </h1>
         <Link
           href="/products"
           className="text-xs font-bold text-primary uppercase underline"
         >
-          Back to catalog
+          العودة لقائمة الوجبات
         </Link>
       </div>
     );
@@ -53,9 +68,9 @@ export default async function ProductsDetails({
           href={("/products/categories/" + product?.p_cat) as any}
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
         >
-          <ChevronLeft size={16} />
+          <ChevronLeft size={16} className="rotate-180" />
           <span className="text-[10px] font-black uppercase tracking-widest">
-            Back to Catalog
+            العودة للقائمة
           </span>
         </Link>
       </div>
@@ -73,9 +88,9 @@ export default async function ProductsDetails({
                   imgFill={"object-cover p-4 md:p-12"}
                 />
               </div>
-              <div className="absolute top-6 left-6 hidden md:block">
+              <div className="absolute top-6 right-6 hidden md:block">
                 <span className="px-3 py-1 text-[9px] font-black text-info bg-info/10 rounded-full uppercase tracking-tighter">
-                  Official Hardware
+                  منتج أصلي
                 </span>
               </div>
             </div>
@@ -87,11 +102,11 @@ export default async function ProductsDetails({
                 <div className="space-y-4">
                   <div className="flex items-center gap-2">
                     <span className="px-2 py-1 text-[9px] font-black text-primary-foreground bg-primary rounded-md uppercase tracking-widest">
-                      {product.p_cat}
+                      {LabelMap[product.p_cat] || product.p_cat}
                     </span>
                     <div className="h-[1px] w-8 bg-border" />
                     <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
-                      SKU: {id.slice(0, 8)}
+                      رمز المنتج: {id.slice(0, 8)}
                     </span>
                   </div>
 
@@ -105,7 +120,7 @@ export default async function ProductsDetails({
                         {Number(product.p_cost).toLocaleString()}
                       </span>
                       <span className="text-xs font-black text-muted-foreground uppercase">
-                        SDG
+                        جنية
                       </span>
                     </div>
                   </div>
@@ -115,23 +130,23 @@ export default async function ProductsDetails({
                 <div className="grid grid-cols-2 gap-3 py-6 border-y border-border">
                   <div className="space-y-1">
                     <p className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">
-                      Status
+                      الحالة
                     </p>
                     <div className="flex items-center gap-1.5 text-success">
                       <ShieldCheck size={14} />
                       <span className="text-xs font-bold uppercase tracking-tight">
-                        In Stock
+                        متوفر
                       </span>
                     </div>
                   </div>
                   <div className="space-y-1">
                     <p className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">
-                      Delivery
+                      التوصيل
                     </p>
                     <div className="flex items-center gap-1.5 text-foreground/80">
                       <Package size={14} />
                       <span className="text-xs font-bold uppercase tracking-tight">
-                        Fast Shipping
+                        توصيل سريع
                       </span>
                     </div>
                   </div>
@@ -142,7 +157,7 @@ export default async function ProductsDetails({
                   <div className="flex items-center gap-2 text-foreground">
                     <Info size={14} className="text-primary" />
                     <h3 className="text-[10px] font-black uppercase tracking-widest">
-                      Technical Overview
+                      وصف الوجبة
                     </h3>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed font-medium">
@@ -155,7 +170,7 @@ export default async function ProductsDetails({
               <div className="mt-12">
                 <CartBtn product={{ ...product, id } as any} />
                 <p className="text-[8px] text-center mt-4 text-muted-foreground font-bold uppercase tracking-[0.2em]">
-                  Secure Transaction • Verified SPS Hardware
+                  دفع آمن • منتجات لييبر بيتزا المعتمدة
                 </p>
               </div>
             </div>
@@ -167,17 +182,17 @@ export default async function ProductsDetails({
           <div className="flex items-end justify-between border-b border-border pb-4">
             <div>
               <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-1">
-                Related Assets
+                وجبات مشابهة
               </p>
               <h3 className="text-2xl font-black text-foreground uppercase tracking-tighter">
-                Similar Products
+                قد يعجبك أيضاً
               </h3>
             </div>
             <Link
               href={("/products/categories/" + product?.p_cat) as any}
               className="text-[10px] font-black text-muted-foreground hover:text-primary uppercase tracking-widest transition-colors"
             >
-              View All
+              عرض الكل
             </Link>
           </div>
           <ProductGrid products={prodSameCate} />

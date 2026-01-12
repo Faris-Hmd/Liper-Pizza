@@ -3,6 +3,9 @@ export interface ShippingInfo {
   city: string;
   zip: string;
   phone: string;
+  googleMapsLink?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface UserData {

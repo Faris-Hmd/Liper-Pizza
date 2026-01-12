@@ -10,39 +10,39 @@ type Term = {
 
 const terms: Term[] = [
   {
-    title: "Acceptance of Terms",
+    title: "قبول الشروط",
     content:
-      "By using our website, you accept these terms in full. If you disagree with any part, you must not use our services.",
+      "باستخدامك لموقعنا، فإنك تقبل هذه الشروط بالكامل. إذا كنت لا توافق على أي جزء منها، يجب عليك عدم استخدام خدماتنا.",
   },
   {
-    title: "Use of Services",
+    title: "استخدام الخدمات",
     content:
-      "You agree to use our services only for lawful purposes. You may not use our website to upload, post, or transmit any harmful, illegal, or offensive content.",
+      "أنت توافق على استخدام خدماتنا للأغراض المشروعة فقط. لا يجوز لك استخدام موقعنا لرفع أو نشر أو نقل أي محتوى ضار أو غير قانوني أو مسيء.",
   },
   {
-    title: "Intellectual Property",
+    title: "الملكية الفكرية",
     content:
-      "All content, graphics, logos, and designs on this website are the property of the company and protected by copyright laws.",
+      "جميع المحتويات والرسومات والشعارات والتصاميم الموجودة على هذا الموقع هي ملك للشركة ومحمية بموجب قوانين حقوق النشر.",
   },
   {
-    title: "Limitation of Liability",
+    title: "تحديد المسؤولية",
     content:
-      "We are not responsible for any direct or indirect damages arising from the use of our website or services. Use our services at your own risk.",
+      "نحن غير مسؤولين عن أي أضرار مباشرة أو غير مباشرة تنشأ عن استخدام موقعنا أو خدماتنا. استخدم خدماتنا على مسؤوليتك الخاصة.",
   },
   {
-    title: "Privacy",
+    title: "الخصوصية",
     content:
-      "Your personal information is handled according to our Privacy Policy. By using our services, you agree to the collection and use of your information as described.",
+      "يتم التعامل مع معلوماتك الشخصية وفقاً لسياسة الخصوصية الخاصة بنا. باستخدامك لخدماتنا، فإنك توافق على جمع واستخدام معلوماتك كما هو موضح.",
   },
   {
-    title: "Changes to Terms",
+    title: "تغيير الشروط",
     content:
-      "We reserve the right to modify these Terms & Services at any time. Changes will be effective immediately upon posting on our website.",
+      "نحتفظ بالحق في تعديل هذه الشروط في أي وقت. ستكون التغييرات فعالة فور نشرها على موقعنا.",
   },
   {
-    title: "Governing Law",
+    title: "القانون الحاكم",
     content:
-      "These terms are governed by the laws of [Your Country/State]. Any disputes arising under these terms will be resolved under the jurisdiction of the appropriate courts.",
+      "تخضع هذه الشروط للقوانين المحلية. أي نزاعات تنشأ بموجب هذه الشروط سيتم حلها تحت اختصاص المحاكم المختصة.",
   },
 ];
 
@@ -58,7 +58,7 @@ function TermsPage() {
       <header className="page-header">
         <div className="max-w-4xl mx-auto px-4 sm:px-8">
           <h1>
-            Terms & <span className="text-primary">Services</span>
+            الشروط <span className="text-primary">والأحكام</span>
           </h1>
         </div>
       </header>
@@ -67,8 +67,8 @@ function TermsPage() {
         {/* Intro */}
         <div className="text-center space-y-4">
           <p className="max-w-2xl mx-auto text-muted-foreground text-base md:text-lg font-medium leading-relaxed m-0">
-            By using our website, you agree to the following protocol. Please
-            review our operational standards carefully.
+            باستخدامك لموقعنا، فإنك توافق على الشروط التالية. يرجى مراجعة
+            معاييرنا التشغيلية بعناية.
           </p>
         </div>
 
@@ -81,7 +81,7 @@ function TermsPage() {
             >
               {/* Header */}
               <button
-                className="w-full flex justify-between items-center px-6 sm:px-8 py-4 sm:py-6 text-left font-black text-lg hover:bg-muted/50 transition-colors outline-none group"
+                className="w-full flex justify-between items-center px-6 sm:px-8 py-4 sm:py-6 text-right font-black text-lg hover:bg-muted/50 transition-colors outline-none group"
                 onClick={() => toggle(index)}
               >
                 <span className="group-hover:text-primary transition-colors text-base sm:text-lg">
@@ -115,7 +115,7 @@ function TermsPage() {
         {/* Conclusion */}
         <div className="pt-8 border-t border-border text-center">
           <p className="text-muted-foreground text-[10px] font-black uppercase tracking-[0.3em] m-0">
-            Operational Sovereignty Reserved &copy; {new Date().getFullYear()}
+            جميع الحقوق محفوظة &copy; {new Date().getFullYear()} لييبر بيتزا
           </p>
         </div>
       </div>

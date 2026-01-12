@@ -15,6 +15,21 @@ import { ProductType } from "@/types/productsTypes";
 import QuickAddBtn from "./quickAddBtn";
 import { cn } from "@/lib/utils";
 
+const LabelMap: Record<string, string> = {
+  PC: "بيتزا",
+  LAPTOP: "ساندوتشات",
+  WEBCAMS: "مقبلات",
+  HARD_DRIVES: "مشروبات باردة",
+  HEADSETS: "مشروبات ساخنة",
+  KEYBOARDS: "حلويات",
+  SPEAKERS: "سلطات",
+  PRINTERS: "وجبات عائلية",
+  MICROPHONES: "إضافات",
+  MONITORS: "بيتزا إيطالية",
+  SSD: "بيتزا شرقية",
+  MOUSES: "وجبات سريعة",
+};
+
 export default function ProductsCarousel({
   products,
 }: {
@@ -53,28 +68,28 @@ export default function ProductsCarousel({
             <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-primary/10 border border-primary/20">
               <Zap size={12} className="text-primary animate-pulse" />
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-                High Performance
+                أداء متميز
               </span>
             </div>
             <h2 className="text-2xl md:text-6xl font-black text-foreground uppercase tracking-tighter leading-[0.85]">
-              Featured
-              <span className="text-primary italic">Hardware</span>
+              أبرز
+              <span className="text-primary italic"> الوجبات</span>
             </h2>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-2">
               <button
-                onClick={() => api?.scrollPrev()}
-                className="w-10 h-10 border border-border flex items-center justify-center hover:bg-card hover:border-primary transition-all active:scale-95"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button
                 onClick={() => api?.scrollNext()}
                 className="w-10 h-10 border border-border flex items-center justify-center hover:bg-card hover:border-primary transition-all active:scale-95"
               >
-                <ChevronRight size={20} />
+                <ChevronRight size={20} className="rotate-180" />
+              </button>
+              <button
+                onClick={() => api?.scrollPrev()}
+                className="w-10 h-10 border border-border flex items-center justify-center hover:bg-card hover:border-primary transition-all active:scale-95"
+              >
+                <ChevronLeft size={20} className="rotate-180" />
               </button>
             </div>
             <div className="h-10 w-[1px] bg-border hidden md:block" />
@@ -88,6 +103,7 @@ export default function ProductsCarousel({
           opts={{
             align: "start",
             loop: true,
+            direction: "rtl",
           }}
           className="w-full"
         >
@@ -121,7 +137,7 @@ export default function ProductsCarousel({
 
                     <div className="absolute top-3 left-3">
                       <span className="px-2 py-0.5 bg-background/90 backdrop-blur-sm border rounded-xl border-border text-[9px] font-black text-primary uppercase tracking-widest">
-                        {product.p_cat}
+                        {LabelMap[product.p_cat] || product.p_cat}
                       </span>
                     </div>
                   </div>
@@ -137,14 +153,14 @@ export default function ProductsCarousel({
                     <div className="flex items-center justify-between pt-3 md:pt-4 border-t border-border">
                       <div className="flex flex-col">
                         <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest mb-1 opacity-60">
-                          Hardware Value
+                          قيمة الوجبة
                         </span>
                         <div className="flex items-baseline gap-1">
                           <span className="text-xl md:text-2xl font-black text-foreground tracking-tighter">
                             {Number(product.p_cost).toLocaleString()}
                           </span>
                           <span className="text-[10px] font-black text-primary uppercase">
-                            SDG
+                            جنية
                           </span>
                         </div>
                       </div>

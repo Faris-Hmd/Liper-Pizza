@@ -8,6 +8,21 @@ import QuickAddBtn from "./quickAddBtn";
 import { ArrowUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+const LabelMap: Record<string, string> = {
+  PC: "بيتزا",
+  LAPTOP: "ساندوتشات",
+  WEBCAMS: "مقبلات",
+  HARD_DRIVES: "مشروبات باردة",
+  HEADSETS: "مشروبات ساخنة",
+  KEYBOARDS: "حلويات",
+  SPEAKERS: "سلطات",
+  PRINTERS: "وجبات عائلية",
+  MICROPHONES: "إضافات",
+  MONITORS: "بيتزا إيطالية",
+  SSD: "بيتزا شرقية",
+  MOUSES: "وجبات سريعة",
+};
+
 // --- 1. Product Card Component ---
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const imageUrl = product.p_imgs?.[0]?.url || "/placeholder.png";
@@ -29,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         <div className="absolute top-1 left-3 overflow-hidden z-10">
           <span className="px-2 py-0.5 bg-background/90 backdrop-blur-sm border border-border rounded-md text-[9px] font-black text-primary uppercase tracking-widest">
-            {product.p_cat}
+            {LabelMap[product.p_cat] || product.p_cat}
           </span>
         </div>
       </Link>
@@ -44,8 +59,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="flex flex-col">
             <span className="text-sm md:text-base font-black text-foreground leading-none">
               {Number(product.p_cost).toLocaleString()}
-              <span className="text-[8px] ml-0.5 text-muted-foreground uppercase font-bold">
-                SDG
+              <span className="text-[8px] mr-0.5 text-muted-foreground uppercase font-bold">
+                جنية
               </span>
             </span>
           </div>
@@ -93,7 +108,7 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
               <ArrowUpDown size={12} />
             </div>
             <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground">
-              Sort
+              ترتيب
             </p>
           </div>
 
@@ -107,7 +122,7 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
                   : "text-muted-foreground",
               )}
             >
-              A-Z
+              أ-ي
             </button>
             <button
               onClick={() => setSortBy("price_asc")}
@@ -118,7 +133,7 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
                   : "text-muted-foreground",
               )}
             >
-              $ Low
+              $ الأقل سعراً
             </button>
             <button
               onClick={() => setSortBy("price_desc")}
@@ -129,7 +144,7 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
                   : "text-muted-foreground",
               )}
             >
-              $ High
+              $ الأعلى سعراً
             </button>
           </div>
         </div>
@@ -145,7 +160,7 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
       ) : (
         <div className="flex flex-col items-center justify-center py-16 px-4 text-center max-w-screen-2xl mx-auto rounded border-2 border-dashed border-border bg-muted/30">
           <h3 className="text-foreground font-black text-sm uppercase">
-            No items found
+            لم يتم العثور على أي وجبات
           </h3>
         </div>
       )}

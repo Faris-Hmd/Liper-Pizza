@@ -25,10 +25,10 @@ export default function BtmNav() {
 
   // Define base items
   const navItems = [
-    { title: "Home", href: "/", icon: Home },
-    { title: "Cart", href: "/cart", icon: ShoppingCart },
-    { title: "Orders", href: "/orders", icon: Package },
-    { title: "Profile", href: "/profile", icon: User },
+    { title: "الرئيسية", href: "/", icon: Home },
+    { title: "السلة", href: "/cart", icon: ShoppingCart },
+    { title: "طلباتي", href: "/orders", icon: Package },
+    { title: "بروفيلي", href: "/profile", icon: User },
   ];
 
   return (

@@ -7,7 +7,7 @@ export default function ShippingPage() {
       <header className="page-header">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <h1>
-            Shipping <span className="text-primary">Information</span>
+            معلومات <span className="text-primary">التوصيل</span>
           </h1>
         </div>
       </header>
@@ -15,53 +15,51 @@ export default function ShippingPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-8">
         <section className="space-y-12">
           <div className="text-center space-y-4">
-            <h2 className="text-3xl font-black">Fast & Reliable Delivery</h2>
+            <h2 className="text-3xl font-black">توصيل سريع وموثوق</h2>
             <p className="max-w-2xl mx-auto">
-              We understand that your new hardware can't wait. That's why we've
-              optimized our logistics for the fastest delivery across Sudan.
+              نتفهم أن جوعك لا يمكنه الانتظار. لهذا قمنا بتحسين عمليات التوصيل
+              لدينا لنصل إليك في أسرع وقت ممكن في جميع أنحاء الخرطوم.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <ShippingCard
               icon={<Clock className="text-primary" />}
-              title="Khartoum Delivery"
-              description="Orders within Khartoum and Omdurman are delivered within 24-48 hours."
+              title="توصيل الخرطوم"
+              description="يتم توصيل الطلبات داخل الخرطوم وأم درمان وبحري في غضون 30 إلى 60 دقيقة."
             />
             <ShippingCard
               icon={<MapPin className="text-primary" />}
-              title="States Delivery"
-              description="Delivery to other states (Port Sudan, Madani, etc.) usually takes 3-5 business days."
+              title="توصيل الولايات"
+              description="خدمة التوصيل للولايات الأخرى متاحة لبعض المنتجات المغلفة وتستغرق من 2-4 أيام."
             />
             <ShippingCard
               icon={<ShieldCheck className="text-primary" />}
-              title="Secure Handling"
-              description="All components are double-boxed and shipped with insurance for your peace of mind."
+              title="تغليف حراري"
+              description="يتم تغليف جميع الوجبات بعناية فائقة في صناديق حرارية للحفاظ على سخونتها وجودتها."
             />
             <ShippingCard
               icon={<Truck className="text-primary" />}
-              title="Order Tracking"
-              description="Receive real-time updates on your order status via SMS or Email."
+              title="تتبع الطلب"
+              description="احصل على تحديثات فورية لحالة طلبك عبر الموقع أو الرسائل النصية."
             />
           </div>
 
           <div className="bg-muted p-8 rounded-3xl border border-border">
-            <h3 className="font-bold text-xl mb-4">Refunds & Returns</h3>
+            <h3 className="font-bold text-xl mb-4">الاستبدال والإرجاع</h3>
             <p className="text-sm leading-relaxed mb-6">
-              If your hardware arrives damaged or doesn't work out of the box,
-              we offer a 3-day DOA (Dead on Arrival) replacement guarantee. For
-              more details, please visit our Terms & Conditions page.
+              نسعى لتقديم الأفضل دائماً، إذا واجهت أي مشكلة في جودة الوجبة أو
+              خطأ في الطلب، يرجى التواصل معنا فوراً وسنقوم بمعالجة الأمر في أسرع
+              وقت.
             </p>
             <div className="flex flex-wrap gap-4 font-bold text-xs uppercase tracking-widest opacity-60">
               <span className="flex items-center gap-2 italic">
-                ● Quality Checked
+                ● فحص الجودة
               </span>
               <span className="flex items-center gap-2 italic">
-                ● Insured Transit
+                ● توصيل آمن
               </span>
-              <span className="flex items-center gap-2 italic">
-                ● Local Support
-              </span>
+              <span className="flex items-center gap-2 italic">● دعم محلي</span>
             </div>
           </div>
         </section>

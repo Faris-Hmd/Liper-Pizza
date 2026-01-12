@@ -11,6 +11,21 @@ import {
 } from "@/components/ui/select";
 import { categories } from "../data/categories";
 
+const LabelMap: Record<string, string> = {
+  PC: "بيتزا",
+  LAPTOP: "ساندوتشات",
+  WEBCAMS: "مقبلات",
+  HARD_DRIVES: "مشروبات باردة",
+  HEADSETS: "مشروبات ساخنة",
+  KEYBOARDS: "حلويات",
+  SPEAKERS: "سلطات",
+  PRINTERS: "وجبات عائلية",
+  MICROPHONES: "إضافات",
+  MONITORS: "بيتزا إيطالية",
+  SSD: "بيتزا شرقية",
+  MOUSES: "وجبات سريعة",
+};
+
 function SearchForm() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -63,25 +78,25 @@ function SearchForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col sm:flex-row items-center gap-3 p-2 rounded-xl bg-card border border-border shadow-xl shadow-primary/5 w-full max-w-3xl mx-auto focus-within:ring-4 focus-within:ring-primary/5 transition-all duration-300"
+      className="mt-2 flex flex-col sm:flex-row items-center gap-3 p-2 rounded-xl bg-card border border-border shadow-xl shadow-primary/5 w-full max-w-3xl mx-auto focus-within:ring-4 focus-within:ring-primary/5 transition-all duration-300"
     >
       <div className="relative flex items-center grow w-full">
-        <div className="absolute left-4 p-1.5 bg-muted rounded-lg text-muted-foreground group-focus-within:text-primary transition-colors">
+        <div className="absolute right-4 p-1.5 bg-muted rounded-lg text-muted-foreground group-focus-within:text-primary transition-colors">
           <Search size={18} strokeWidth={2.5} />
         </div>
         <input
           type="text"
           name="search_word"
-          placeholder="Search for components..."
+          placeholder="ابحث عن البيتزا المفضلة لديك..."
           value={searchValue}
           onChange={handleInputChange}
-          className="w-full pl-14 pr-10 py-3 text-sm font-semibold border-none focus:ring-0 rounded-xl outline-none placeholder:text-muted-foreground text-foreground bg-transparent"
+          className="w-full pr-14 pl-10 py-3 text-sm font-semibold border-none focus:ring-0 rounded-xl outline-none placeholder:text-muted-foreground text-foreground bg-transparent"
         />
         {searchValue && (
           <button
             type="button"
             onClick={handleReset}
-            className="absolute right-3 p-1 text-muted-foreground hover:text-destructive transition-colors"
+            className="absolute left-3 p-1 text-muted-foreground hover:text-destructive transition-colors"
           >
             <X size={18} />
           </button>
@@ -95,12 +110,12 @@ function SearchForm() {
           <SelectTrigger className="w-full sm:w-[160px] border-none bg-muted font-bold text-muted-foreground rounded-xl focus:ring-0 h-11 text-xs uppercase tracking-wider">
             <div className="flex items-center gap-2">
               <SlidersHorizontal size={14} />
-              <SelectValue placeholder="Categories" />
+              <SelectValue placeholder="التصنيفات" />
             </div>
           </SelectTrigger>
           <SelectContent className="rounded-xl border-border shadow-2xl bg-card">
             <SelectItem value="all" className="font-bold text-[10px]">
-              ALL CATEGORIES
+              كل التصنيفات
             </SelectItem>
             {categories.map((cat) => (
               <SelectItem
@@ -108,7 +123,7 @@ function SearchForm() {
                 value={cat}
                 className="font-bold text-[10px] uppercase"
               >
-                {cat.replace(/_/g, " ")}
+                {LabelMap[cat] || cat.replace(/_/g, " ")}
               </SelectItem>
             ))}
           </SelectContent>

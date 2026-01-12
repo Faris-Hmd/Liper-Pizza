@@ -5,10 +5,10 @@
 
 /* --- Theme Configuration --- */
 :root {
-  /* Pizza Theme Colors - Reds, Oranges, Ambers */
-  --primary-color: #e31837; /* Pizza Red */
-  --secondary-color: #ff9900; /* Cheesy Orange */
-  --accent-color: #ffcc00; /* Golden Amber */
+  /* Liper Brand Colors - Red, Charcoal, White */
+  --primary-color: #ef4444; /* Vibrant Red */
+  --secondary-color: #1a1a1a; /* Charcoal/Black */
+  --accent-color: #f87171; /* Lighter Red Accent */
 
   --bg-light: #fffcf9; /* Off-white warm background */
   --fg-light: #1a0f0a; /* Dark chocolate/burnt crust text */
@@ -38,9 +38,9 @@
   --card-foreground: var(--fg-light);
   --popover: #ffffff;
   --popover-foreground: var(--fg-light);
-  --muted: #fff5eb;
-  --muted-foreground: #7c2d12; /* Deep orange-brown */
-  --accent: #fff5eb;
+  --muted: #fef2f2; /* Subtle red hint */
+  --muted-foreground: #7f1d1d; /* Deep red-maroon */
+  --accent: #fef2f2;
   --accent-foreground: var(--fg-light);
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
@@ -65,23 +65,23 @@
 }
 
 .dark {
-  --background: #020617;
+  --background: #0a0a0a; /* Deep charcoal/black */
   --foreground: #f8fafc;
-  --primary: #38bdf8;
-  --primary-foreground: #020617;
-  --secondary: #0f172a;
+  --primary: #ef4444; /* Vibrant Red */
+  --primary-foreground: #ffffff;
+  --secondary: #1a1a1a;
   --secondary-foreground: #f8fafc;
 
-  --card: #080c14;
+  --card: #111111;
   --card-foreground: #f8fafc;
-  --popover: #080c14;
+  --popover: #111111;
   --popover-foreground: #f8fafc;
-  --muted: #0f172a;
-  --muted-foreground: #94a3b8;
-  --accent: #0f172a;
+  --muted: #1e1e1e;
+  --muted-foreground: #a1a1aa;
+  --accent: #1e1e1e;
   --accent-foreground: #f8fafc;
-  --border: #1e293b;
-  --input: #0f172a;
+  --border: #27272a;
+  --input: #1e1e1e;
 
   /* Status Colors Dark */
   --success: #10b981;
@@ -89,7 +89,7 @@
   --error: #ef4444;
   --info: #3b82f6;
 
-  --card-alt: #0f172a;
+  --card-alt: #1a1a1a;
 }
 
 @theme inline {

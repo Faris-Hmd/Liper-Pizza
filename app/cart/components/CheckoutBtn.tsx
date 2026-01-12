@@ -52,12 +52,12 @@ function CheckoutBtn() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!user) {
-      toast.error("Please log in to proceed to checkout.");
+      toast.error("يرجى تسجيل الدخول للمتابعة.");
       return;
     }
     if (isPending) return;
     if (cart.length === 0) {
-      toast.error("Your cart is empty.");
+      toast.error("سلة المشتريات فارغة.");
       return;
     }
 
@@ -67,7 +67,7 @@ function CheckoutBtn() {
       !userData.shippingInfo.address ||
       !userData.shippingInfo.phone
     ) {
-      toast.error("Please complete your shipping information before checkout.");
+      toast.error("يرجى اكمال بيانات العنوان والهاتف قبل الدفع.");
       router.push("/profile/edit" as any);
       return;
     }
@@ -95,32 +95,32 @@ function CheckoutBtn() {
     } catch (error) {
       setIsPending(false);
       console.error("Error during fetch operation:", error);
-      toast.error("Something went wrong with checkout.");
+      toast.error("حدث خطأ ما أثناء المحاولة.");
     }
   }
 
   return (
     <div className="mt-2 bg-card rounded border border-border shadow-sm overflow-hidden transition-all duration-300">
       <div className="p-6 space-y-4">
-        <h2 className="text-lg font-bold text-foreground">Order Summary</h2>
+        <h2 className="text-lg font-bold text-foreground">ملخص الطلب</h2>
 
         {/* Breakdown */}
         <div className="space-y-2 text-sm text-muted-foreground">
           <div className="flex justify-between">
-            <span>Subtotal ({cart.length} items)</span>
+            <span>المجموع الفرعي ({cart.length} أصناف)</span>
             <span className="font-medium text-foreground">
-              {total.toLocaleString()} SDG
+              {total.toLocaleString()} جنية
             </span>
           </div>
           <div className="flex justify-between">
-            <span>Shipping</span>
+            <span>التوصيل</span>
             <span className="text-success font-bold uppercase text-[10px] tracking-wider">
-              Free
+              مجاني
             </span>
           </div>
           <div className="flex justify-between">
-            <span>Taxes</span>
-            <span className="font-medium">Calculated at checkout</span>
+            <span>الضرائب</span>
+            <span className="font-medium">تحسب عند الدفع</span>
           </div>
         </div>
 
@@ -128,9 +128,9 @@ function CheckoutBtn() {
 
         {/* Total */}
         <div className="flex justify-between items-center mb-6">
-          <span className="text-base font-bold text-foreground">Total</span>
+          <span className="text-base font-bold text-foreground">الإجمالي</span>
           <span className="text-2xl font-black text-primary">
-            {total.toLocaleString()} <span className="text-xs">SDG</span>
+            {total.toLocaleString()} <span className="text-xs">جنية</span>
           </span>
         </div>
 
@@ -148,7 +148,7 @@ function CheckoutBtn() {
             type="submit"
           >
             {isPending ? <Spinner size="md" /> : <CreditCard size={24} />}
-            {isPending ? "Processing..." : "Checkout Securely"}
+            {isPending ? "جاري المعالجة..." : "إتمام الطلب بأمان"}
             {!isPending && (
               <ArrowRight
                 size={20}
@@ -161,7 +161,7 @@ function CheckoutBtn() {
         {/* Trust Badges */}
         <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground mt-4 font-bold uppercase tracking-tight">
           <ShieldCheck size={14} />
-          <span>SSL Secure Payment</span>
+          <span>دفع آمن وحماية 100%</span>
         </div>
       </div>
     </div>

@@ -1,19 +1,19 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Search, Home, ShoppingCart, Package } from "lucide-react";
+import { Search, Home, ShoppingCart, Package, Pizza } from "lucide-react";
+import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { useCart } from "@/hooks/useCart";
-import { Logo } from "@/components/Logo";
 
 import { ModeToggle } from "@/components/ModeToggle";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 
 const NAV_ITEMS = [
-  { title: "Home", href: "/", icon: Home },
-  { title: "Cart", href: "/cart", icon: ShoppingCart },
-  { title: "Orders", href: "/orders", icon: Package },
+  { title: "الرئيسية", href: "/", icon: Home },
+  { title: "السلة", href: "/cart", icon: ShoppingCart },
+  { title: "الطلبات", href: "/orders", icon: Package },
 ];
 
 export default function Navbar() {
@@ -30,15 +30,20 @@ export default function Navbar() {
             href="/"
             className="group flex items-center gap-2.5 transition-transform active:scale-95"
           >
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:rotate-12 transition-transform duration-300">
-              <Logo className="text-primary-foreground w-6 h-6" />
+            <div className="relative w-10 h-10 overflow-hidden rounded-xl border-2 border-border transition-transform group-hover:scale-105">
+              <Image
+                src="/brand/logo-p.png"
+                alt="Liper Logo"
+                fill
+                className="object-contain"
+              />
             </div>
             <div className="flex flex-col leading-none">
               <span className="text-xl font-black text-foreground tracking-tight">
-                SUDAN<span className="text-primary">PC</span>
+                لييبر<span className="text-primary"> بيتزا</span>
               </span>
               <span className="text-[10px] font-bold opacity-60 uppercase tracking-widest mt-0.5">
-                Hardware Store
+                مطعم بيتزا
               </span>
             </div>
           </Link>
@@ -106,7 +111,7 @@ export default function Navbar() {
               onClick={() => signIn("google")}
               className="px-6 py-2.5 text-xs font-black text-primary-foreground bg-primary rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20 active:scale-95"
             >
-              LOGIN
+              دخول
             </button>
           )}
         </div>

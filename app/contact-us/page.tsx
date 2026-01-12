@@ -7,7 +7,7 @@ export default function ContactPage() {
       <header className="page-header">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <h1>
-            Contact <span className="text-primary">Us</span>
+            اتصل <span className="text-primary">بنا</span>
           </h1>
         </div>
       </header>
@@ -16,28 +16,28 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <section className="space-y-8">
             <div>
-              <h2 className="text-3xl font-black">Get in touch</h2>
+              <h2 className="text-3xl font-black">تواصل معنا</h2>
               <p>
-                Have questions about a build? Need technical support? We're here
-                to help Sudan's gaming community.
+                هل لديك استفسار عن وجباتنا؟ هل تحتاج لمساعدة في طلبك؟ نحن هنا
+                لخدمة زبائننا في كل وقت.
               </p>
             </div>
 
             <div className="space-y-6">
               <ContactMethod
                 icon={<Mail className="text-primary" />}
-                title="Email"
-                value="support@sudanpc.com"
+                title="البريد الإلكتروني"
+                value="hello@liperpizza.com"
               />
               <ContactMethod
                 icon={<Phone className="text-primary" />}
-                title="Phone"
+                title="الهاتف"
                 value="+249 912 345 678"
               />
               <ContactMethod
                 icon={<MapPin className="text-primary" />}
-                title="Store Location"
-                value="Khartoum, Sudan - Al Amarat Street"
+                title="موقع المطعم"
+                value="الخرطوم، السودان - شارع العمارات"
               />
             </div>
           </section>
@@ -47,38 +47,38 @@ export default function ContactPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase tracking-widest opacity-60">
-                    Name
+                    الاسم
                   </label>
                   <input
                     type="text"
                     className="w-full bg-muted border border-border p-3 outline-none focus:ring-2 focus:ring-primary/20"
-                    placeholder="Your name"
+                    placeholder="اسمك الكريم"
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase tracking-widest opacity-60">
-                    Email
+                    البريد الإلكتروني
                   </label>
                   <input
                     type="email"
                     className="w-full bg-muted border border-border p-3 outline-none focus:ring-2 focus:ring-primary/20"
-                    placeholder="Email address"
+                    placeholder="عنوان البريد الإلكتروني"
                   />
                 </div>
               </div>
               <div className="space-y-2 border-radius-small">
                 <label className="text-xs font-bold uppercase tracking-widest opacity-60">
-                  Message
+                  الرسالة
                 </label>
                 <textarea
                   rows={5}
                   className="w-full bg-muted border border-border p-3 outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="How can we help?"
+                  placeholder="كيف يمكننا مساعدتك؟"
                 ></textarea>
               </div>
               <button className="w-full bg-primary text-primary-foreground font-black py-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
-                <Send size={18} />
-                SEND MESSAGE
+                <Send size={18} className="rotate-180" />
+                إرسال الرسالة
               </button>
             </form>
           </section>

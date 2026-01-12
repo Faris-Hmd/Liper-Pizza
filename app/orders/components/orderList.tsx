@@ -33,28 +33,28 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
           color: "text-success",
           bg: "bg-success/10",
           Icon: CheckCircle2,
-          label: "Delivered",
+          label: "تم التوصيل",
         };
       case "Shipped":
         return {
           color: "text-info",
           bg: "bg-info/10",
           Icon: Truck,
-          label: "On the way",
+          label: "في الطريق",
         };
       case "Processing":
         return {
           color: "text-warning",
           bg: "bg-warning/10",
           Icon: Package,
-          label: "Processing",
+          label: "قيد التحضير",
         };
       case "Cancelled":
         return {
           color: "text-error",
           bg: "bg-error/10",
           Icon: XCircle,
-          label: "Cancelled",
+          label: "ملغي",
         };
       default:
         return {
@@ -116,7 +116,7 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
               {/* Mobile Price Tag */}
               <span className="sm:hidden text-xs font-black text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                 {totalCostNumeric.toLocaleString()}{" "}
-                <span className="text-[8px]">SDG</span>
+                <span className="text-[8px]">جنية</span>
               </span>
             </div>
             <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tight">
@@ -132,11 +132,11 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
         <div className="flex items-center gap-4 sm:gap-6">
           <div className="text-right hidden sm:block">
             <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-0.5">
-              Grand Total
+              المجموع الكلي
             </p>
             <p className="text-lg font-black text-foreground">
               {totalCostNumeric.toLocaleString()}{" "}
-              <span className="text-[10px] text-muted-foreground">SDG</span>
+              <span className="text-[10px] text-muted-foreground">جنية</span>
             </p>
           </div>
 
@@ -173,7 +173,7 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
                     {driver.name}
                   </p>
                   <p className="text-[10px] font-bold text-muted-foreground uppercase">
-                    Courier assigned • {driver.vehicle}
+                    تم تعيين مندوب • {driver.vehicle}
                   </p>
                 </div>
               </div>
@@ -198,7 +198,7 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
           {/* --- DETAILED MANIFEST --- */}
           <div className="space-y-2">
             <h4 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.15em] mb-3 ml-1">
-              Order Manifest
+              محتويات الطلب
             </h4>
             {order.productsList.map((product, i) => (
               <div
@@ -214,8 +214,8 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
                       {product.p_name}
                     </Link>
                     <p className="text-[10px] font-bold text-muted-foreground uppercase">
-                      {product.p_qu} Unit{"s"} ×{" "}
-                      {Number(product.p_cost).toLocaleString()} SDG
+                      {product.p_qu} قطع ×{" "}
+                      {Number(product.p_cost).toLocaleString()} جنية
                     </p>
                   </div>
                 </div>
@@ -226,7 +226,7 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
                     ).toLocaleString()}
                   </span>
                   <p className="text-[8px] font-bold text-muted-foreground uppercase">
-                    Total
+                    الإجمالي
                   </p>
                 </div>
               </div>
@@ -235,11 +235,11 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
             {/* Expanded Footer Total */}
             <div className="mt-4 p-4 rounded-2xl bg-foreground text-background flex justify-between items-center shadow-inner">
               <span className="text-[10px] font-black uppercase tracking-widest opacity-60">
-                Order Net Total
+                إجمالي الطلب الصافي
               </span>
               <span className="text-lg font-black tracking-tighter">
                 {totalCostNumeric.toLocaleString()}{" "}
-                <span className="text-[10px] opacity-60 uppercase">Sdg</span>
+                <span className="text-[10px] opacity-60 uppercase">جنية</span>
               </span>
             </div>
           </div>

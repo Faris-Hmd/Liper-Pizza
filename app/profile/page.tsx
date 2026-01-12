@@ -49,11 +49,11 @@ export default function ProfilePage() {
   const shippingInfo = data?.shippingInfo;
 
   if (!session?.user)
-    return <div className="p-8 text-center">Please Sign In</div>;
+    return <div className="p-8 text-center">يرجى تسجيل الدخول</div>;
 
   const stats = [
     {
-      label: "Orders",
+      label: "الطلبات",
       value: ordersLoading ? "..." : (orders?.count || 0).toString(),
       icon: Package,
       color: "text-warning",
@@ -61,14 +61,14 @@ export default function ProfilePage() {
       href: "/orders",
     },
     {
-      label: "Wishlist",
+      label: "المفضلة",
       value: "00",
       icon: Heart,
       color: "text-error",
       bg: "bg-error/10",
     },
     {
-      label: "Cart",
+      label: "السلة",
       value: cartCount.toString().padStart(2, "0"),
       icon: ShoppingBag,
       color: "text-info",
@@ -76,7 +76,7 @@ export default function ProfilePage() {
       href: "/cart",
     },
     {
-      label: "Points",
+      label: "النقاط",
       value: "0.0",
       icon: Zap,
       color: "text-success",
@@ -92,7 +92,7 @@ export default function ProfilePage() {
           <div className="flex items-center justify-between gap-4">
             <div>
               <h1 className="text-xl md:text-2xl font-black text-foreground m-0 uppercase tracking-tighter">
-                Profile
+                بروفيلي
               </h1>
             </div>
             <Link
@@ -104,7 +104,7 @@ export default function ProfilePage() {
                 className="text-primary group-hover:scale-110 transition-transform"
               />
               <span className="text-[11px] font-black uppercase tracking-tight text-primary hidden md:block">
-                Edit Profile
+                تعديل البروفيل
               </span>
             </Link>
           </div>
@@ -170,9 +170,9 @@ export default function ProfilePage() {
               >
                 <LogOut
                   size={12}
-                  className="group-hover:-translate-x-0.5 transition-transform"
+                  className="group-hover:translate-x-0.5 transition-transform"
                 />
-                Sign Out
+                تسجيل الخروج
               </button>
             </div>
           </div>
@@ -210,7 +210,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Details Sections */}
-        <div className="grid md:grid-cols-1 gap-2 md:gap-4">
+        <div className="grid md:grid-cols-1 gap-2 md:gap-4 overflow-hidden">
           <div className="space-y-2">
             <div className="bg-card rounded-lg border border-border p-3 md:p-4 transition-colors">
               <div className="flex items-center gap-3">
@@ -220,7 +220,7 @@ export default function ProfilePage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-0.5">
                     <p className="text-xs font-black text-muted-foreground uppercase tracking-widest">
-                      Primary Address
+                      العنوان الرئيسي
                     </p>
                     <Link
                       href="/profile/edit"
@@ -240,7 +240,7 @@ export default function ProfilePage() {
                     />
                   ) : shippingInfo ? (
                     <div className="flex flex-col">
-                      <p className="text-sm font-bold text-foreground truncate">
+                      <p className="text-sm font-bold text-foreground break-words">
                         {shippingInfo.address}
                       </p>
                       <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tight">
@@ -249,7 +249,7 @@ export default function ProfilePage() {
                     </div>
                   ) : (
                     <p className="text-sm text-muted-foreground font-medium italic">
-                      Add a shipping address to your profile
+                      أضف عنوان توصيل إلى بياناتك
                     </p>
                   )}
                 </div>

@@ -63,8 +63,8 @@ function CartBtn({ product }: { product: ProductType }) {
     <div className="group flex flex-col sm:flex-row items-center gap-3 w-full">
       {/* --- QUANTITY SELECTOR --- */}
       <div className="flex flex-col gap-1 w-full sm:w-auto">
-        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest ml-1">
-          Quantity
+        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mr-1">
+          الكمية
         </p>
         <Select
           value={quantity}
@@ -73,7 +73,7 @@ function CartBtn({ product }: { product: ProductType }) {
             if (inCart) upsert(v);
           }}
         >
-          <SelectTrigger className="w-full sm:w-24 h-12 bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 rounded-xl font-black text-xs ring-offset-blue-600 focus:ring-blue-600">
+          <SelectTrigger className="w-full sm:w-24 h-12 bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 rounded-xl font-black text-xs ring-offset-primary focus:ring-primary">
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-white/10 rounded-xl">
@@ -83,7 +83,7 @@ function CartBtn({ product }: { product: ProductType }) {
                 value={n.toString()}
                 className="text-xs font-bold uppercase tracking-tighter"
               >
-                {n.toString().padStart(2, "0")} Units
+                {n.toString().padStart(2, "0")} قطع
               </SelectItem>
             ))}
           </SelectContent>
@@ -92,8 +92,8 @@ function CartBtn({ product }: { product: ProductType }) {
 
       {/* --- MAIN ACTION BUTTON --- */}
       <div className="flex flex-col gap-1 w-full flex-1">
-        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest ml-1">
-          Deployment
+        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mr-1">
+          الإجراء
         </p>
         <div className="flex items-center gap-2">
           <button
@@ -102,20 +102,20 @@ function CartBtn({ product }: { product: ProductType }) {
               "relative flex-1 h-12 flex items-center justify-center gap-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all active:scale-[0.97] overflow-hidden",
               inCart
                 ? "bg-slate-900 dark:bg-white text-white dark:text-black shadow-xl shadow-slate-900/10"
-                : "bg-blue-600 text-white shadow-xl shadow-blue-600/20 hover:bg-blue-700",
+                : "bg-primary text-white shadow-xl shadow-primary/20 hover:opacity-90",
             )}
           >
             {isUpdating ? (
               <Spinner size="sm" />
             ) : inCart ? (
               <>
-                <Check size={16} strokeWidth={3} className="text-blue-500" />
-                Update Order
+                <Check size={16} strokeWidth={3} className="text-primary" />
+                تحديث الطلب
               </>
             ) : (
               <>
                 <Plus size={16} strokeWidth={3} />
-                Add to Cart
+                إضافة للسلة
               </>
             )}
           </button>
@@ -124,7 +124,7 @@ function CartBtn({ product }: { product: ProductType }) {
           {inCart && (
             <button
               onClick={remove}
-              title="Remove from system"
+              title="إزالة من السلة"
               className="h-12 w-12 flex items-center justify-center rounded-xl bg-red-50 dark:bg-red-500/10 text-red-500 hover:bg-red-100 dark:hover:bg-red-500/20 transition-all active:scale-90 border border-red-100 dark:border-red-500/20"
             >
               <Trash2 size={18} />

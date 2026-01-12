@@ -18,7 +18,7 @@ export default function UserInfo() {
   }, [status, router]);
 
   if (status === "loading") {
-    return <Loading size="lg" text="Verifying Session..." />;
+    return <Loading size="lg" text="جاري التحقق من الجلسة..." />;
   }
 
   return (
