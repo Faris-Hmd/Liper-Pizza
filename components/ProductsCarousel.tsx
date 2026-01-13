@@ -136,7 +136,7 @@ export default function ProductsCarousel({
                     </Link>
 
                     <div className="absolute top-3 left-3">
-                      <span className="px-2 py-0.5 bg-background/90 backdrop-blur-sm border rounded-xl border-border text-[9px] font-black text-primary uppercase tracking-widest">
+                      <span className="px-2 py-0.5 bg-background/90  border rounded-xl border-border text-[9px] font-black text-primary uppercase tracking-widest">
                         {LabelMap[product.p_cat] || product.p_cat}
                       </span>
                     </div>
