@@ -43,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
 
         <div className="absolute top-1 left-3 overflow-hidden z-10">
-          <span className="px-2 py-0.5 bg-background/90 backdrop-blur-sm border border-border rounded-md text-[9px] font-black text-primary uppercase tracking-widest">
+          <span className="px-2 py-0.5 bg-background/90 border border-border rounded-md text-[9px] font-black text-primary uppercase tracking-widest">
             {LabelMap[product.p_cat] || product.p_cat}
           </span>
         </div>
