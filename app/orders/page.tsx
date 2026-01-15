@@ -143,6 +143,21 @@ function SingleCollapsibleOrder({ order }: { order: OrderData }) {
     }
   };
 
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case "Processing":
+        return "قيد التحضير";
+      case "Shipped":
+        return "في الطريق";
+      case "Delivered":
+        return "تم التوصيل";
+      case "Cancelled":
+        return "ملغي";
+      default:
+        return status;
+    }
+  };
+
   return (
     <div
       onClick={() => setIsOpen(!isOpen)}
@@ -174,7 +189,7 @@ function SingleCollapsibleOrder({ order }: { order: OrderData }) {
                   getStatusStyles(order.status),
                 )}
               >
-                {order.status}
+                {getStatusLabel(order.status)}
               </span>
               <h4 className="text-[14px] font-black tracking-tighter">
                 #{order.id.slice(-6)}
