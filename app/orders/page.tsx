@@ -9,18 +9,16 @@ import {
   Wallet,
   HistoryIcon,
   PackageOpen,
-  MapPin,
-  Phone,
-  ExternalLink,
-  ChevronDown,
   ReceiptText,
+  ArrowRight,
 } from "lucide-react";
-import OrderList from "./components/orderList";
-import { OrderData } from "@/types/productsTypes";
+import { OrderData } from "@/types/orderTypes";
 import { cn } from "@/lib/utils";
 import { getOrdersWh, getUserOrdersStats } from "@/services/ordersServices";
+import { getDriver } from "@/services/driversServices";
 import Link from "next/link";
 import Loading from "@/components/Loading";
+import { Truck } from "lucide-react";
 
 export default function OrdersPage() {
   const { data: session, status } = useSession();
@@ -110,7 +108,7 @@ export default function OrdersPage() {
         <div className="space-y-4 pt-2">
           {ordersData && ordersData.length > 0 ? (
             ordersData.map((order) => (
-              <SingleCollapsibleOrder key={order.id} order={order} />
+              <SimpleOrderCard key={order.id} order={order} />
             ))
           ) : (
             <div className="flex flex-col items-center justify-center py-20 bg-card rounded-[2.5rem] border border-dashed text-center">
@@ -126,10 +124,13 @@ export default function OrdersPage() {
   );
 }
 
-function SingleCollapsibleOrder({ order }: { order: OrderData }) {
-  const [isOpen, setIsOpen] = useState(false);
+function SimpleOrderCard({ order }: { order: OrderData }) {
+  const { data: driver } = useSWR(
+    order.driverId ? `driver-${order.driverId}` : null,
+    () => getDriver(order.driverId!),
+    { revalidateOnFocus: false },
+  );
 
-  // Status Color Logic
   const getStatusStyles = (status: string) => {
     switch (status) {
       case "Processing":
@@ -159,26 +160,13 @@ function SingleCollapsibleOrder({ order }: { order: OrderData }) {
   };
 
   return (
-    <div
-      onClick={() => setIsOpen(!isOpen)}
-      className={cn(
-        "group cursor-pointer overflow-hidden border transition-all duration-300 rounded-[2.5rem] bg-card",
-        isOpen
-          ? "shadow-xl border-primary/40 ring-8 ring-primary/5"
-          : "shadow-sm border-border hover:border-primary/30",
-      )}
+    <Link
+      href={`/orders/${order.id}` as any}
+      className="group block border border-border hover:border-primary/30 transition-all duration-300 rounded-[2rem] bg-card hover:shadow-lg overflow-hidden"
     >
-      {/* HEADER SECTION */}
-      <div className="p-6 flex items-center justify-between">
+      <div className="p-5 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div
-            className={cn(
-              "w-12 h-12 rounded-2xl flex items-center justify-center transition-all",
-              isOpen
-                ? "bg-primary text-white"
-                : "bg-muted text-muted-foreground",
-            )}
-          >
+          <div className="w-12 h-12 rounded-2xl bg-muted group-hover:bg-primary/10 group-hover:text-primary transition-colors flex items-center justify-center text-muted-foreground">
             <ReceiptText size={20} />
           </div>
           <div>
@@ -195,96 +183,29 @@ function SingleCollapsibleOrder({ order }: { order: OrderData }) {
                 #{order.id.slice(-6)}
               </h4>
             </div>
-            <p className="text-[11px] text-muted-foreground font-bold">
-              {order.totalAmount} جنية •{" "}
-              {new Date(order.createdAt).toLocaleDateString("ar-EG")}
-            </p>
+            <div className="flex items-center gap-2 text-[11px] text-muted-foreground font-bold">
+              <span>{order.totalAmount.toLocaleString()} جنية</span>
+              <span>•</span>
+              <span>
+                {new Date(order.createdAt).toLocaleDateString("ar-EG")}
+              </span>
+            </div>
           </div>
         </div>
-        <ChevronDown
-          size={20}
-          className={cn(
-            "text-muted-foreground transition-transform duration-500",
-            isOpen && "rotate-180 text-primary",
+
+        <div className="flex flex-col items-end gap-2">
+          <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all -rotate-45 group-hover:rotate-0">
+            <ArrowRight size={14} />
+          </div>
+          {driver && (
+            <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground bg-muted/30 px-2 py-1 rounded-lg">
+              <Truck size={12} className="text-primary" />
+              <span className="max-w-[80px] truncate">{driver.name}</span>
+            </div>
           )}
-        />
-      </div>
-
-      {/* COLLAPSIBLE BODY */}
-      <div
-        className={cn(
-          "grid transition-all duration-500 ease-in-out",
-          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
-        )}
-      >
-        <div className="overflow-hidden">
-          <div className="px-6 pb-8 space-y-6 border-t border-dashed border-border mt-2 pt-6">
-            {/* 1. Item List */}
-            <OrderList order={order} />
-
-            {/* 2. Status Bill / Pricing Summary */}
-            <div className="bg-muted/30 rounded-3xl p-5 border border-border/50">
-              <h5 className="text-[10px] font-black text-muted-foreground uppercase mb-3 tracking-widest text-right">
-                تفاصيل الفاتورة
-              </h5>
-              <div className="space-y-2">
-                <div className="flex justify-between items-center text-[11px] font-bold">
-                  <span className="text-foreground">
-                    {order.totalAmount} جنية
-                  </span>
-                  <span className="text-muted-foreground">المجموع الفرعي</span>
-                </div>
-                <div className="flex justify-between items-center text-[11px] font-bold">
-                  <span className="text-success">مجاني</span>
-                  <span className="text-muted-foreground">التوصيل</span>
-                </div>
-                <div className="pt-2 border-t border-border flex justify-between items-center text-[13px] font-black">
-                  <span className="text-primary">{order.totalAmount} جنية</span>
-                  <span className="text-foreground">الإجمالي النهائي</span>
-                </div>
-              </div>
-            </div>
-
-            {/* 3. Shipping Info */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex gap-3 bg-muted/20 p-4 rounded-2xl">
-                <MapPin size={18} className="text-primary shrink-0" />
-                <div className="text-right">
-                  <p className="text-[10px] font-black text-muted-foreground uppercase">
-                    موقع التسليم
-                  </p>
-                  <p className="text-[11px] font-bold leading-relaxed">
-                    {order.shippingInfo?.address}
-                  </p>
-                  {order.shippingInfo?.googleMapsLink && (
-                    <a
-                      href={order.shippingInfo.googleMapsLink}
-                      target="_blank"
-                      onClick={(e) => e.stopPropagation()}
-                      className="text-[10px] text-blue-500 font-bold mt-1 block hover:underline"
-                    >
-                      الخرائط ↗
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 bg-muted/20 p-4 rounded-2xl">
-                <Phone size={18} className="text-primary shrink-0" />
-                <div className="text-right">
-                  <p className="text-[10px] font-black text-muted-foreground uppercase">
-                    رقم الهاتف
-                  </p>
-                  <p className="text-[12px] font-black">
-                    {order.shippingInfo?.phone}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

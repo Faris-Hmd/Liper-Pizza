@@ -11,7 +11,7 @@ import {
   Phone,
   MessageSquare,
 } from "lucide-react";
-import { OrderData } from "@/types/productsTypes";
+import { OrderData } from "@/types/orderTypes";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import useSWR from "swr";
@@ -200,6 +200,37 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
             <h4 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.15em] mb-3 ml-1">
               محتويات الطلب
             </h4>
+
+            {/* Payment Info in List */}
+            {(order.paymentMethod || order.transactionReference) && (
+              <div className="mb-4 bg-background p-3 rounded-xl border border-border/50 text-xs">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="font-bold text-muted-foreground">
+                    طريقة الدفع:
+                  </span>
+                  <span className="font-black text-foreground capitalize">
+                    {order.paymentMethod === "stripe"
+                      ? "بطاقة بنكية"
+                      : order.paymentMethod === "bankak"
+                        ? "بنكك"
+                        : order.paymentMethod === "mycashi"
+                          ? "ماي كاشي"
+                          : order.paymentMethod}
+                  </span>
+                </div>
+                {order.transactionReference && (
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold text-muted-foreground">
+                      المرجع:
+                    </span>
+                    <span className="font-mono bg-muted px-1.5 py-0.5 rounded text-foreground select-all">
+                      {order.transactionReference}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+
             {order.productsList.map((product, i) => (
               <div
                 key={i}

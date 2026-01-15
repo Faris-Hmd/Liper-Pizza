@@ -14,8 +14,10 @@ import {
   QueryConstraint,
   where,
   WhereFilterOp,
+  doc,
+  getDoc,
 } from "firebase/firestore";
-import { OrderData } from "@/types/productsTypes";
+import { OrderData } from "@/types/orderTypes";
 
 type OrderFilter = {
   field: string;
@@ -73,4 +75,25 @@ export async function getUserOrdersStats(
     count: countSnap.data().count,
     totalSpend: aggrSnap.data().totalSpend || 0,
   };
+}
+
+export async function getOrderById(id: string): Promise<OrderData | null> {
+  try {
+    const docRef = doc(ordersRef, id);
+    const snap = await getDoc(docRef);
+
+    if (snap.exists()) {
+      return {
+        ...snap.data(),
+        id: snap.id,
+        deleveratstamp: "",
+      } as OrderData;
+    } else {
+      console.log("No such document!");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error getting document:", error);
+    return null;
+  }
 }

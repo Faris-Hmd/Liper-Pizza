@@ -28,7 +28,7 @@ export default function BtmNav() {
     { title: "الرئيسية", href: "/", icon: Home },
     { title: "السلة", href: "/cart", icon: ShoppingCart },
     { title: "طلباتي", href: "/orders", icon: Package },
-    { title: "بروفيلي", href: "/profile", icon: User },
+    { title: "حسابي", href: "/profile", icon: User },
   ];
 
   return (
@@ -58,7 +58,7 @@ export default function BtmNav() {
                 strokeWidth={isActive ? 2.5 : 2}
                 className={cn("transition-transform", isActive && "scale-110")}
               />
-              {item.title === "Cart" && cartCount > 0 && (
+              {item.href === "/cart" && cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900 font-bold">
                   {cartCount}
                 </span>

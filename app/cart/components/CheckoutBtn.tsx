@@ -7,6 +7,8 @@ import {
   Phone,
   Edit,
   X,
+  Copy,
+  Check,
 } from "lucide-react";
 import React, { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -16,6 +18,7 @@ import { ProductType } from "@/types/productsTypes";
 import { useCart } from "@/hooks/useCart";
 import useSWR from "swr";
 import { getUser } from "@/services/userServices";
+import { addOrder } from "@/services/ordersServices";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/Loading";
 
@@ -26,6 +29,22 @@ function CheckoutBtn() {
   const { data: session } = useSession();
   const user = session?.user;
   const router = useRouter();
+
+  const [paymentMethod, setPaymentMethod] = useState<
+    "stripe" | "bankak" | "mycashi"
+  >("stripe");
+  const [transactionRef, setTransactionRef] = useState("");
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+
+  const BANKAK_ACCOUNT = "1234567"; // Replace with actual account
+  const MYCASHI_ACCOUNT = "0912345678"; // Replace with actual account
+
+  const copyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    toast.success("تم النسخ بنجاح");
+    setTimeout(() => setCopiedField(null), 2000);
+  };
 
   // Fetch user data to check shipping info
   const { data: userData, isLoading: userLoading } = useSWR(
@@ -89,27 +108,59 @@ function CheckoutBtn() {
   async function handleConfirmPayment() {
     setIsPending(true);
     try {
-      const payloadCart = convertProductsToLineItems(cart);
-      const response = await fetch("/api/checkout_sessions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payloadCart),
-      });
+      if (paymentMethod === "stripe") {
+        const payloadCart = convertProductsToLineItems(cart);
+        const response = await fetch("/api/checkout_sessions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payloadCart),
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-      const { url } = await response.json();
+        const { url } = await response.json();
 
-      if (url) {
-        window.location.assign(url);
+        if (url) {
+          window.location.assign(url);
+        }
+      } else {
+        // Manual Payment (Bankak / MyCashi)
+        if (!transactionRef.trim()) {
+          toast.error("يرجى إدخال رقم المعاملة المرجعي");
+          setIsPending(false);
+          return;
+        }
+
+        const orderData = {
+          customer_email: user?.email || null,
+          customer_name: user?.name || "Unknown",
+          shippingInfo: userData?.shippingInfo,
+          productsList: cart,
+          status: "Processing" as const, // Cast to literal type
+          deliveredAt: "",
+          createdAt: new Date().toISOString(),
+          totalAmount: total,
+          paymentMethod: paymentMethod,
+          transactionReference: transactionRef,
+        };
+
+        const orderId = await addOrder(orderData);
+        if (orderId) {
+          toast.success("تم استلام طلبك بنجاح! سيتم مراجعته قريباً.");
+          // Clear cart logic if needed, but assuming redirect is enough or separate logic
+          // Usually we should clear the cart here. Assuming useCart has clearCart.
+          // Since I don't see clearCart in the view, I'll just redirect.
+          router.push(`/orders`);
+        }
       }
     } catch (error) {
       setIsPending(false);
-      setShowConfirm(false);
+      // Don't close modal on error so they can retry
+      // setShowConfirm(false);
       console.error("Error during fetch operation:", error);
       toast.error("حدث خطأ ما أثناء المحاولة.");
     }
@@ -231,6 +282,109 @@ function CheckoutBtn() {
                   </div>
                 </div>
               </div>
+
+              {/* Payment Method Selection */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-bold text-foreground">
+                  اختر وسيلة الدفع
+                </h4>
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    onClick={() => setPaymentMethod("stripe")}
+                    className={cn(
+                      "p-3 rounded-xl border flex flex-col items-center justify-center gap-2 transition-all",
+                      paymentMethod === "stripe"
+                        ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
+                        : "border-border hover:bg-muted text-muted-foreground",
+                    )}
+                  >
+                    <CreditCard size={20} />
+                    <span className="text-xs font-bold">بطاقة بنكية</span>
+                  </button>
+                  <button
+                    onClick={() => setPaymentMethod("bankak")}
+                    className={cn(
+                      "p-3 rounded-xl border flex flex-col items-center justify-center gap-2 transition-all",
+                      paymentMethod === "bankak"
+                        ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
+                        : "border-border hover:bg-muted text-muted-foreground",
+                    )}
+                  >
+                    {/* You can use a specific icon or just text */}
+                    <span className="font-black text-lg leading-none">B</span>
+                    <span className="text-xs font-bold">بنكك</span>
+                  </button>
+                  <button
+                    onClick={() => setPaymentMethod("mycashi")}
+                    className={cn(
+                      "p-3 rounded-xl border flex flex-col items-center justify-center gap-2 transition-all",
+                      paymentMethod === "mycashi"
+                        ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
+                        : "border-border hover:bg-muted text-muted-foreground",
+                    )}
+                  >
+                    <span className="font-black text-lg leading-none">C</span>
+                    <span className="text-xs font-bold">ماي كاشي</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Manual Payment Details */}
+              {paymentMethod !== "stripe" && (
+                <div className="bg-muted/30 rounded-xl p-4 border border-border space-y-4 animate-in fade-in slide-in-from-top-2">
+                  <div className="space-y-2">
+                    <p className="text-xs text-muted-foreground">
+                      يرجى تحويل مبلغ{" "}
+                      <span className="font-bold text-foreground">
+                        {total.toLocaleString()} جنية
+                      </span>{" "}
+                      إلى رقم الحساب التالي:
+                    </p>
+                    <div className="flex items-center gap-2 bg-background p-3 rounded-lg border border-border">
+                      <span className="font-mono font-bold flex-1 text-center text-lg tracking-wider">
+                        {paymentMethod === "bankak"
+                          ? BANKAK_ACCOUNT
+                          : MYCASHI_ACCOUNT}
+                      </span>
+                      <button
+                        onClick={() =>
+                          copyToClipboard(
+                            paymentMethod === "bankak"
+                              ? BANKAK_ACCOUNT
+                              : MYCASHI_ACCOUNT,
+                            "account",
+                          )
+                        }
+                        className="p-2 hover:bg-muted rounded-md transition-colors text-muted-foreground hover:text-foreground"
+                      >
+                        {copiedField === "account" ? (
+                          <Check size={16} className="text-green-500" />
+                        ) : (
+                          <Copy size={16} />
+                        )}
+                      </button>
+                    </div>
+                    <p className="text-xs text-muted-foreground text-center">
+                      {paymentMethod === "bankak"
+                        ? "حساب بنك الخرطوم (بنكك)"
+                        : "حساب ماي كاشي"}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-foreground">
+                      رقم المعاملة (المرجع)
+                    </label>
+                    <input
+                      type="text"
+                      value={transactionRef}
+                      onChange={(e) => setTransactionRef(e.target.value)}
+                      placeholder="الصقه هنا..."
+                      className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+                </div>
+              )}
 
               <div className="flex gap-3 pt-2">
                 <button

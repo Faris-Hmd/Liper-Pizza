@@ -32,7 +32,7 @@ export default function Navbar() {
           >
             <div className="relative w-10 h-10 overflow-hidden rounded-xl border-2 border-border transition-transform group-hover:scale-105">
               <Image
-                src="/brand/logo-p.png"
+                src="/brand/logo.png"
                 alt="Liper Logo"
                 fill
                 className="object-contain"
@@ -66,7 +66,7 @@ export default function Navbar() {
                 >
                   <Icon size={18} strokeWidth={isActive ? 2.5 : 2} />
                   {item.title}
-                  {item.title === "Cart" && cartCount > 0 && (
+                  {item.href === "/cart" && cartCount > 0 && (
                     <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] w-4 h-4 flex items-center justify-center rounded-full border-2 border-background font-bold animate-in zoom-in">
                       {cartCount}
                     </span>

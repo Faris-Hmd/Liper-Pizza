@@ -6,7 +6,7 @@ import OrderList from "../components/orderList";
 import { useSession } from "next-auth/react";
 import { ArrowLeft, PackageSearch } from "lucide-react";
 import Link from "next/link";
-import { OrderData } from "@/types/productsTypes";
+import { OrderData } from "@/types/orderTypes";
 import { getOrdersWh } from "@/services/ordersServices";
 import Loading from "@/components/Loading";
 
