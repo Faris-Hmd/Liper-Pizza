@@ -2,7 +2,6 @@ import {
   ArrowRight,
   ShieldCheck,
   CreditCard,
-  AlertCircle,
   MapPin,
   Phone,
   Edit,
@@ -169,10 +168,10 @@ function CheckoutBtn() {
   return (
     <div className="mt-2 bg-card rounded border border-border shadow-sm overflow-hidden transition-all duration-300">
       <div className="p-6 space-y-4">
-        <h2 className="text-lg font-bold text-foreground">ملخص الطلب</h2>
+        <h2 className="text-xl font-bold text-foreground">ملخص الطلب</h2>
 
         {/* Breakdown */}
-        <div className="space-y-2 text-sm text-muted-foreground">
+        <div className="space-y-2 text-base text-muted-foreground">
           <div className="flex justify-between">
             <span>المجموع الفرعي ({cart.length} أصناف)</span>
             <span className="font-medium text-foreground">
@@ -181,7 +180,7 @@ function CheckoutBtn() {
           </div>
           <div className="flex justify-between">
             <span>التوصيل</span>
-            <span className="text-success font-bold uppercase text-[10px] tracking-wider">
+            <span className="text-success font-bold uppercase text-xs tracking-wider">
               مجاني
             </span>
           </div>
@@ -197,7 +196,7 @@ function CheckoutBtn() {
         <div className="flex justify-between items-center mb-6">
           <span className="text-base font-bold text-foreground">الإجمالي</span>
           <span className="text-2xl font-black text-primary">
-            {total.toLocaleString()} <span className="text-xs">جنية</span>
+            {total.toLocaleString()} <span className="text-sm">جنية</span>
           </span>
         </div>
 
@@ -208,13 +207,13 @@ function CheckoutBtn() {
             className={cn(
               "group w-full py-4 px-6 flex items-center justify-center gap-3",
               "bg-primary hover:opacity-90 disabled:bg-muted disabled:cursor-not-allowed",
-              "text-primary-foreground text-lg font-bold rounded-xl shadow-lg shadow-primary/20",
+              "text-primary-foreground text-xl font-bold rounded-xl shadow-lg shadow-primary/20",
               "transition-all duration-200 active:scale-[0.98]",
               isPending && "opacity-80",
             )}
             type="submit"
           >
-            {isPending ? <Spinner size="md" /> : <CreditCard size={24} />}
+            {isPending ? <Spinner size="sm" /> : <ShieldCheck size={16} />}
             {isPending ? "جاري المعالجة..." : "إتمام الطلب بأمان"}
             {!isPending && (
               <ArrowRight
@@ -226,7 +225,7 @@ function CheckoutBtn() {
         </form>
 
         {/* Trust Badges */}
-        <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground mt-4 font-bold uppercase tracking-tight">
+        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mt-4 font-bold uppercase tracking-tight">
           <ShieldCheck size={14} />
           <span>دفع آمن وحماية 100%</span>
         </div>
@@ -235,191 +234,243 @@ function CheckoutBtn() {
       {/* Confirmation Modal */}
       {showConfirm && (
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-2 bg-background/80 backdrop-blur-md"
           onClick={() => setShowConfirm(false)}
         >
           <div
-            className="bg-card w-full max-w-md rounded-2xl border border-border shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 max-h-[85vh] flex flex-col"
+            className="bg-card w-full max-w-md md:max-w-3xl rounded-2xl border border-border shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-300 max-h-[98vh] md:max-h-[90vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex-shrink-0 p-2 sm:p-2.5 border-b border-border">
+            {/* Compact Header */}
+            <div className="flex-shrink-0 p-3 sm:p-4 border-b border-border bg-muted/5">
               <div className="flex items-center justify-between">
-                <h3 className="text-sm sm:text-base font-black text-foreground uppercase tracking-tighter">
-                  تأكيد <span className="text-primary">العنوان</span>
-                </h3>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <ShieldCheck size={18} className="text-primary" />
+                  </div>
+                  <h3 className="text-sm sm:text-base font-black text-foreground uppercase tracking-tight">
+                    تأكيد <span className="text-primary">الطلب والدفع</span>
+                  </h3>
+                </div>
                 <button
                   onClick={() => setShowConfirm(false)}
-                  className="p-1 hover:bg-muted rounded-full transition-colors"
+                  className="p-1 hover:bg-muted rounded-md transition-all hover:rotate-90"
                 >
-                  <X size={14} className="text-muted-foreground" />
+                  <X size={16} className="text-muted-foreground" />
                 </button>
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-2 sm:p-2.5 space-y-2">
-              {/* Total Amount - Copyable */}
-              <div className="bg-primary/10 rounded-lg p-1.5 border border-primary/20">
-                <p className="text-[9px] font-bold text-primary uppercase tracking-wider mb-0.5 text-center">
-                  المبلغ الإجمالي
-                </p>
-                <div className="flex items-center gap-1 bg-background/50 p-1.5 rounded-md">
-                  <span className="font-mono font-black flex-1 text-center text-lg tracking-wider text-foreground">
-                    {total.toLocaleString()}
-                  </span>
-                  <button
-                    onClick={() => copyToClipboard(total.toString(), "amount")}
-                    className="p-1 hover:bg-muted rounded-md transition-colors text-muted-foreground hover:text-foreground"
-                  >
-                    {copiedField === "amount" ? (
-                      <Check size={12} className="text-green-500" />
-                    ) : (
-                      <Copy size={12} />
-                    )}
-                  </button>
-                </div>
-                <p className="text-[8px] text-primary/70 text-center mt-0.5">
-                  اضغط للنسخ
-                </p>
-              </div>
-
-              {/* Payment Method Selection */}
-              <div className="space-y-1">
-                <h4 className="text-[11px] font-bold text-foreground">
-                  اختر وسيلة الدفع
-                </h4>
-                <div className="grid grid-cols-3 gap-1.5">
-                  <button
-                    onClick={() => setPaymentMethod("stripe")}
-                    className={cn(
-                      "p-1.5 rounded-lg border flex flex-col items-center justify-center gap-0.5 transition-all",
-                      paymentMethod === "stripe"
-                        ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
-                        : "border-border hover:bg-muted text-muted-foreground",
-                    )}
-                  >
-                    <CreditCard size={14} />
-                    <span className="text-[9px] font-bold">بطاقة</span>
-                  </button>
-                  <button
-                    onClick={() => setPaymentMethod("bankak")}
-                    className={cn(
-                      "p-1.5 rounded-lg border flex flex-col items-center justify-center gap-0.5 transition-all",
-                      paymentMethod === "bankak"
-                        ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
-                        : "border-border hover:bg-muted text-muted-foreground",
-                    )}
-                  >
-                    <span className="font-black text-sm leading-none">B</span>
-                    <span className="text-[9px] font-bold">بنكك</span>
-                  </button>
-                  <button
-                    onClick={() => setPaymentMethod("mycashi")}
-                    className={cn(
-                      "p-1.5 rounded-lg border flex flex-col items-center justify-center gap-0.5 transition-all",
-                      paymentMethod === "mycashi"
-                        ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
-                        : "border-border hover:bg-muted text-muted-foreground",
-                    )}
-                  >
-                    <span className="font-black text-sm leading-none">C</span>
-                    <span className="text-[9px] font-bold">كاشي</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Manual Payment Details */}
-              {paymentMethod !== "stripe" && (
-                <div className="bg-muted/30 rounded-lg p-1.5 border border-border space-y-1.5 animate-in fade-in slide-in-from-top-2">
-                  <div className="space-y-1">
-                    <p className="text-[9px] text-muted-foreground">
-                      تحويل{" "}
-                      <span className="font-bold text-foreground">
-                        {total.toLocaleString()} جنية
-                      </span>{" "}
-                      إلى:
-                    </p>
-                    <div className="flex items-center gap-1 bg-background p-1.5 rounded-md border border-border">
-                      <span className="font-mono font-bold flex-1 text-center text-xs tracking-wider">
-                        {paymentMethod === "bankak"
-                          ? BANKAK_ACCOUNT
-                          : MYCASHI_ACCOUNT}
-                      </span>
-                      <button
-                        onClick={() =>
-                          copyToClipboard(
-                            paymentMethod === "bankak"
-                              ? BANKAK_ACCOUNT
-                              : MYCASHI_ACCOUNT,
-                            "account",
-                          )
-                        }
-                        className="p-1 hover:bg-muted rounded-md transition-colors text-muted-foreground hover:text-foreground"
-                      >
-                        {copiedField === "account" ? (
-                          <Check size={12} className="text-green-500" />
-                        ) : (
-                          <Copy size={12} />
-                        )}
-                      </button>
+            <div className="flex-1 overflow-y-auto overflow-x-hidden">
+              <div className="flex flex-col md:flex-row h-full divide-y md:divide-y-0 md:divide-x md:divide-border rtl:divide-x-reverse">
+                {/* 1. Payment Column - Condensed */}
+                <div className="flex-1 p-3 sm:p-4 space-y-4">
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="text-[8px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-2">
+                        1. تفاصيل المبلغ والدفع
+                      </h4>
+                      {/* Condensed Total Amount */}
+                      <div className="bg-primary/5 rounded-xl p-3 border border-primary/10 shadow-inner">
+                        <p className="text-[9px] font-bold text-primary/70 uppercase tracking-widest mb-1 text-center">
+                          المبلغ الإجمالي المطلوب
+                        </p>
+                        <div className="flex items-center gap-2 bg-background p-2 rounded-lg border border-primary/20 shadow-sm">
+                          <span className="font-mono font-black flex-1 text-center text-xl tracking-tighter text-foreground">
+                            {total.toLocaleString()}
+                          </span>
+                          <button
+                            onClick={() =>
+                              copyToClipboard(total.toString(), "amount")
+                            }
+                            className="p-1.5 hover:bg-primary/10 rounded-md transition-colors text-primary"
+                          >
+                            {copiedField === "amount" ? (
+                              <Check size={16} />
+                            ) : (
+                              <Copy size={16} />
+                            )}
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-[8px] text-muted-foreground text-center">
-                      {paymentMethod === "bankak" ? "بنكك" : "كاشي"}
-                    </p>
-                  </div>
 
-                  <div className="space-y-1">
-                    <label className="text-[9px] font-bold text-foreground">
-                      رقم المرجع
-                    </label>
-                    <input
-                      type="text"
-                      value={transactionRef}
-                      onChange={(e) => setTransactionRef(e.target.value)}
-                      placeholder="الصقه هنا..."
-                      className="w-full bg-background border border-border rounded-md px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-primary/50"
-                    />
+                    <div className="space-y-2">
+                      <h4 className="text-[8px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
+                        2. اختر وسيلة الدفع
+                      </h4>
+                      <div className="grid grid-cols-3 gap-1.5">
+                        <button
+                          onClick={() => setPaymentMethod("stripe")}
+                          className={cn(
+                            "p-2 rounded-lg border-2 flex flex-col items-center justify-center gap-1 transition-all text-[10px]",
+                            paymentMethod === "stripe"
+                              ? "border-primary bg-primary/5 text-primary"
+                              : "border-border hover:bg-muted text-muted-foreground",
+                          )}
+                        >
+                          <CreditCard size={16} />
+                          <span className="font-bold">بطاقة</span>
+                        </button>
+                        <button
+                          onClick={() => setPaymentMethod("bankak")}
+                          className={cn(
+                            "p-2 rounded-lg border-2 flex flex-col items-center justify-center gap-1 transition-all text-[10px]",
+                            paymentMethod === "bankak"
+                              ? "border-primary bg-primary/5 text-primary"
+                              : "border-border hover:bg-muted text-muted-foreground",
+                          )}
+                        >
+                          <span className="font-black text-lg leading-none">
+                            B
+                          </span>
+                          <span className="font-bold">بنكك</span>
+                        </button>
+                        <button
+                          onClick={() => setPaymentMethod("mycashi")}
+                          className={cn(
+                            "p-2 rounded-lg border-2 flex flex-col items-center justify-center gap-1 transition-all text-[10px]",
+                            paymentMethod === "mycashi"
+                              ? "border-primary bg-primary/5 text-primary"
+                              : "border-border hover:bg-muted text-muted-foreground",
+                          )}
+                        >
+                          <span className="font-black text-lg leading-none">
+                            C
+                          </span>
+                          <span className="font-bold">كاشي</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Manual Payment Fields - Very Condensed */}
+                    {paymentMethod !== "stripe" && (
+                      <div className="bg-muted/30 rounded-xl p-3 border border-border space-y-2.5 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <div className="space-y-1">
+                          <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
+                            حول إلى:
+                          </p>
+                          <div className="flex items-center gap-2 bg-background p-2 rounded-md border border-border">
+                            <span className="font-mono font-bold flex-1 text-center text-sm tracking-wider">
+                              {paymentMethod === "bankak"
+                                ? BANKAK_ACCOUNT
+                                : MYCASHI_ACCOUNT}
+                            </span>
+                            <button
+                              onClick={() =>
+                                copyToClipboard(
+                                  paymentMethod === "bankak"
+                                    ? BANKAK_ACCOUNT
+                                    : MYCASHI_ACCOUNT,
+                                  "account",
+                                )
+                              }
+                              className="p-1 hover:bg-muted rounded-md transition-colors text-muted-foreground hover:text-foreground"
+                            >
+                              {copiedField === "account" ? (
+                                <Check size={14} className="text-green-500" />
+                              ) : (
+                                <Copy size={14} />
+                              )}
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[9px] font-bold text-foreground block">
+                            رقم المعاملة
+                          </label>
+                          <input
+                            type="text"
+                            value={transactionRef}
+                            onChange={(e) => setTransactionRef(e.target.value)}
+                            placeholder="رقم العملية..."
+                            className="w-full bg-background border border-border rounded-md px-2 py-1.5 text-xs focus:outline-none focus:border-primary/40 transition-colors"
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              )}
 
-              {/* Shipping Info - Compact */}
-              <div className="bg-muted/30 rounded-md p-1.5 border border-border">
-                <div className="flex items-center gap-1 mb-0.5">
-                  <MapPin size={10} className="text-muted-foreground" />
-                  <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
-                    عنوان التوصيل
-                  </p>
-                </div>
-                <p className="text-[9px] text-foreground leading-tight break-words">
-                  {userData?.shippingInfo?.address},{" "}
-                  {userData?.shippingInfo?.city}
-                </p>
-                <div className="flex items-center gap-1 mt-0.5 pt-0.5 border-t border-border/50">
-                  <Phone size={10} className="text-muted-foreground" />
-                  <p className="text-[9px] text-foreground dir-ltr">
-                    {userData?.shippingInfo?.phone}
-                  </p>
+                {/* 2. Delivery Column - Condensed */}
+                <div className="flex-1 p-3 sm:p-4 space-y-4 bg-muted/5">
+                  <div className="space-y-3 h-full flex flex-col">
+                    <div className="flex-1 space-y-3">
+                      <h4 className="text-[8px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-2">
+                        3. معلومات الشحن والاتصال
+                      </h4>
+                      <div className="bg-background rounded-xl p-3 border border-border shadow-sm space-y-2.5">
+                        <div className="flex items-start gap-2.5">
+                          <div className="p-1.5 bg-secondary/10 rounded-lg text-secondary">
+                            <MapPin size={16} />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">
+                              عنوان التوصيل
+                            </p>
+                            <p className="text-[11px] font-bold text-foreground leading-tight">
+                              {userData?.shippingInfo?.address},{" "}
+                              {userData?.shippingInfo?.city}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="h-px bg-border/40" />
+
+                        <div className="flex items-start gap-2.5">
+                          <div className="p-1.5 bg-secondary/10 rounded-lg text-secondary">
+                            <Phone size={16} />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">
+                              رقم التواصل
+                            </p>
+                            <p className="text-sm font-mono font-black text-foreground dir-ltr">
+                              {userData?.shippingInfo?.phone}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-2 space-y-2">
+                      <button
+                        onClick={handleConfirmPayment}
+                        disabled={isPending}
+                        className="w-full bg-primary hover:opacity-95 text-primary-foreground font-black py-3 rounded-lg shadow-md shadow-primary/10 transition-all active:scale-[0.98] flex justify-center items-center gap-2 text-sm"
+                      >
+                        {isPending ? (
+                          <Spinner size="sm" />
+                        ) : (
+                          <ShieldCheck size={16} />
+                        )}
+                        {isPending ? "جاري المعالجة..." : "تأكيد الطلب الآن"}
+                      </button>
+
+                      <button
+                        onClick={() => router.push("/profile/edit")}
+                        className="w-full bg-background hover:bg-muted text-foreground font-bold py-2 rounded-lg border border-border transition-all active:scale-[0.98] flex justify-center items-center gap-1.5 text-[10px]"
+                      >
+                        <Edit size={12} />
+                        <span>تعديل بيانات الشحن</span>
+                      </button>
+
+                      <div className="bg-success/5 rounded-lg p-2 border border-success/10">
+                        <div className="flex gap-1.5 text-success">
+                          <ShieldCheck
+                            size={12}
+                            className="shrink-0 mt-0.5 opacity-60"
+                          />
+                          <p className="text-[8px] font-bold leading-tight uppercase tracking-tight opacity-60">
+                            سيتم مراجعة الطلب وبدء عملية التوصيل فوراً.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="flex-shrink-0 flex gap-1.5 p-2 sm:p-2.5 border-t border-border bg-muted/20">
-              <button
-                onClick={handleConfirmPayment}
-                disabled={isPending}
-                className="flex-1 bg-primary hover:opacity-90 text-primary-foreground font-black py-2.5 sm:py-3 rounded-lg shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex justify-center items-center gap-1.5 text-sm"
-              >
-                {isPending ? <Spinner size="sm" /> : <ShieldCheck size={16} />}
-                {isPending ? "جاري المعالجة..." : "تأكيد ودفع"}
-              </button>
-
-              <button
-                onClick={() => router.push("/profile/edit")}
-                className="bg-muted hover:bg-muted/80 text-foreground font-bold py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg border border-border transition-all active:scale-[0.98] flex justify-center items-center gap-1.5"
-              >
-                <Edit size={14} />
-                <span className="text-[10px] sm:text-xs">تعديل</span>
-              </button>
             </div>
           </div>
         </div>
