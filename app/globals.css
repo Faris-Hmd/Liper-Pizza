@@ -149,7 +149,13 @@
 
   html {
     scroll-behavior: smooth;
-    font-size: 16px;
+    font-size: 14px; /* Reduced from 16px for mobile */
+  }
+
+  @media (min-width: 640px) {
+    html {
+      font-size: 16px; /* Normal size on desktop */
+    }
   }
 
   body {
@@ -161,11 +167,11 @@
 
   /* Reduced Padding/Margin for Mobile */
   main {
-    @apply pt-0  pb-4 sm:pb-8;
+    @apply pt-0 pb-3 sm:pb-8;
   }
 
   section {
-    @apply px-4 sm:px-8 mb-8 sm:mb-16;
+    @apply px-3 sm:px-8 mb-4 sm:mb-16;
   }
 
   /* Reset for utility sections like Toasters or search overlays */
@@ -176,18 +182,18 @@
     border-radius: 0 !important;
   }
 
-  /* Responsive Headings */
+  /* Responsive Headings - More compact on mobile */
   h1 {
-    @apply text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 sm:mb-6 leading-tight;
+    @apply text-2xl sm:text-4xl font-extrabold tracking-tight mb-2 sm:mb-6 leading-tight;
   }
   h2 {
-    @apply text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-5 leading-tight;
+    @apply text-xl sm:text-3xl font-bold tracking-tight mb-2 sm:mb-5 leading-tight;
   }
   h3 {
-    @apply text-xl sm:text-2xl font-semibold tracking-tight mb-2 sm:mb-4;
+    @apply text-lg sm:text-2xl font-semibold tracking-tight mb-1.5 sm:mb-4;
   }
   p {
-    @apply text-sm sm:text-base leading-relaxed mb-4 text-muted-foreground;
+    @apply text-xs sm:text-base leading-relaxed mb-2 sm:mb-4 text-muted-foreground;
   }
 
   /* Responsive Blur Utility */

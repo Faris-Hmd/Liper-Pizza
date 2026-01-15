@@ -32,7 +32,7 @@ function CheckoutBtn() {
 
   const [paymentMethod, setPaymentMethod] = useState<
     "stripe" | "bankak" | "mycashi"
-  >("stripe");
+  >("bankak");
   const [transactionRef, setTransactionRef] = useState("");
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
@@ -234,114 +234,112 @@ function CheckoutBtn() {
 
       {/* Confirmation Modal */}
       {showConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
-          <div className="bg-card w-full max-w-md rounded-2xl border border-border shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            <div className="p-6 space-y-6">
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
+          onClick={() => setShowConfirm(false)}
+        >
+          <div
+            className="bg-card w-full max-w-md rounded-2xl border border-border shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 max-h-[85vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex-shrink-0 p-2 sm:p-2.5 border-b border-border">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-black text-foreground uppercase tracking-tighter">
+                <h3 className="text-sm sm:text-base font-black text-foreground uppercase tracking-tighter">
                   تأكيد <span className="text-primary">العنوان</span>
                 </h3>
                 <button
                   onClick={() => setShowConfirm(false)}
-                  className="p-2 hover:bg-muted rounded-full transition-colors"
+                  className="p-1 hover:bg-muted rounded-full transition-colors"
                 >
-                  <X size={18} className="text-muted-foreground" />
+                  <X size={14} className="text-muted-foreground" />
                 </button>
               </div>
+            </div>
 
-              <div className="bg-muted/50 rounded-xl p-4 border border-border space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="bg-primary/10 p-2 rounded-lg mt-0.5">
-                    <MapPin size={18} className="text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">
-                      عنوان التوصيل
-                    </p>
-                    <p className="text-sm font-bold text-foreground leading-relaxed break-words">
-                      {userData?.shippingInfo?.address}
-                    </p>
-                    <p className="text-xs font-medium text-muted-foreground mt-1">
-                      {userData?.shippingInfo?.city},{" "}
-                      {userData?.shippingInfo?.zip}
-                    </p>
-                  </div>
+            <div className="flex-1 overflow-y-auto p-2 sm:p-2.5 space-y-2">
+              {/* Total Amount - Copyable */}
+              <div className="bg-primary/10 rounded-lg p-1.5 border border-primary/20">
+                <p className="text-[9px] font-bold text-primary uppercase tracking-wider mb-0.5 text-center">
+                  المبلغ الإجمالي
+                </p>
+                <div className="flex items-center gap-1 bg-background/50 p-1.5 rounded-md">
+                  <span className="font-mono font-black flex-1 text-center text-lg tracking-wider text-foreground">
+                    {total.toLocaleString()}
+                  </span>
+                  <button
+                    onClick={() => copyToClipboard(total.toString(), "amount")}
+                    className="p-1 hover:bg-muted rounded-md transition-colors text-muted-foreground hover:text-foreground"
+                  >
+                    {copiedField === "amount" ? (
+                      <Check size={12} className="text-green-500" />
+                    ) : (
+                      <Copy size={12} />
+                    )}
+                  </button>
                 </div>
-
-                <div className="flex items-center gap-3 pt-3 border-t border-border/50">
-                  <div className="bg-green-500/10 p-2 rounded-lg">
-                    <Phone size={18} className="text-green-600" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">
-                      رقم الهاتف
-                    </p>
-                    <p className="text-sm font-bold text-foreground dir-ltr text-right">
-                      {userData?.shippingInfo?.phone}
-                    </p>
-                  </div>
-                </div>
+                <p className="text-[8px] text-primary/70 text-center mt-0.5">
+                  اضغط للنسخ
+                </p>
               </div>
 
               {/* Payment Method Selection */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-bold text-foreground">
+              <div className="space-y-1">
+                <h4 className="text-[11px] font-bold text-foreground">
                   اختر وسيلة الدفع
                 </h4>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-1.5">
                   <button
                     onClick={() => setPaymentMethod("stripe")}
                     className={cn(
-                      "p-3 rounded-xl border flex flex-col items-center justify-center gap-2 transition-all",
+                      "p-1.5 rounded-lg border flex flex-col items-center justify-center gap-0.5 transition-all",
                       paymentMethod === "stripe"
                         ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
                         : "border-border hover:bg-muted text-muted-foreground",
                     )}
                   >
-                    <CreditCard size={20} />
-                    <span className="text-xs font-bold">بطاقة بنكية</span>
+                    <CreditCard size={14} />
+                    <span className="text-[9px] font-bold">بطاقة</span>
                   </button>
                   <button
                     onClick={() => setPaymentMethod("bankak")}
                     className={cn(
-                      "p-3 rounded-xl border flex flex-col items-center justify-center gap-2 transition-all",
+                      "p-1.5 rounded-lg border flex flex-col items-center justify-center gap-0.5 transition-all",
                       paymentMethod === "bankak"
                         ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
                         : "border-border hover:bg-muted text-muted-foreground",
                     )}
                   >
-                    {/* You can use a specific icon or just text */}
-                    <span className="font-black text-lg leading-none">B</span>
-                    <span className="text-xs font-bold">بنكك</span>
+                    <span className="font-black text-sm leading-none">B</span>
+                    <span className="text-[9px] font-bold">بنكك</span>
                   </button>
                   <button
                     onClick={() => setPaymentMethod("mycashi")}
                     className={cn(
-                      "p-3 rounded-xl border flex flex-col items-center justify-center gap-2 transition-all",
+                      "p-1.5 rounded-lg border flex flex-col items-center justify-center gap-0.5 transition-all",
                       paymentMethod === "mycashi"
                         ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
                         : "border-border hover:bg-muted text-muted-foreground",
                     )}
                   >
-                    <span className="font-black text-lg leading-none">C</span>
-                    <span className="text-xs font-bold">ماي كاشي</span>
+                    <span className="font-black text-sm leading-none">C</span>
+                    <span className="text-[9px] font-bold">كاشي</span>
                   </button>
                 </div>
               </div>
 
               {/* Manual Payment Details */}
               {paymentMethod !== "stripe" && (
-                <div className="bg-muted/30 rounded-xl p-4 border border-border space-y-4 animate-in fade-in slide-in-from-top-2">
-                  <div className="space-y-2">
-                    <p className="text-xs text-muted-foreground">
-                      يرجى تحويل مبلغ{" "}
+                <div className="bg-muted/30 rounded-lg p-1.5 border border-border space-y-1.5 animate-in fade-in slide-in-from-top-2">
+                  <div className="space-y-1">
+                    <p className="text-[9px] text-muted-foreground">
+                      تحويل{" "}
                       <span className="font-bold text-foreground">
                         {total.toLocaleString()} جنية
                       </span>{" "}
-                      إلى رقم الحساب التالي:
+                      إلى:
                     </p>
-                    <div className="flex items-center gap-2 bg-background p-3 rounded-lg border border-border">
-                      <span className="font-mono font-bold flex-1 text-center text-lg tracking-wider">
+                    <div className="flex items-center gap-1 bg-background p-1.5 rounded-md border border-border">
+                      <span className="font-mono font-bold flex-1 text-center text-xs tracking-wider">
                         {paymentMethod === "bankak"
                           ? BANKAK_ACCOUNT
                           : MYCASHI_ACCOUNT}
@@ -355,59 +353,73 @@ function CheckoutBtn() {
                             "account",
                           )
                         }
-                        className="p-2 hover:bg-muted rounded-md transition-colors text-muted-foreground hover:text-foreground"
+                        className="p-1 hover:bg-muted rounded-md transition-colors text-muted-foreground hover:text-foreground"
                       >
                         {copiedField === "account" ? (
-                          <Check size={16} className="text-green-500" />
+                          <Check size={12} className="text-green-500" />
                         ) : (
-                          <Copy size={16} />
+                          <Copy size={12} />
                         )}
                       </button>
                     </div>
-                    <p className="text-xs text-muted-foreground text-center">
-                      {paymentMethod === "bankak"
-                        ? "حساب بنك الخرطوم (بنكك)"
-                        : "حساب ماي كاشي"}
+                    <p className="text-[8px] text-muted-foreground text-center">
+                      {paymentMethod === "bankak" ? "بنكك" : "كاشي"}
                     </p>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-foreground">
-                      رقم المعاملة (المرجع)
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-bold text-foreground">
+                      رقم المرجع
                     </label>
                     <input
                       type="text"
                       value={transactionRef}
                       onChange={(e) => setTransactionRef(e.target.value)}
                       placeholder="الصقه هنا..."
-                      className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full bg-background border border-border rounded-md px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-primary/50"
                     />
                   </div>
                 </div>
               )}
 
-              <div className="flex gap-3 pt-2">
-                <button
-                  onClick={handleConfirmPayment}
-                  disabled={isPending}
-                  className="flex-1 bg-primary hover:opacity-90 text-primary-foreground font-black py-3 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex justify-center items-center gap-2"
-                >
-                  {isPending ? (
-                    <Spinner size="sm" />
-                  ) : (
-                    <ShieldCheck size={18} />
-                  )}
-                  {isPending ? "جاري المعالجة..." : "تأكيد ودفع"}
-                </button>
-
-                <button
-                  onClick={() => router.push("/profile/edit")}
-                  className="bg-muted hover:bg-muted/80 text-foreground font-bold py-3 px-4 rounded-xl border border-border transition-all active:scale-[0.98] flex justify-center items-center gap-2"
-                >
-                  <Edit size={16} />
-                  <span className="text-xs">تعديل</span>
-                </button>
+              {/* Shipping Info - Compact */}
+              <div className="bg-muted/30 rounded-md p-1.5 border border-border">
+                <div className="flex items-center gap-1 mb-0.5">
+                  <MapPin size={10} className="text-muted-foreground" />
+                  <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-wider">
+                    عنوان التوصيل
+                  </p>
+                </div>
+                <p className="text-[9px] text-foreground leading-tight break-words">
+                  {userData?.shippingInfo?.address},{" "}
+                  {userData?.shippingInfo?.city}
+                </p>
+                <div className="flex items-center gap-1 mt-0.5 pt-0.5 border-t border-border/50">
+                  <Phone size={10} className="text-muted-foreground" />
+                  <p className="text-[9px] text-foreground dir-ltr">
+                    {userData?.shippingInfo?.phone}
+                  </p>
+                </div>
               </div>
+            </div>
+
+            <div className="flex-shrink-0 flex gap-1.5 p-2 sm:p-2.5 border-t border-border bg-muted/20">
+              <button
+                onClick={handleConfirmPayment}
+                disabled={isPending}
+                className="flex-1 bg-primary hover:opacity-90 text-primary-foreground font-black py-2.5 sm:py-3 rounded-lg shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex justify-center items-center gap-1.5 text-sm"
+              >
+                {isPending ? <Spinner size="sm" /> : <ShieldCheck size={16} />}
+                {isPending ? "جاري المعالجة..." : "تأكيد ودفع"}
+              </button>
+
+              <button
+                onClick={() => router.push("/profile/edit")}
+                className="bg-muted hover:bg-muted/80 text-foreground font-bold py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg border border-border transition-all active:scale-[0.98] flex justify-center items-center gap-1.5"
+              >
+                <Edit size={14} />
+                <span className="text-[10px] sm:text-xs">تعديل</span>
+              </button>
             </div>
           </div>
         </div>
