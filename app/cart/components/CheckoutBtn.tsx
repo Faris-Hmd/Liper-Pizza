@@ -1,4 +1,13 @@
-import { ArrowRight, ShieldCheck, CreditCard, AlertCircle } from "lucide-react";
+import {
+  ArrowRight,
+  ShieldCheck,
+  CreditCard,
+  AlertCircle,
+  MapPin,
+  Phone,
+  Edit,
+  X,
+} from "lucide-react";
 import React, { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -13,6 +22,7 @@ import { Spinner } from "@/components/Loading";
 function CheckoutBtn() {
   const { cart } = useCart();
   const [isPending, setIsPending] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const { data: session } = useSession();
   const user = session?.user;
   const router = useRouter();
@@ -72,6 +82,11 @@ function CheckoutBtn() {
       return;
     }
 
+    // Show confirmation modal
+    setShowConfirm(true);
+  }
+
+  async function handleConfirmPayment() {
     setIsPending(true);
     try {
       const payloadCart = convertProductsToLineItems(cart);
@@ -94,6 +109,7 @@ function CheckoutBtn() {
       }
     } catch (error) {
       setIsPending(false);
+      setShowConfirm(false);
       console.error("Error during fetch operation:", error);
       toast.error("حدث خطأ ما أثناء المحاولة.");
     }
@@ -164,6 +180,84 @@ function CheckoutBtn() {
           <span>دفع آمن وحماية 100%</span>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
+          <div className="bg-card w-full max-w-md rounded-2xl border border-border shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="p-6 space-y-6">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-black text-foreground uppercase tracking-tighter">
+                  تأكيد <span className="text-primary">العنوان</span>
+                </h3>
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  className="p-2 hover:bg-muted rounded-full transition-colors"
+                >
+                  <X size={18} className="text-muted-foreground" />
+                </button>
+              </div>
+
+              <div className="bg-muted/50 rounded-xl p-4 border border-border space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="bg-primary/10 p-2 rounded-lg mt-0.5">
+                    <MapPin size={18} className="text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">
+                      عنوان التوصيل
+                    </p>
+                    <p className="text-sm font-bold text-foreground leading-relaxed break-words">
+                      {userData?.shippingInfo?.address}
+                    </p>
+                    <p className="text-xs font-medium text-muted-foreground mt-1">
+                      {userData?.shippingInfo?.city},{" "}
+                      {userData?.shippingInfo?.zip}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 pt-3 border-t border-border/50">
+                  <div className="bg-green-500/10 p-2 rounded-lg">
+                    <Phone size={18} className="text-green-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">
+                      رقم الهاتف
+                    </p>
+                    <p className="text-sm font-bold text-foreground dir-ltr text-right">
+                      {userData?.shippingInfo?.phone}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={handleConfirmPayment}
+                  disabled={isPending}
+                  className="flex-1 bg-primary hover:opacity-90 text-primary-foreground font-black py-3 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex justify-center items-center gap-2"
+                >
+                  {isPending ? (
+                    <Spinner size="sm" />
+                  ) : (
+                    <ShieldCheck size={18} />
+                  )}
+                  {isPending ? "جاري المعالجة..." : "تأكيد ودفع"}
+                </button>
+
+                <button
+                  onClick={() => router.push("/profile/edit")}
+                  className="bg-muted hover:bg-muted/80 text-foreground font-bold py-3 px-4 rounded-xl border border-border transition-all active:scale-[0.98] flex justify-center items-center gap-2"
+                >
+                  <Edit size={16} />
+                  <span className="text-xs">تعديل</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

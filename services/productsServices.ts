@@ -55,7 +55,7 @@ export async function getProduct(id: string): Promise<ProductType | null> {
 export async function getProducts(
   filterKey: ProductFilterKey = "all",
   filterValue = "",
-  pageSize = 6,
+  pageSize = 10,
 ): Promise<ProductType[]> {
   const constraints: QueryConstraint[] = [];
 
