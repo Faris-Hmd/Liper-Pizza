@@ -32,3 +32,4 @@ export const productsRef = collection(db, "pizza_products");
 export const usersRef = collection(db, "users");
 
 export const ordersRef = collection(db, "orders");
+export const offersRef = collection(db, "offers");
