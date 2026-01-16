@@ -1,11 +1,4 @@
-import {
-  Facebook,
-  Instagram,
-  Twitter,
-  Github,
-  Send,
-  Pizza,
-} from "lucide-react";
+import { Facebook, Instagram, Twitter, Github, Send } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 

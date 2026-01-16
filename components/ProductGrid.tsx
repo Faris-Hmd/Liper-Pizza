@@ -99,27 +99,27 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
   }, [products, sortBy]);
 
   return (
-    <div className="w-full px-1 py-2 md:py-6">
+    <div className="w-full px-4 py-8 md:py-12">
       {/* --- CONDITIONAL SORTING BAR --- */}
       {showSort && products.length > 0 && (
-        <div className="flex items-center justify-between mb-4 max-w-screen-2xl mx-auto px-1">
-          <div className="flex items-center gap-1.5">
-            <div className="p-1 bg-primary rounded text-primary-foreground">
-              <ArrowUpDown size={12} />
+        <div className="flex items-center justify-between mb-8 max-w-screen-2xl mx-auto px-1">
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 bg-primary rounded text-primary-foreground">
+              <ArrowUpDown size={14} />
             </div>
-            <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground">
+            <p className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
               ترتيب
             </p>
           </div>
 
-          <div className="flex items-center gap-1 bg-muted p-0.5 rounded border border-border">
+          <div className="flex items-center gap-2 bg-muted p-1 rounded-lg border border-border">
             <button
               onClick={() => setSortBy("name")}
               className={cn(
-                "px-2 py-1 text-[8px] font-black uppercase rounded transition-all",
+                "px-3 py-1.5 text-[10px] font-black uppercase rounded-md transition-all",
                 sortBy === "name"
                   ? "bg-background text-primary shadow-sm"
-                  : "text-muted-foreground",
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
               أ-ي
@@ -127,10 +127,10 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
             <button
               onClick={() => setSortBy("price_asc")}
               className={cn(
-                "px-2 py-1 text-[8px] font-black uppercase rounded transition-all",
+                "px-3 py-1.5 text-[10px] font-black uppercase rounded-md transition-all",
                 sortBy === "price_asc"
                   ? "bg-background text-primary shadow-sm"
-                  : "text-muted-foreground",
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
               $ الأقل سعراً
@@ -138,10 +138,10 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
             <button
               onClick={() => setSortBy("price_desc")}
               className={cn(
-                "px-2 py-1 text-[8px] font-black uppercase rounded transition-all",
+                "px-3 py-1.5 text-[10px] font-black uppercase rounded-md transition-all",
                 sortBy === "price_desc"
                   ? "bg-background text-primary shadow-sm"
-                  : "text-muted-foreground",
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
               $ الأعلى سعراً
@@ -152,14 +152,14 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
 
       {/* Grid Display */}
       {sortedProducts.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 md:gap-3 max-w-screen-2xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8 max-w-screen-2xl mx-auto">
           {sortedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-16 px-4 text-center max-w-screen-2xl mx-auto rounded border-2 border-dashed border-border bg-muted/30">
-          <h3 className="text-foreground font-black text-sm uppercase">
+        <div className="flex flex-col items-center justify-center py-24 px-4 text-center max-w-screen-2xl mx-auto rounded-xl border-2 border-dashed border-border bg-muted/30">
+          <h3 className="text-foreground font-black text-base uppercase">
             لم يتم العثور على أي وجبات
           </h3>
         </div>
