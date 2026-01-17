@@ -48,82 +48,98 @@ export default async function OffersPage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-screen-2xl mx-auto">
-          {offers.map((offer) => (
-            <Link
-              key={offer.id}
-              href={`/offers/${offer.id}` as any}
-              className="group relative flex flex-col bg-card border border-border rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30"
-            >
-              <div className="relative aspect-[16/9] w-full overflow-hidden">
-                <Image
-                  src={offer.image}
-                  alt={offer.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
+          {offers.map((offer) => {
+            const individualTotal = offer.products.reduce(
+              (acc, p) => acc + (Number(p.p_cost) || 0),
+              0,
+            );
+            const savings = individualTotal - (offer.price || 0);
 
-                {offer.badge && (
-                  <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1.5 bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
-                      {offer.badge}
-                    </span>
-                  </div>
-                )}
-              </div>
+            return (
+              <Link
+                key={offer.id}
+                href={`/offers/${offer.id}` as any}
+                className="group relative flex flex-col bg-card border border-border rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30"
+              >
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  <Image
+                    src={offer.image}
+                    alt={offer.title}
+                    fill
+                    className="object-cover transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
 
-              <div className="p-5 flex flex-col flex-1 gap-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="space-y-1">
-                    <h3 className="text-xl font-black text-foreground group-hover:text-primary transition-colors italic line-clamp-1">
-                      {offer.title}
-                    </h3>
-                    <p className="text-muted-foreground text-xs font-medium line-clamp-2 leading-relaxed">
-                      {offer.description}
-                    </p>
+                  <div className="absolute  top-4 right-4 flex flex-col items-start gap-2">
+                    {offer.badge && (
+                      <span className="px-3 py-1.5 bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                        {offer.badge}
+                      </span>
+                    )}
+                    {savings > 0 && (
+                      <span className="px-3 py-1 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                        وفر {savings.toLocaleString()} جنية
+                      </span>
+                    )}
                   </div>
                 </div>
 
-                <div className="mt-auto pt-4 border-t border-border/50 flex items-center justify-between">
-                  <div className="flex -space-x-2 rtl:space-x-reverse overflow-hidden">
-                    {offer.products.slice(0, 3).map((p, i) => (
-                      <div
-                        key={p.id}
-                        className="inline-block relative h-8 w-8 rounded-full ring-2 ring-card overflow-hidden bg-muted"
-                      >
-                        <Image
-                          src={p.p_imgs[0]?.url || "/placeholder.png"}
-                          alt={p.p_name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    ))}
-                    {offer.products.length > 3 && (
-                      <div className="flex items-center justify-center h-8 w-8 rounded-full ring-2 ring-card bg-muted text-[10px] font-bold">
-                        +{offer.products.length - 3}
+                <div className="p-5 flex flex-col flex-1 gap-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="space-y-1">
+                      <h3 className="text-xl font-black text-foreground group-hover:text-primary transition-colors italic line-clamp-1">
+                        {offer.title}
+                      </h3>
+                      <p className="text-muted-foreground text-xs font-medium line-clamp-2 leading-relaxed">
+                        {offer.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto pt-4 border-t border-border/50 flex items-center justify-between">
+                    <div className="flex -space-x-2 rtl:space-x-reverse overflow-hidden">
+                      {offer.products.slice(0, 3).map((p, i) => (
+                        <div
+                          key={p.id}
+                          className="inline-block relative h-8 w-8 rounded-full ring-2 ring-card overflow-hidden bg-muted"
+                        >
+                          <Image
+                            src={p.p_imgs[0]?.url || "/placeholder.png"}
+                            alt={p.p_name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ))}
+                      {offer.products.length > 3 && (
+                        <div className="flex items-center justify-center h-8 w-8 rounded-full ring-2 ring-card bg-muted text-[10px] font-bold">
+                          +{offer.products.length - 3}
+                        </div>
+                      )}
+                    </div>
+
+                    {offer.price && (
+                      <div className="text-right">
+                        <span className="block text-[10px] text-muted-foreground line-through font-bold">
+                          {individualTotal.toLocaleString()}
+                        </span>
+                        <span className="text-lg font-black text-foreground">
+                          {offer.price}
+                          <span className="text-[10px] mr-1 opacity-60 font-bold">
+                            جنية
+                          </span>
+                        </span>
                       </div>
                     )}
                   </div>
 
-                  {offer.price && (
-                    <div className="text-right">
-                      <span className="text-lg font-black text-foreground">
-                        {offer.price}
-                        <span className="text-[10px] mr-1 opacity-60 font-bold">
-                          جنية
-                        </span>
-                      </span>
-                    </div>
-                  )}
+                  <div className="w-full flex items-center justify-center gap-2 bg-muted group-hover:bg-primary group-hover:text-primary-foreground py-3 rounded-xl font-black text-xs transition-all uppercase tracking-wider">
+                    <span>طلب العرض</span>
+                  </div>
                 </div>
-
-                <div className="w-full flex items-center justify-center gap-2 bg-muted group-hover:bg-primary group-hover:text-primary-foreground py-3 rounded-xl font-black text-xs transition-all uppercase tracking-wider">
-                  <span>طلب العرض</span>
-                </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </main>
     </div>

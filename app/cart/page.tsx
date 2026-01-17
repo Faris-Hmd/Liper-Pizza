@@ -4,21 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCart, dispatchCartUpdate } from "@/hooks/useCart";
 import CheckoutBtn from "./components/CheckoutBtn";
-
-const LabelMap: Record<string, string> = {
-  PC: "بيتزا",
-  LAPTOP: "ساندوتشات",
-  WEBCAMS: "مقبلات",
-  HARD_DRIVES: "مشروبات باردة",
-  HEADSETS: "مشروبات ساخنة",
-  KEYBOARDS: "حلويات",
-  SPEAKERS: "سلطات",
-  PRINTERS: "وجبات عائلية",
-  MICROPHONES: "إضافات",
-  MONITORS: "بيتزا إيطالية",
-  SSD: "بيتزا شرقية",
-  MOUSES: "وجبات سريعة",
-};
+import { CategoryLabelMap } from "@/data/categoryMapping";
 
 function page() {
   const { cart } = useCart();
@@ -60,7 +46,7 @@ function page() {
             >
               <Image
                 loading="eager"
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                className="object-cover transition-transform duration-500"
                 sizes="(max-width: 640px) 100px, 120px"
                 fill
                 src={
@@ -83,7 +69,7 @@ function page() {
                     {product.p_name}
                   </Link>
                   <p className="text-sm text-muted-foreground font-medium">
-                    {LabelMap[product.p_cat] || product.p_cat}
+                    {CategoryLabelMap[product.p_cat] || product.p_cat}
                   </p>
                 </div>
                 <button

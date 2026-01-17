@@ -15,6 +15,7 @@ import {
   MessageSquare,
   ReceiptText,
   Calendar,
+  Tag,
 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { OrderData } from "@/types/orderTypes";
@@ -105,7 +106,7 @@ export default function OrderDetailsPage() {
   return (
     <div className="min-h-screen bg-background pb-32">
       {/* Header */}
-      <header className="page-header sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-border">
+      <header className="page-header sticky top-0 z-10 bg-background/80 md:backdrop-blur-md border-b border-border">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center gap-4">
           <button
             onClick={() => router.back()}
@@ -114,12 +115,20 @@ export default function OrderDetailsPage() {
             <ArrowRight size={20} />
           </button>
           <div>
-            <h1 className="text-lg font-black text-foreground uppercase tracking-tighter flex items-center gap-2">
-              تفاصيل الطلب
-              <span className="text-primary">
-                #{order.id.slice(-6).toUpperCase()}
-              </span>
-            </h1>
+            <div className="flex items-center gap-3">
+              <h1 className="text-lg font-black text-foreground uppercase tracking-tighter flex items-center gap-2">
+                تفاصيل الطلب
+                <span className="text-primary">
+                  #{order.id.slice(-6).toUpperCase()}
+                </span>
+              </h1>
+              {order.isOffer && (
+                <span className="px-2.5 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest rounded-full border border-primary/20 flex items-center gap-1">
+                  <Tag size={10} strokeWidth={3} />
+                  عرض خاص
+                </span>
+              )}
+            </div>
             <p className="text-[10px] text-muted-foreground font-bold">
               {new Date(order.createdAt).toLocaleDateString("ar-EG", {
                 weekday: "long",
@@ -212,43 +221,69 @@ export default function OrderDetailsPage() {
             </h3>
           </div>
           <div className="divide-y divide-border/50">
-            {order.productsList.map((product, i) => (
-              <div
-                key={i}
-                className="p-4 flex items-center justify-between hover:bg-muted/5 transition-colors"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-muted rounded-lg  object-cover overflow-hidden">
-                    {/* Placeholder if no image, or optimize later */}
-                    {product.p_imgs?.[0]?.url ? (
-                      <img
-                        src={product.p_imgs[0].url}
-                        alt={product.p_name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-muted text-muted-foreground">
-                        <Package size={16} />
-                      </div>
-                    )}
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-foreground line-clamp-1">
-                      {product.p_name}
-                    </p>
-                    <p className="text-[10px] font-medium text-muted-foreground">
-                      {product.p_qu} × {Number(product.p_cost).toLocaleString()}{" "}
-                      جنية
-                    </p>
-                  </div>
+            {order.isOffer &&
+            (!order.productsList || order.productsList.length === 0) ? (
+              <div className="p-6 flex items-center gap-6">
+                <div className="relative w-24 h-24 rounded-2xl overflow-hidden shadow-md border border-border">
+                  <img
+                    src={order.offerImage || "/placeholder.png"}
+                    alt={order.offerTitle}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                 </div>
-                <p className="text-sm font-black text-foreground">
-                  {(
-                    Number(product.p_cost) * (product.p_qu || 1)
-                  ).toLocaleString()}
-                </p>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-black text-primary bg-primary/10 px-2 py-0.5 rounded-full uppercase">
+                      باقة توفير
+                    </span>
+                  </div>
+                  <h4 className="text-xl font-black text-foreground italic">
+                    {order.offerTitle}
+                  </h4>
+                  <p className="text-xs text-muted-foreground font-medium">
+                    تم طلب هذا العرض كحزمة متكاملة وبسعر خاص.
+                  </p>
+                </div>
               </div>
-            ))}
+            ) : (
+              order.productsList.map((product, i) => (
+                <div
+                  key={i}
+                  className="p-4 flex items-center justify-between hover:bg-muted/5 transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-muted rounded-lg  object-cover overflow-hidden">
+                      {product.p_imgs?.[0]?.url ? (
+                        <img
+                          src={product.p_imgs[0].url}
+                          alt={product.p_name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-muted text-muted-foreground">
+                          <Package size={16} />
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-foreground line-clamp-1">
+                        {product.p_name}
+                      </p>
+                      <p className="text-[10px] font-medium text-muted-foreground">
+                        {product.p_qu} ×{" "}
+                        {Number(product.p_cost).toLocaleString()} جنية
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm font-black text-foreground">
+                    {(
+                      Number(product.p_cost) * (product.p_qu || 1)
+                    ).toLocaleString()}
+                  </p>
+                </div>
+              ))
+            )}
           </div>
           <div className="bg-muted/30 p-6 space-y-3">
             <div className="flex justify-between items-center text-xs font-medium text-muted-foreground">

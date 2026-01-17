@@ -74,9 +74,9 @@ export default function Categories() {
               >
                 <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center bg-card rounded-[1.5rem] shadow-sm border border-border group-hover:bg-primary/10 group-hover:border-primary/20 transition-all duration-300">
                   {Icon ? (
-                    <Icon className="w-8 h-8 md:w-10 md:h-10 text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all" />
+                    <Icon className="w-8 h-8 md:w-10 md:h-10 text-muted-foreground group-hover:text-primary transition-all" />
                   ) : (
-                    <div className="relative w-10 h-10 md:w-12 md:h-12 group-hover:scale-110 transition-transform">
+                    <div className="relative w-10 h-10 md:w-12 md:h-12 transition-transform">
                       <Image
                         src={imageUrl}
                         alt={label}

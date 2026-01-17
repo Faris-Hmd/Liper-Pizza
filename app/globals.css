@@ -5,16 +5,16 @@
 
 /* --- Theme Configuration --- */
 :root {
-  /* Liper Brand Colors - Red, Charcoal, White */
-  --primary-color: #ef4444; /* Vibrant Red */
+  /* Liper Brand Colors - Maroon, Charcoal, White */
+  --primary-color: #800000; /* Maroon */
   --secondary-color: #1a1a1a; /* Charcoal/Black */
-  --accent-color: #f87171; /* Lighter Red Accent */
+  --accent-color: #a52a2a; /* Brownish Red Accent */
 
   --bg-light: #fffcf9; /* Off-white warm background */
   --fg-light: #1a0f0a; /* Dark chocolate/burnt crust text */
 
-  --bg-dark: #1a0f0a;
-  --fg-dark: #fffcf9;
+  --bg-dark: #000000; /* Pure black for maximum contrast */
+  --fg-dark: #ffffff;
 
   /* Responsive Typography */
   --text-xs: clamp(0.7rem, 0.65rem + 0.2vw, 0.75rem);
@@ -38,20 +38,20 @@
   --card-foreground: var(--fg-light);
   --popover: #ffffff;
   --popover-foreground: var(--fg-light);
-  --muted: #fef2f2; /* Subtle red hint */
-  --muted-foreground: #7f1d1d; /* Deep red-maroon */
-  --accent: #fef2f2;
+  --muted: #fff5f5; /* Subtle maroon hint */
+  --muted-foreground: #800000; /* Maroon */
+  --accent: #fff5f5;
   --accent-foreground: var(--fg-light);
-  --destructive: #ef4444;
+  --destructive: #800000;
   --destructive-foreground: #ffffff;
-  --border: #f3e8d2;
-  --input: #f3e8d2;
+  --border: #ebdada; /* Subtle maroon-tinted border */
+  --input: #ebdada;
   --ring: var(--primary-color);
 
   /* Status Colors */
   --success: #10b981;
   --warning: #f59e0b;
-  --error: #ef4444;
+  --error: #800000;
   --info: #3b82f6;
 
   --card-alt: #fff9f2;
@@ -62,34 +62,44 @@
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
   --radius: var(--radius-md);
+
+  /* Custom Shadows with Maroon Tint */
+  --shadow-maroon:
+    0 4px 6px -1px rgba(128, 0, 0, 0.1), 0 2px 4px -1px rgba(128, 0, 0, 0.06);
+  --shadow-maroon-lg:
+    0 10px 15px -3px rgba(128, 0, 0, 0.1), 0 4px 6px -2px rgba(128, 0, 0, 0.05);
 }
 
 .dark {
-  --background: #0a0a0a; /* Deep charcoal/black */
-  --foreground: #f8fafc;
-  --primary: #ef4444; /* Vibrant Red */
+  --background: #1a1a1a;
+  --foreground: #ffffff;
+  --primary: #b91c1c; /* Brighter maroon for dark mode */
   --primary-foreground: #ffffff;
   --secondary: #1a1a1a;
-  --secondary-foreground: #f8fafc;
+  --secondary-foreground: #ffffff;
 
-  --card: #111111;
-  --card-foreground: #f8fafc;
-  --popover: #111111;
-  --popover-foreground: #f8fafc;
-  --muted: #1e1e1e;
-  --muted-foreground: #a1a1aa;
-  --accent: #1e1e1e;
-  --accent-foreground: #f8fafc;
-  --border: #27272a;
-  --input: #1e1e1e;
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --popover: #1a1a1a;
+  --popover-foreground: #ffffff;
+  --muted: #111111;
+  --muted-foreground: #e5e7eb; /* Brighter for readability */
+  --accent: #111111;
+  --accent-foreground: #ffffff;
+  --border: #4a3737; /* Stronger maroon tint */
+  --input: #1a1a1a;
 
   /* Status Colors Dark */
-  --success: #10b981;
-  --warning: #f59e0b;
+  --success: #34d399;
+  --warning: #fbbf24;
   --error: #ef4444;
-  --info: #3b82f6;
+  --info: #60a5fa;
 
-  --card-alt: #1a1a1a;
+  --card-alt: #111111;
+
+  /* Custom Shadows for Dark Mode */
+  --shadow-maroon: 0 0 15px rgba(185, 28, 28, 0.1);
+  --shadow-maroon-lg: 0 0 25px rgba(185, 28, 28, 0.15);
 }
 
 @theme inline {
@@ -140,230 +150,10 @@
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
   --radius: var(--radius);
-}
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-sans);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* Reduced Padding/Margin for Mobile */
-  main {
-    @apply pt-0  pb-4 sm:pb-8;
-  }
-
-  section {
-    @apply px-4 sm:px-8 mb-8 sm:mb-16;
-  }
-
-  /* Reset for utility sections like Toasters or search overlays */
-  section[aria-label],
-  [data-sonner-toaster] {
-    margin: 0 !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-  }
-
-  /* Responsive Headings */
-  h1 {
-    @apply text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 sm:mb-6 leading-tight;
-  }
-  h2 {
-    @apply text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-5 leading-tight;
-  }
-  h3 {
-    @apply text-xl sm:text-2xl font-semibold tracking-tight mb-2 sm:mb-4;
-  }
-  p {
-    @apply text-sm sm:text-base leading-relaxed mb-4 text-muted-foreground;
-  }
-
-  /* Responsive Blur Utility */
-  .glass {
-    @apply bg-background; /* Opaque on mobile */
-    backdrop-filter: none;
-  }
-
-  @media (min-width: 640px) {
-    .glass {
-      @apply bg-background/80 backdrop-blur-md; /* Semi-transparent on desktop */
-    }
-  }
-}
-
-@layer components {
-  /* Common Header Style */
-  .page-header {
-    @apply bg-card border-b border-border relative py-4 sm:py-6 w-full;
-  }
-
-  .page-header h1 {
-    @apply m-0 text-xl sm:text-2xl;
-  }
-
-  * {
-    /* Transitions only for non-layout properties to avoid jitter */
-    transition:
-      background-color 0.2s,
-      border-color 0.2s,
-      color 0.2s,
-      opacity 0.2s;
-  }
-}
-@import "tailwindcss";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
-
-/* --- Theme Configuration --- */
-:root {
-  /* Liper Brand Colors - Red, Charcoal, White */
-  --primary-color: #ef4444; /* Vibrant Red */
-  --secondary-color: #1a1a1a; /* Charcoal/Black */
-  --accent-color: #f87171; /* Lighter Red Accent */
-
-  --bg-light: #fffcf9; /* Off-white warm background */
-  --fg-light: #1a0f0a; /* Dark chocolate/burnt crust text */
-
-  --bg-dark: #1a0f0a;
-  --fg-dark: #fffcf9;
-
-  /* Responsive Typography */
-  --text-xs: clamp(0.7rem, 0.65rem + 0.2vw, 0.75rem);
-  --text-sm: clamp(0.8rem, 0.75rem + 0.2vw, 0.875rem);
-  --text-base: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
-  --text-lg: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
-  --text-xl: clamp(1.125rem, 1.05rem + 0.4vw, 1.25rem);
-  --text-2xl: clamp(1.5rem, 1.35rem + 1.2vw, 1.875rem);
-  --text-3xl: clamp(1.875rem, 1.6rem + 1.8vw, 2.25rem);
-  --text-4xl: clamp(2.25rem, 1.95rem + 2.5vw, 3rem);
-
-  /* Mapping to Tailwind/Internal System */
-  --background: var(--bg-light);
-  --foreground: var(--fg-light);
-  --primary: var(--primary-color);
-  --primary-foreground: #ffffff;
-  --secondary: var(--secondary-color);
-  --secondary-foreground: var(--fg-light);
-
-  --card: #ffffff;
-  --card-foreground: var(--fg-light);
-  --popover: #ffffff;
-  --popover-foreground: var(--fg-light);
-  --muted: #fef2f2; /* Subtle red hint */
-  --muted-foreground: #7f1d1d; /* Deep red-maroon */
-  --accent: #fef2f2;
-  --accent-foreground: var(--fg-light);
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #f3e8d2;
-  --input: #f3e8d2;
-  --ring: var(--primary-color);
-
-  /* Status Colors */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --info: #3b82f6;
-
-  --card-alt: #fff9f2;
-
-  /* Radius Configuration */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-  --radius: var(--radius-md);
-}
-
-.dark {
-  --background: #0a0a0a; /* Deep charcoal/black */
-  --foreground: #f8fafc;
-  --primary: #ef4444; /* Vibrant Red */
-  --primary-foreground: #ffffff;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #f8fafc;
-
-  --card: #111111;
-  --card-foreground: #f8fafc;
-  --popover: #111111;
-  --popover-foreground: #f8fafc;
-  --muted: #1e1e1e;
-  --muted-foreground: #a1a1aa;
-  --accent: #1e1e1e;
-  --accent-foreground: #f8fafc;
-  --border: #27272a;
-  --input: #1e1e1e;
-
-  /* Status Colors Dark */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --info: #3b82f6;
-
-  --card-alt: #1a1a1a;
-}
-
-@theme inline {
-  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
-
-  /* Font Sizes */
-  --text-xs: var(--text-xs);
-  --text-sm: var(--text-sm);
-  --text-base: var(--text-base);
-  --text-lg: var(--text-lg);
-  --text-xl: var(--text-xl);
-  --text-2xl: var(--text-2xl);
-  --text-3xl: var(--text-3xl);
-  --text-4xl: var(--text-4xl);
-
-  /* Colors */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  /* Status Semantic Colors */
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-error: var(--error);
-  --color-info: var(--info);
-
-  --color-card-alt: var(--card-alt);
-
-  /* Radius */
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --radius-xl: var(--radius-xl);
-  --radius: var(--radius);
+  /* Shadows */
+  --shadow-maroon: var(--shadow-maroon);
+  --shadow-maroon-lg: var(--shadow-maroon-lg);
 }
 
 @layer base {
@@ -420,15 +210,15 @@
     @apply text-xs sm:text-base leading-relaxed mb-2 sm:mb-4 text-muted-foreground;
   }
 
-  /* Responsive Blur Utility */
+  /* Blur Utility Restricted to md screens */
   .glass {
-    @apply bg-background; /* Opaque on mobile */
+    @apply bg-background/95; /* Nearly opaque on mobile */
     backdrop-filter: none;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     .glass {
-      @apply bg-background/80 backdrop-blur-md; /* Semi-transparent on desktop */
+      @apply bg-background/80 backdrop-blur-md;
     }
   }
 }
@@ -450,5 +240,14 @@
       border-color 0.2s,
       color 0.2s,
       opacity 0.2s;
+  }
+
+  /* Global suppression of annoying image scale on hover */
+  .group:hover img,
+  .hover\:scale-110:hover,
+  .group-hover\:scale-110,
+  .hover\:scale-105:hover,
+  .group-hover\:scale-105 {
+    transform: none !important;
   }
 }

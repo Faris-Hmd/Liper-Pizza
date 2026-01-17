@@ -55,7 +55,7 @@ function Hero() {
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center text-foreground">
         <div className="mb-8 flex justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 backdrop-blur-md border border-primary/20 px-4 py-1.5 text-[10px] font-black text-primary uppercase tracking-[0.3em] transition-all hover:bg-primary/20 hover:scale-105 active:scale-95">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 md:backdrop-blur-md border border-primary/20 px-4 py-1.5 text-[10px] font-black text-primary uppercase tracking-[0.3em] transition-all hover:bg-primary/20 active:scale-95">
             أفضل بيتزا في المدينة
             <ArrowRight size={10} className="text-primary/60 rotate-180" />
           </div>
@@ -80,7 +80,7 @@ function Hero() {
         <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
           <a
             href="#shop"
-            className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 overflow-hidden rounded-2xl bg-primary px-8 py-4 text-lg font-black text-primary-foreground shadow-2xl shadow-primary/30 transition-all hover:opacity-90 hover:scale-105 active:scale-95"
+            className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 overflow-hidden rounded-2xl bg-primary px-8 py-4 text-lg font-black text-primary-foreground shadow-2xl shadow-primary/30 transition-all hover:opacity-90 active:scale-95"
           >
             <span className="relative z-10 flex items-center gap-2">
               اطلب الآن{" "}
@@ -91,7 +91,7 @@ function Hero() {
 
           <a
             href="#categories"
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-2xl bg-secondary/10 backdrop-blur-md border border-secondary/20 px-8 py-4 text-lg font-black text-foreground transition-all hover:bg-secondary/20 hover:scale-105 active:scale-95"
+            className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-2xl bg-secondary/10 md:backdrop-blur-md border border-secondary/20 px-8 py-4 text-lg font-black text-foreground transition-all hover:bg-secondary/20 active:scale-95"
           >
             <div className="flex items-center gap-2">
               <Grid2X2 className="h-5 w-5 text-primary" />

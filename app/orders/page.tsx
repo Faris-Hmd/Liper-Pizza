@@ -11,6 +11,7 @@ import {
   PackageOpen,
   ReceiptText,
   ArrowRight,
+  Tag,
 } from "lucide-react";
 import { OrderData } from "@/types/orderTypes";
 import { cn } from "@/lib/utils";
@@ -179,6 +180,12 @@ function SimpleOrderCard({ order }: { order: OrderData }) {
               >
                 {getStatusLabel(order.status)}
               </span>
+              {order.isOffer && (
+                <span className="text-[9px] font-black px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 flex items-center gap-1">
+                  <Tag size={10} strokeWidth={3} />
+                  عرض
+                </span>
+              )}
               <h4 className="text-[14px] font-black tracking-tighter">
                 #{order.id.slice(-6)}
               </h4>

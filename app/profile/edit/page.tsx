@@ -172,7 +172,7 @@ export default function UserInfoUpdatePage() {
   return (
     <div className="min-h-screen bg-background pb-32">
       {/* MATCHED HEADER STYLE */}
-      <header className="sticky top-0 z-50 bg-card/80 backdrop-blur-md border-b border-border px-5 py-3">
+      <header className="sticky top-0 z-50 bg-card/80 md:backdrop-blur-md border-b border-border px-5 py-3">
         <div className="max-w-xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link

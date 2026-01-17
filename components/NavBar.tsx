@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Search, Home, ShoppingCart, Package, Pizza } from "lucide-react";
+import { Search, Home, ShoppingCart, Package, Tag } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { useCart } from "@/hooks/useCart";
@@ -12,6 +12,7 @@ import { signIn, useSession } from "next-auth/react";
 
 const NAV_ITEMS = [
   { title: "الرئيسية", href: "/", icon: Home },
+  { title: "العروض", href: "/offers", icon: Tag },
   { title: "السلة", href: "/cart", icon: ShoppingCart },
   { title: "الطلبات", href: "/orders", icon: Package },
 ];
@@ -30,7 +31,7 @@ export default function Navbar() {
             href="/"
             className="group flex items-center gap-2.5 transition-transform active:scale-95"
           >
-            <div className="relative w-10 h-10 overflow-hidden rounded-xl border-2 border-border transition-transform group-hover:scale-105">
+            <div className="relative w-10 h-10 overflow-hidden rounded-xl border-2 border-border transition-transform">
               <Image
                 src="/brand/logo.png"
                 alt="Liper Logo"

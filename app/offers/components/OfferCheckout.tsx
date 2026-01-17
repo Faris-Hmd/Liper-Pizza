@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowRight,
   ShieldCheck,
@@ -14,15 +16,14 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { ProductType } from "@/types/productsTypes";
-import { useCart } from "@/hooks/useCart";
+import { Offer } from "@/types/offerTypes";
 import useSWR from "swr";
 import { getUser } from "@/services/userServices";
 import { addOrder } from "@/services/ordersServices";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/Loading";
 
-function CheckoutBtn() {
-  const { cart } = useCart();
+export default function OfferCheckout({ offer }: { offer: Offer }) {
   const [isPending, setIsPending] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const { data: session } = useSession();
@@ -35,8 +36,8 @@ function CheckoutBtn() {
   const [transactionRef, setTransactionRef] = useState("");
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
-  const BANKAK_ACCOUNT = "3052845"; // Real-looking account
-  const MYCASHI_ACCOUNT = "0960504030"; // Real-looking account
+  const BANKAK_ACCOUNT = "3052845";
+  const MYCASHI_ACCOUNT = "0960504030";
 
   const copyToClipboard = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
@@ -45,34 +46,24 @@ function CheckoutBtn() {
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-  // Fetch user data to check shipping info
-  const { data: userData, isLoading: userLoading } = useSWR(
+  const { data: userData } = useSWR(
     user?.email ? `checkout-user-${user.email}` : null,
     () => getUser(user?.email as string),
   );
 
-  const total = useMemo(() => {
-    return cart.reduce((acc, p) => acc + Number(p.p_cost) * Number(p.p_qu), 0);
-  }, [cart]);
+  const total = offer.price || 0;
 
   function convertProductsToLineItems(products: ProductType[]) {
     return products.map((product) => {
-      // Convert the string cost to a number and multiply by 100 for cents
       const unitAmountCents = Math.round(Number(product.p_cost) * 100);
-
       return {
         price_data: {
-          product_data: {
-            name: product.p_name,
-          },
+          product_data: { name: product.p_name },
           currency: "USD",
           unit_amount: unitAmountCents,
         },
-        quantity: product.p_qu,
-        metadata: {
-          id: product.id,
-          p_cat: product.p_cat,
-        },
+        quantity: 1,
+        metadata: { id: product.id, p_cat: product.p_cat },
       };
     });
   }
@@ -84,23 +75,13 @@ function CheckoutBtn() {
       return;
     }
     if (isPending) return;
-    if (cart.length === 0) {
-      toast.error("سلة المشتريات فارغة.");
-      return;
-    }
 
-    // Validate shipping info
-    if (
-      !userData?.shippingInfo ||
-      !userData.shippingInfo.address ||
-      !userData.shippingInfo.phone
-    ) {
+    if (!userData?.shippingInfo?.address || !userData?.shippingInfo?.phone) {
       toast.error("يرجى اكمال بيانات العنوان والهاتف قبل الدفع.");
       router.push("/profile/edit" as any);
       return;
     }
 
-    // Show confirmation modal
     setShowConfirm(true);
   }
 
@@ -108,26 +89,17 @@ function CheckoutBtn() {
     setIsPending(true);
     try {
       if (paymentMethod === "stripe") {
-        const payloadCart = convertProductsToLineItems(cart);
+        const payload = convertProductsToLineItems(offer.products);
         const response = await fetch("/api/checkout_sessions", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payloadCart),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error("Stripe checkout failed");
         const { url } = await response.json();
-
-        if (url) {
-          window.location.assign(url);
-        }
+        if (url) window.location.assign(url);
       } else {
-        // Manual Payment (Bankak / MyCashi)
         if (!transactionRef.trim()) {
           toast.error("يرجى إدخال رقم المعاملة المرجعي");
           setIsPending(false);
@@ -138,50 +110,48 @@ function CheckoutBtn() {
           customer_email: user?.email || null,
           customer_name: user?.name || "Unknown",
           shippingInfo: userData?.shippingInfo,
-          productsList: cart,
-          status: "Processing" as const, // Cast to literal type
+          productsList: [], // Optimized: no need to send details for offers
+          status: "Processing" as const,
           deliveredAt: "",
           createdAt: new Date().toISOString(),
           totalAmount: total,
           paymentMethod: paymentMethod,
           transactionReference: transactionRef,
+          isOffer: true,
+          offerId: offer.id,
+          offerTitle: offer.title,
+          offerImage: offer.image,
         };
 
         const orderId = await addOrder(orderData);
         if (orderId) {
-          toast.success("تم استلام طلبك بنجاح! سيتم مراجعته قريباً.");
-          // Clear cart logic if needed, but assuming redirect is enough or separate logic
-          // Usually we should clear the cart here. Assuming useCart has clearCart.
-          // Since I don't see clearCart in the view, I'll just redirect.
+          toast.success("تم استلام طلب العرض بنجاح!");
           router.push(`/orders`);
         }
       }
     } catch (error) {
       setIsPending(false);
-      // Don't close modal on error so they can retry
-      // setShowConfirm(false);
-      console.error("Error during fetch operation:", error);
+      console.error("Payment Error:", error);
       toast.error("حدث خطأ ما أثناء المحاولة.");
     }
   }
 
   return (
-    <div className="mt-4 bg-card rounded-[2rem] border border-border shadow-2xl overflow-hidden transition-all duration-500 ease-in-out">
+    <div className="bg-card rounded-[2rem] border border-border shadow overflow-hidden transition-all duration-500">
       {!showConfirm ? (
-        /* View 1: Order Summary */
         <div className="p-6 sm:p-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center">
               <CreditCard size={24} className="text-primary" />
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-foreground uppercase tracking-tight">
-              ملخص <span className="text-primary">الطلب</span>
+              ملخص <span className="text-primary">العرض</span>
             </h2>
           </div>
 
           <div className="space-y-3 pt-2">
             <div className="flex justify-between text-base text-muted-foreground">
-              <span>المجموع الفرعي ({cart.length} أصناف)</span>
+              <span>قيمة العرض</span>
               <span className="font-bold text-foreground">
                 {total.toLocaleString()} جنية
               </span>
@@ -191,10 +161,6 @@ function CheckoutBtn() {
               <span className="text-success font-black text-xs uppercase tracking-[0.2em] bg-success/10 px-3 py-1 rounded-full border border-success/20">
                 مجاني
               </span>
-            </div>
-            <div className="flex justify-between text-base text-muted-foreground/60 italic">
-              <span>الضرائب والرسوم</span>
-              <span>تحسب عند الدفع</span>
             </div>
           </div>
 
@@ -216,7 +182,7 @@ function CheckoutBtn() {
 
           <form onSubmit={handleSubmit}>
             <button
-              disabled={isPending || cart.length === 0}
+              disabled={isPending}
               className={cn(
                 "group w-full py-5 px-8 flex items-center justify-center gap-4",
                 "bg-primary hover:opacity-95 disabled:bg-muted disabled:cursor-not-allowed",
@@ -225,7 +191,7 @@ function CheckoutBtn() {
               )}
               type="submit"
             >
-              <span>إتمام الطلب بأمان</span>
+              <span>طلب العرض الآن</span>
               <ArrowRight
                 size={24}
                 className="group-hover:translate-x-1.5 transition-transform"
@@ -239,9 +205,7 @@ function CheckoutBtn() {
           </div>
         </div>
       ) : (
-        /* View 2: Finalize & Payment (Inline) */
         <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-          {/* Sub-Header */}
           <div className="p-5 border-b border-border bg-muted/5 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -261,7 +225,6 @@ function CheckoutBtn() {
           </div>
 
           <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x md:divide-border rtl:divide-x-reverse">
-            {/* Payment Section */}
             <div className="flex-1 p-5 sm:p-6 space-y-6">
               <div className="space-y-5">
                 <div>
@@ -377,7 +340,6 @@ function CheckoutBtn() {
               </div>
             </div>
 
-            {/* Delivery & Action Section */}
             <div className="flex-1 p-5 sm:p-6 space-y-6 bg-muted/5 flex flex-col">
               <div className="flex-1 space-y-5">
                 <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-3">
@@ -443,5 +405,3 @@ function CheckoutBtn() {
     </div>
   );
 }
-
-export default CheckoutBtn;

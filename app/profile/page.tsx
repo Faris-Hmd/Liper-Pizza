@@ -138,7 +138,7 @@ export default function ProfilePage() {
               <img
                 src={session.user.image}
                 alt="User"
-                className="relative w-16 h-16 md:w-20 md:h-20 rounded-lg border border-border/50 object-cover shadow-2xl group-hover:scale-105 transition-transform"
+                className="relative w-16 h-16 md:w-20 md:h-20 rounded-lg border border-border/50 object-cover shadow-2xl transition-transform"
               />
             ) : (
               <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-lg border border-border/50 bg-muted flex items-center justify-center text-foreground text-2xl font-black">

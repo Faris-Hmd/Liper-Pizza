@@ -75,7 +75,7 @@ export default function Loading({
   const containerClasses = cn(
     "flex flex-col items-center justify-center gap-6 p-8",
     fullScreen
-      ? "fixed inset-0 z-[100] bg-background/90 backdrop-blur-xl"
+      ? "fixed inset-0 z-[100] bg-background/90 md:backdrop-blur-xl"
       : "min-h-[80vh] w-full",
     className,
   );

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, ShoppingCart, Package, User } from "lucide-react";
+import { Home, ShoppingCart, Package, User, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/hooks/useCart";
 
@@ -26,6 +26,7 @@ export default function BtmNav() {
   // Define base items
   const navItems = [
     { title: "الرئيسية", href: "/", icon: Home },
+    { title: "العروض", href: "/offers", icon: Tag },
     { title: "السلة", href: "/cart", icon: ShoppingCart },
     { title: "طلباتي", href: "/orders", icon: Package },
     { title: "حسابي", href: "/profile", icon: User },

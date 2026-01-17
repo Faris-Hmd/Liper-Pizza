@@ -15,6 +15,10 @@ export type OrderData = {
   driverId?: string;
   paymentMethod?: string;
   transactionReference?: string;
+  isOffer?: boolean;
+  offerId?: string;
+  offerTitle?: string;
+  offerImage?: string;
 };
 
 export interface CategoryDistribution {

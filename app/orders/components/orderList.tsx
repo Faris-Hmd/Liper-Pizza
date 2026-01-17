@@ -10,6 +10,7 @@ import {
   XCircle,
   Phone,
   MessageSquare,
+  Tag,
 } from "lucide-react";
 import { OrderData } from "@/types/orderTypes";
 import Link from "next/link";
@@ -113,6 +114,12 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
               >
                 {statusConfig.label}
               </span>
+              {order.isOffer && (
+                <span className="text-[8px] font-black uppercase px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 flex items-center gap-1">
+                  <Tag size={8} strokeWidth={3} />
+                  عرض خاص
+                </span>
+              )}
               {/* Mobile Price Tag */}
               <span className="sm:hidden text-xs font-black text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                 {totalCostNumeric.toLocaleString()}{" "}
@@ -231,37 +238,58 @@ const CompactOrderCard = ({ order }: { order: OrderData }) => {
               </div>
             )}
 
-            {order.productsList.map((product, i) => (
-              <div
-                key={i}
-                className="flex items-center justify-between p-3 bg-card border border-border rounded-2xl transition-colors"
-              >
-                <div className="flex items-center gap-3">
-                  <div>
-                    <Link
-                      href={`/products/${product.id}`}
-                      className="text-xs font-black text-foreground hover:text-primary line-clamp-1"
-                    >
-                      {product.p_name}
-                    </Link>
-                    <p className="text-[10px] font-bold text-muted-foreground uppercase">
-                      {product.p_qu} قطع ×{" "}
-                      {Number(product.p_cost).toLocaleString()} جنية
-                    </p>
-                  </div>
+            {order.isOffer &&
+            (!order.productsList || order.productsList.length === 0) ? (
+              <div className="flex items-center gap-4 p-4 bg-primary/5 rounded-2xl border border-primary/10">
+                <div className="w-12 h-12 rounded-xl overflow-hidden border border-border">
+                  <img
+                    src={order.offerImage || "/placeholder.png"}
+                    alt={order.offerTitle}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div className="text-right">
-                  <span className="font-black text-foreground text-xs">
-                    {(
-                      Number(product.p_cost) * (product.p_qu || 1)
-                    ).toLocaleString()}
-                  </span>
-                  <p className="text-[8px] font-bold text-muted-foreground uppercase">
-                    الإجمالي
+                <div>
+                  <p className="text-sm font-black text-foreground italic">
+                    {order.offerTitle}
+                  </p>
+                  <p className="text-[10px] font-medium text-muted-foreground">
+                    باقة توفير حصرية
                   </p>
                 </div>
               </div>
-            ))}
+            ) : (
+              order.productsList.map((product, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-between p-3 bg-card border border-border rounded-2xl transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div>
+                      <Link
+                        href={`/products/${product.id}`}
+                        className="text-xs font-black text-foreground hover:text-primary line-clamp-1"
+                      >
+                        {product.p_name}
+                      </Link>
+                      <p className="text-[10px] font-bold text-muted-foreground uppercase">
+                        {product.p_qu} قطع ×{" "}
+                        {Number(product.p_cost).toLocaleString()} جنية
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="font-black text-foreground text-xs">
+                      {(
+                        Number(product.p_cost) * (product.p_qu || 1)
+                      ).toLocaleString()}
+                    </span>
+                    <p className="text-[8px] font-bold text-muted-foreground uppercase">
+                      الإجمالي
+                    </p>
+                  </div>
+                </div>
+              ))
+            )}
 
             {/* Expanded Footer Total */}
             <div className="mt-4 p-4 rounded-2xl bg-foreground text-background flex justify-between items-center shadow-inner">
