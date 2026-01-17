@@ -54,9 +54,8 @@ export async function GET(request: NextRequest) {
         userData?.name || session.customer_details?.name || undefined,
       shippingInfo: userData?.shippingInfo,
       status: "Processing",
-      createdAt: new Date(Date.now()).toISOString(),
+      createdAt: Date.now(), // ✅ CHANGED: Using milliseconds
       totalAmount: session.amount_total ? session.amount_total / 100 : 0,
-      deliveredAt: "",
     });
 
     // 4. Redirect to the relative /orders path

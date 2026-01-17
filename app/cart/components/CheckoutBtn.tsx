@@ -140,8 +140,7 @@ function CheckoutBtn() {
           shippingInfo: userData?.shippingInfo,
           productsList: cart,
           status: "Processing" as const, // Cast to literal type
-          deliveredAt: "",
-          createdAt: new Date().toISOString(),
+          createdAt: Date.now(), // ✅ CHANGED: Using milliseconds
           totalAmount: total,
           paymentMethod: paymentMethod,
           transactionReference: transactionRef,

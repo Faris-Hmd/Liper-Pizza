@@ -112,8 +112,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
           shippingInfo: userData?.shippingInfo,
           productsList: [], // Optimized: no need to send details for offers
           status: "Processing" as const,
-          deliveredAt: "",
-          createdAt: new Date().toISOString(),
+          createdAt: Date.now(), // ✅ CHANGED: Using milliseconds
           totalAmount: total,
           paymentMethod: paymentMethod,
           transactionReference: transactionRef,

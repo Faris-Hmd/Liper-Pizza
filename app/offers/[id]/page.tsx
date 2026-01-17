@@ -33,22 +33,12 @@ export default async function OfferDetailPage({
     notFound();
   }
 
+  // Calculate individual total considering quantities
   const individualTotal = offer.products.reduce(
-    (acc, p) => acc + (Number(p.p_cost) || 0),
+    (acc, p) => acc + (Number(p.p_cost) || 0) * (p.p_qu || 1),
     0,
   );
   const savings = individualTotal - (offer.price || 0);
-
-  // Group products to show quantities
-  const groupedProducts = offer.products.reduce((acc: any[], product) => {
-    const existing = acc.find((p) => p.id === product.id);
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      acc.push({ ...product, quantity: 1 });
-    }
-    return acc;
-  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -150,50 +140,75 @@ export default async function OfferDetailPage({
             <OfferCheckout offer={offer} />
 
             <div className="space-y-6">
-              <h3 className="text-xl font-black flex items-center gap-2">
-                <Info size={20} className="text-primary" />
-                مكونات العرض:
-              </h3>
-              <div className="space-y-4">
-                {groupedProducts.map((product) => (
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-black flex items-center gap-2">
+                  <Info size={20} className="text-primary" />
+                  مكونات العرض:
+                </h3>
+                <span className="text-tiny font-bold text-muted-foreground uppercase tracking-wider bg-muted px-3 py-1 rounded-full">
+                  {offer.products.length} منتج
+                </span>
+              </div>
+              <div className="space-y-3">
+                {offer.products.map((product, index) => (
                   <Link
-                    key={product.id}
+                    key={`${product.id}-${index}`}
                     href={`/products/${product.id}` as any}
-                    className="flex items-center justify-between p-4 bg-muted/50 rounded-2xl border border-transparent hover:border-primary/20 transition-all group shadow-sm active:scale-[0.98]"
+                    className="flex items-center justify-between p-4 bg-card rounded-2xl border border-border hover:border-primary/30 hover:shadow-md transition-all group active:scale-[0.98]"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="relative h-12 w-12 rounded-xl overflow-hidden shadow-sm">
+                    <div className="flex items-center gap-4 flex-1">
+                      <div className="relative h-14 w-14 rounded-xl overflow-hidden shadow-sm ring-1 ring-border">
                         <Image
                           src={product.p_imgs[0]?.url || "/placeholder.png"}
                           alt={product.p_name}
                           fill
-                          className="object-cover transition-transform group-hover:scale-105"
+                          className="object-cover transition-transform group-hover:scale-110"
                         />
+                        {(product.p_qu || 1) > 1 && (
+                          <div className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-tiny font-black w-6 h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-background">
+                            {product.p_qu || 1}
+                          </div>
+                        )}
                       </div>
-                      <div>
-                        <h4 className="font-bold text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
+                      <div className="flex-1">
+                        <h4 className="font-bold text-foreground group-hover:text-primary transition-colors mb-0.5">
                           {product.p_name}
-                          {product.quantity > 1 && (
-                            <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-                              × {product.quantity}
-                            </span>
-                          )}
                         </h4>
-                        <p className="text-xs text-muted-foreground font-medium">
-                          {CategoryLabelMap[product.p_cat] || product.p_cat}
-                        </p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-tiny text-muted-foreground font-medium uppercase tracking-wide">
+                            {CategoryLabelMap[product.p_cat] || product.p_cat}
+                          </p>
+                          {(product.p_qu || 1) > 1 && (
+                            <>
+                              <span className="text-muted-foreground/30">
+                                •
+                              </span>
+                              <span className="text-tiny font-black text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                                الكمية: {product.p_qu}
+                              </span>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
-                    <div className="flex flex-col items-end gap-1">
+                    <div className="flex flex-col items-end gap-1.5">
                       <span className="text-sm font-black text-foreground">
                         {Number(product.p_cost).toLocaleString()}
-                        <span className="text-[10px] mr-1 text-muted-foreground font-bold">
+                        <span className="text-tiny mr-1 text-muted-foreground font-bold">
                           جنية
                         </span>
                       </span>
+                      {(product.p_qu || 1) > 1 && (
+                        <span className="text-tiny font-bold text-muted-foreground">
+                          {(
+                            Number(product.p_cost) * (product.p_qu || 1)
+                          ).toLocaleString()}{" "}
+                          إجمالي
+                        </span>
+                      )}
                       <CheckCircle2
                         size={14}
-                        className="text-primary opacity-40 group-hover:opacity-100 transition-opacity"
+                        className="text-success opacity-60 group-hover:opacity-100 transition-opacity"
                       />
                     </div>
                   </Link>

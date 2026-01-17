@@ -224,6 +224,59 @@
 }
 
 @layer components {
+  /* Typography Utility Classes - Scale with root font size */
+  .text-tiny {
+    font-size: 0.625rem; /* 10px at 16px root */
+    line-height: 1.4;
+  }
+
+  .text-small {
+    font-size: 0.75rem; /* 12px at 16px root */
+    line-height: 1.5;
+  }
+
+  .text-medium {
+    font-size: 0.875rem; /* 14px at 16px root */
+    line-height: 1.5;
+  }
+
+  .text-base {
+    font-size: 1rem; /* 16px at 16px root */
+    line-height: 1.5;
+  }
+
+  .text-big {
+    font-size: 1.125rem; /* 18px at 16px root */
+    line-height: 1.5;
+  }
+
+  .text-large {
+    font-size: 1.25rem; /* 20px at 16px root */
+    line-height: 1.4;
+  }
+
+  .text-huge {
+    font-size: 1.5rem; /* 24px at 16px root */
+    line-height: 1.3;
+  }
+
+  /* Font Weight Utilities */
+  .font-regular {
+    font-weight: 400;
+  }
+  .font-medium {
+    font-weight: 500;
+  }
+  .font-semibold {
+    font-weight: 600;
+  }
+  .font-bold {
+    font-weight: 700;
+  }
+  .font-black {
+    font-weight: 900;
+  }
+
   /* Common Header Style */
   .page-header {
     @apply bg-card border-b border-border relative py-4 sm:py-6 w-full;

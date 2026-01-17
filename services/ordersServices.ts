@@ -45,7 +45,6 @@ export async function getOrdersWh(
       return {
         ...d.data(),
         id: d.id,
-        deleveratstamp: "",
       } as OrderData;
     });
   } catch (error) {
@@ -86,7 +85,6 @@ export async function getOrderById(id: string): Promise<OrderData | null> {
       return {
         ...snap.data(),
         id: snap.id,
-        deleveratstamp: "",
       } as OrderData;
     } else {
       console.log("No such document!");
