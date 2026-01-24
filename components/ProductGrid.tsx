@@ -32,14 +32,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {/* Visual Area */}
       <Link
         href={`/products/${product.id}`}
-        className="block relative aspect-[5/3] bg-muted overflow-hidden"
+        className="block relative aspect-[2/1] bg-muted overflow-hidden"
       >
         <Image
           src={imageUrl}
           alt={product.p_name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
-          className="object-cover transition-transform duration-500"
+          className="object-contain p-2 transition-transform duration-500"
         />
 
         <div className="absolute top-1 left-3 overflow-hidden z-10">

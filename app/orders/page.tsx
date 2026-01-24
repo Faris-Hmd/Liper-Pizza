@@ -17,6 +17,7 @@ import {
   Phone,
   MessageSquare,
   Truck,
+  Ban,
 } from "lucide-react";
 import { OrderData } from "@/types/orderTypes";
 import { cn } from "@/lib/utils";
@@ -40,11 +41,13 @@ export default function OrdersPage() {
   );
 
   const { data: ordersData, isLoading } = useSWR<OrderData[]>(
-    session?.user?.email ? `customer-all-orders/${session.user.email}` : null,
+    session?.user?.email
+      ? `customer-active-orders/${session.user.email}`
+      : null,
     () =>
       getOrdersWh([
         { field: "customer_email", op: "==", val: session?.user?.email },
-        { field: "status", op: "!=", val: "Delivered" },
+        { field: "status", op: "in", val: ["Processing", "Shipped"] },
       ]),
     {
       revalidateOnFocus: false,
@@ -73,27 +76,39 @@ export default function OrdersPage() {
   return (
     <div className="min-h-screen bg-background pb-32 animate-in fade-in duration-700">
       <header className="page-header border-b border-border bg-card sticky top-0 z-100 shadow-sm">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-6 flex items-center justify-between">
           <div>
             <h1 className="text-xl font-black text-foreground uppercase tracking-tighter">
               طلباتي <span className="text-primary">الحالية</span>
             </h1>
-            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mt-0.5">
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mt-0.5">
               تتبع مسار وجباتك
             </p>
           </div>
-          <Link
-            href="/orders/history"
-            className="flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-radius-md hover:bg-primary/20 transition-all group"
-          >
-            <HistoryIcon
-              size={16}
-              className="text-primary group-hover:rotate-[-15deg] transition-transform"
-            />
-            <span className="text-xs font-black uppercase text-primary">
-              السجل الكامل
-            </span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/orders/cancelled"
+              className="flex items-center gap-2 bg-muted/50 px-3 py-2 rounded-radius-md hover:bg-muted transition-all group border border-border"
+              title="الطلبات الملغاة"
+            >
+              <Ban
+                size={16}
+                className="text-muted-foreground group-hover:text-error transition-colors"
+              />
+            </Link>
+            <Link
+              href="/orders/history"
+              className="flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-radius-md hover:bg-primary/20 transition-all group"
+            >
+              <HistoryIcon
+                size={16}
+                className="text-primary group-hover:rotate-[-15deg] transition-transform"
+              />
+              <span className="text-xs font-black uppercase text-primary hidden sm:inline">
+                السجل الكامل
+              </span>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -123,7 +138,7 @@ export default function OrdersPage() {
 
         {/* LIST */}
         <div className="space-y-6">
-          <div className="grid gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {ordersData && ordersData.length > 0 ? (
               ordersData.map((order, idx) => (
                 <div
@@ -221,7 +236,7 @@ function SimpleOrderCard({ order }: { order: OrderData }) {
                 </h4>
                 <span
                   className={cn(
-                    "text-[10px] font-black uppercase px-2.5 py-1 rounded-full border flex items-center gap-1.5",
+                    "text-xs font-black uppercase px-2.5 py-1 rounded-full border flex items-center gap-1.5",
                     statusConfig.styles,
                   )}
                 >
@@ -229,7 +244,7 @@ function SimpleOrderCard({ order }: { order: OrderData }) {
                   {statusConfig.label}
                 </span>
               </div>
-              <div className="flex items-center gap-2 text-[11px] text-muted-foreground font-bold">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground font-bold">
                 <span className="text-foreground">
                   {new Date(order.createdAt).toLocaleDateString("ar-EG", {
                     day: "numeric",
@@ -250,10 +265,10 @@ function SimpleOrderCard({ order }: { order: OrderData }) {
           <div className="flex flex-col items-end gap-3 text-right">
             <div className="text-xl font-black text-primary tracking-tighter leading-none">
               {order.totalAmount.toLocaleString()}
-              <span className="text-[10px] mr-1 opacity-60">جنية</span>
+              <span className="text-xs mr-1 opacity-60">جنية</span>
             </div>
             {order.isOffer && (
-              <span className="text-[9px] font-black px-2 py-0.5 rounded-radius-sm bg-primary text-primary-foreground flex items-center gap-1 uppercase tracking-widest">
+              <span className="text-xs font-black px-2 py-0.5 rounded-radius-sm bg-primary text-primary-foreground flex items-center gap-1 uppercase tracking-widest">
                 <Tag size={10} strokeWidth={3} />
                 باقة توفير
               </span>
@@ -269,13 +284,13 @@ function SimpleOrderCard({ order }: { order: OrderData }) {
               {order.productsList.slice(0, 3).map((p, i) => (
                 <span
                   key={i}
-                  className="text-[10px] font-bold bg-background px-2 py-1 rounded-radius-sm border border-border shadow-sm"
+                  className="text-xs font-bold bg-background px-2 py-1 rounded-radius-sm border border-border shadow-sm"
                 >
                   {p.p_name}
                 </span>
               ))}
               {order.productsList.length > 3 && (
-                <span className="text-[10px] font-bold text-muted-foreground flex items-center px-1">
+                <span className="text-xs font-bold text-muted-foreground flex items-center px-1">
                   +{order.productsList.length - 3} أخرى
                 </span>
               )}
@@ -363,15 +378,13 @@ function StatBox({
     >
       <div className="flex items-center gap-2 mb-2 opacity-80">
         {icon}
-        <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">
+        <span className="text-xs font-black text-muted-foreground uppercase tracking-widest">
           {label}
         </span>
       </div>
       <p className="text-lg font-black tracking-tighter">
         {value}{" "}
-        {suffix && (
-          <span className="text-[10px] opacity-40 mr-0.5">{suffix}</span>
-        )}
+        {suffix && <span className="text-xs opacity-40 mr-0.5">{suffix}</span>}
       </p>
     </div>
   );

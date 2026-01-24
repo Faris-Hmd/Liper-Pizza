@@ -41,12 +41,15 @@ export async function getOrdersWh(
     // 3. Execute
     const snap = await getDocs(q);
 
-    return snap.docs.map((d) => {
+    const orders = snap.docs.map((d) => {
       return {
         ...d.data(),
         id: d.id,
       } as OrderData;
     });
+
+    // 4. Sort by time (newest first) in memory to avoid index issues
+    return orders.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
   } catch (error) {
     console.error("Firestore Query Error:", error);
     return [];

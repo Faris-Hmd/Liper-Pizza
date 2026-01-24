@@ -107,7 +107,7 @@ export default function OrderDetailsPage() {
     <div className="min-h-screen bg-background pb-32">
       {/* Header */}
       <header className="page-header sticky top-0 z-40 bg-background border-b border-border">
-        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center gap-4">
+        <div className="max-w-3xl mx-auto px-4 py-2 flex items-center gap-4">
           <button
             onClick={() => router.back()}
             className="p-2 hover:bg-muted rounded-radius-md transition-colors"

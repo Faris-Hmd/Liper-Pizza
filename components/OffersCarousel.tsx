@@ -30,7 +30,7 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
             <Sparkles size={24} className="animate-pulse" />
           </div>
           <div>
-            <h2 className="text-2xl md:text-3xl font-black text-foreground tracking-tight">
+            <h2 className="text-2xl md:text-2xl font-black text-foreground tracking-tight">
               عروض حصرية
             </h2>
             <p className="text-sm text-muted-foreground font-medium">
@@ -87,12 +87,12 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
                   {/* Badges */}
                   <div className="absolute top-4 right-4 z-20 flex flex-col items-end gap-2">
                     {offer.badge && (
-                      <span className="px-3 py-1.5 bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest rounded-full shadow-xl">
+                      <span className="px-3 py-1.5 bg-primary text-primary-foreground text-xs font-black uppercase tracking-widest rounded-full shadow-xl">
                         {offer.badge}
                       </span>
                     )}
                     {savings > 0 && (
-                      <span className="px-3 py-1 bg-success text-success-foreground text-[10px] font-black uppercase tracking-widest rounded-full shadow-xl animate-in fade-in slide-in-from-top-2 duration-700">
+                      <span className="px-3 py-1 bg-success text-success-foreground text-xs font-black uppercase tracking-widest rounded-full shadow-xl animate-in fade-in slide-in-from-top-2 duration-700">
                         وفر {savings.toLocaleString()} جنية
                       </span>
                     )}
@@ -100,7 +100,7 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
 
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 z-20 transform transition-all duration-500">
-                    <h3 className="text-xl md:text-2xl font-black text-white mb-1 transition-colors">
+                    <h3 className="text-xl md:text-xl font-black text-white mb-1 transition-colors">
                       {offer.title}
                     </h3>
                     <p className="text-white/70 text-xs md:text-sm font-medium mb-5 line-clamp-1 group-hover/card:text-white/90">
@@ -114,7 +114,7 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
                             <span className="text-white font-black text-2xl tracking-tighter">
                               {offer.price}
                             </span>
-                            <span className="text-[10px] text-white/70 font-bold uppercase">
+                            <span className="text-xs text-white/70 font-bold uppercase">
                               جنية
                             </span>
                           </div>
@@ -123,7 +123,7 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
                           </span>
                         </div>
                       )}
-                      <div className="p-2 bg-white/10 rounded-radius-md backdrop-blur-sm group-hover/card:bg-primary transition-colors">
+                      <div className="p-2 bg-white/10 rounded-radius-md md:backdrop-blur-sm group-hover/card:bg-primary transition-colors">
                         <ArrowRight size={18} className="text-white" />
                       </div>
                     </div>
@@ -138,8 +138,8 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
         </CarouselContent>
 
         <div className="hidden md:block">
-          <CarouselPrevious className="absolute -left-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all border-none bg-background/80 blur-none hover:bg-primary hover:text-white shadow-xl" />
-          <CarouselNext className="absolute -right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all border-none bg-background/80 blur-none hover:bg-primary hover:text-white shadow-xl" />
+          <CarouselPrevious className="absolute -left-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all border-none bg-background/80 md:backdrop-blur-sm hover:bg-primary hover:text-white shadow-xl" />
+          <CarouselNext className="absolute -right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all border-none bg-background/80 md:backdrop-blur-sm hover:bg-primary hover:text-white shadow-xl" />
         </div>
       </Carousel>
     </div>

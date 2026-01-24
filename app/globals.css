@@ -10,7 +10,7 @@
   --secondary-color: #1a1a1a; /* Charcoal/Black */
   --accent-color: #a52a2a; /* Brownish Red Accent */
 
-  --bg-light: #ffffff; /* Pure white background */
+  --bg-light: #f4f4f5; /* Zinc-100: Light grey to contrast with white cards */
   --fg-light: #09090b; /* Dark neutral text */
 
   --bg-dark: #000000; /* Pure black for maximum contrast */
@@ -71,35 +71,35 @@
 }
 
 .dark {
-  --background: #1a1a1a;
+  --background: #09090b; /* Zinc-950: Very dark slate instead of pure black */
   --foreground: #ffffff;
-  --primary: #b91c1c; /* Brighter maroon for dark mode */
+  --primary: #ef4444; /* Red-500: Softer, Standard Red */
   --primary-foreground: #ffffff;
-  --secondary: #1a1a1a;
+  --secondary: #27272a;
   --secondary-foreground: #ffffff;
 
-  --card: #1a1a1a;
+  --card: #1c1c1f; /* Slightly lighter/brighter than background */
   --card-foreground: #ffffff;
-  --popover: #1a1a1a;
+  --popover: #18181b;
   --popover-foreground: #ffffff;
-  --muted: #111111;
-  --muted-foreground: #e5e7eb; /* Brighter for readability */
-  --accent: #111111;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
   --accent-foreground: #ffffff;
-  --border: #4a3737; /* Stronger maroon tint */
-  --input: #1a1a1a;
+  --border: #27272a;
+  --input: #27272a;
 
   /* Status Colors Dark */
-  --success: #34d399;
-  --warning: #fbbf24;
+  --success: #22c55e;
+  --warning: #eab308;
   --error: #ef4444;
-  --info: #60a5fa;
+  --info: #3b82f6;
 
-  --card-alt: #111111;
+  --card-alt: #18181b;
 
-  /* Custom Shadows for Dark Mode */
-  --shadow-maroon: 0 0 15px rgba(0, 0, 0, 0.2);
-  --shadow-maroon-lg: 0 0 25px rgba(0, 0, 0, 0.3);
+  /* Custom Shadows for Dark Mode - Neutralized */
+  --shadow-maroon: 0 0 15px rgba(0, 0, 0, 0.5);
+  --shadow-maroon-lg: 0 0 25px rgba(0, 0, 0, 0.7);
 }
 
 @theme inline {
@@ -168,7 +168,7 @@
 
   @media (min-width: 640px) {
     html {
-      font-size: 16px; /* Normal size on desktop */
+      font-size: 14px; /* Normal size on desktop */
     }
   }
 

@@ -60,12 +60,9 @@ function CartBtn({ product }: { product: ProductType }) {
   }, [product.id]);
 
   return (
-    <div className="group flex flex-col sm:flex-row items-center gap-3 w-full">
+    <div className="group flex items-center gap-3 w-full">
       {/* --- QUANTITY SELECTOR --- */}
-      <div className="flex flex-col gap-1 w-full sm:w-auto">
-        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mr-1">
-          الكمية
-        </p>
+      <div className="w-24 shrink-0">
         <Select
           value={quantity}
           onValueChange={(v) => {
@@ -73,7 +70,7 @@ function CartBtn({ product }: { product: ProductType }) {
             if (inCart) upsert(v);
           }}
         >
-          <SelectTrigger className="w-full sm:w-24 h-12 bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 rounded-xl font-black text-xs ring-offset-primary focus:ring-primary">
+          <SelectTrigger className="w-full h-12 bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 rounded-xl font-black text-xs ring-offset-primary focus:ring-primary">
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-white/10 rounded-xl">
@@ -91,46 +88,45 @@ function CartBtn({ product }: { product: ProductType }) {
       </div>
 
       {/* --- MAIN ACTION BUTTON --- */}
-      <div className="flex flex-col gap-1 w-full flex-1">
-        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mr-1">
-          الإجراء
-        </p>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => upsert(quantity)}
-            className={cn(
-              "relative flex-1 h-12 flex items-center justify-center gap-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all active:scale-[0.97] overflow-hidden",
-              inCart
-                ? "bg-slate-900 dark:bg-white text-white dark:text-black shadow-xl shadow-slate-900/10"
-                : "bg-primary text-white shadow-xl shadow-primary/20 hover:opacity-90",
-            )}
-          >
-            {isUpdating ? (
-              <Spinner size="sm" />
-            ) : inCart ? (
-              <>
-                <Check size={16} strokeWidth={3} className="text-primary" />
-                تحديث الطلب
-              </>
-            ) : (
-              <>
-                <Plus size={16} strokeWidth={3} />
-                إضافة للسلة
-              </>
-            )}
-          </button>
-
-          {/* --- REMOVE BUTTON --- */}
-          {inCart && (
-            <button
-              onClick={remove}
-              title="إزالة من السلة"
-              className="h-12 w-12 flex items-center justify-center rounded-xl bg-red-50 dark:bg-red-500/10 text-red-500 hover:bg-red-100 dark:hover:bg-red-500/20 transition-all active:scale-90 border border-red-100 dark:border-red-500/20"
-            >
-              <Trash2 size={18} />
-            </button>
+      <div className="flex-1 flex items-center gap-2">
+        <button
+          onClick={() => upsert(quantity)}
+          className={cn(
+            "relative flex-1 h-12 flex items-center justify-center gap-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all active:scale-[0.97] overflow-hidden",
+            inCart
+              ? "bg-primary/90 text-primary-foreground shadow-xl shadow-primary/20 ring-2 ring-primary/20"
+              : "bg-primary text-primary-foreground shadow-xl shadow-primary/20 hover:opacity-90",
           )}
-        </div>
+        >
+          {isUpdating ? (
+            <Spinner size="sm" />
+          ) : inCart ? (
+            <>
+              <Check
+                size={16}
+                strokeWidth={3}
+                className="text-primary-foreground"
+              />
+              تحديث
+            </>
+          ) : (
+            <>
+              <Plus size={16} strokeWidth={3} />
+              إضافة
+            </>
+          )}
+        </button>
+
+        {/* --- REMOVE BUTTON --- */}
+        {inCart && (
+          <button
+            onClick={remove}
+            title="إزالة من السلة"
+            className="h-12 w-12 flex items-center justify-center rounded-xl bg-red-50 dark:bg-red-500/10 text-red-500 hover:bg-red-100 dark:hover:bg-red-500/20 transition-all active:scale-90 border border-red-100 dark:border-red-500/20 shrink-0"
+          >
+            <Trash2 size={18} />
+          </button>
+        )}
       </div>
     </div>
   );

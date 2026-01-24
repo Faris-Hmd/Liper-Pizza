@@ -168,43 +168,43 @@ function CheckoutBtn() {
     <div className="mt-4 bg-card rounded-radius-lg border border-border shadow-2xl overflow-hidden transition-all duration-500 ease-in-out">
       {!showConfirm ? (
         /* View 1: Order Summary */
-        <div className="p-4 sm:p-5 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-radius-md bg-primary/10 flex items-center justify-center">
-              <CreditCard size={24} className="text-primary" />
+        <div className="p-3 sm:p-4 space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-radius-md bg-primary/10 flex items-center justify-center">
+              <CreditCard size={18} className="text-primary" />
             </div>
-            <h2 className="text-lg sm:text-xl font-black text-foreground uppercase tracking-tight">
+            <h2 className="text-base sm:text-lg font-black text-foreground uppercase tracking-tight">
               ملخص <span className="text-primary">الطلب</span>
             </h2>
           </div>
 
-          <div className="space-y-3 pt-2">
-            <div className="flex justify-between text-base text-muted-foreground">
+          <div className="space-y-2 pt-1">
+            <div className="flex justify-between text-sm text-muted-foreground">
               <span>المجموع الفرعي ({cart.length} أصناف)</span>
               <span className="font-bold text-foreground">
                 {total.toLocaleString()} جنية
               </span>
             </div>
-            <div className="flex justify-between items-center text-base">
+            <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground">خدمة التوصيل</span>
-              <span className="text-success font-black text-xs uppercase tracking-[0.2em] bg-success/10 px-3 py-1 rounded-full border border-success/20">
+              <span className="text-success font-black text-[10px] uppercase tracking-[0.2em] bg-success/10 px-2 py-0.5 rounded-full border border-success/20">
                 مجاني
               </span>
             </div>
-            <div className="flex justify-between text-base text-muted-foreground/60 italic">
+            <div className="flex justify-between text-xs text-muted-foreground/60 italic">
               <span>الضرائب والرسوم</span>
               <span>تحسب عند الدفع</span>
             </div>
           </div>
 
-          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-4" />
+          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-3" />
 
-          <div className="flex justify-between items-end mb-8">
-            <div className="space-y-1">
+          <div className="flex justify-between items-end mb-4">
+            <div className="space-y-0.5">
               <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
                 المبلغ الإجمالي كلياً
               </p>
-              <span className="text-2xl sm:text-3xl font-black text-primary tracking-tighter">
+              <span className="text-xl sm:text-2xl font-black text-primary tracking-tighter">
                 {total.toLocaleString()}{" "}
                 <span className="text-xs font-bold text-muted-foreground/50">
                   جنية
@@ -217,16 +217,16 @@ function CheckoutBtn() {
             <button
               disabled={isPending || cart.length === 0}
               className={cn(
-                "group w-full py-3 px-6 flex items-center justify-center gap-4",
+                "group w-full py-2.5 px-4 flex items-center justify-center gap-3",
                 "bg-primary hover:opacity-95 disabled:bg-muted disabled:cursor-not-allowed",
-                "text-primary-foreground text-lg font-black rounded-radius-md shadow-xl shadow",
+                "text-primary-foreground text-base font-black rounded-radius-md shadow-lg shadow",
                 "transition-all duration-300 active:scale-[0.98]",
               )}
               type="submit"
             >
               <span>إتمام الطلب بأمان</span>
               <ArrowRight
-                size={24}
+                size={20}
                 className="group-hover:translate-x-1.5 transition-transform"
               />
             </button>
@@ -241,12 +241,12 @@ function CheckoutBtn() {
         /* View 2: Finalize & Payment (Inline) */
         <div className="animate-in fade-in slide-in-from-right-4 duration-500">
           {/* Sub-Header */}
-          <div className="p-4 border-b border-border bg-muted/5 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-radius-md bg-primary/10 flex items-center justify-center">
-                <ShieldCheck size={20} className="text-primary" />
+          <div className="p-3 border-b border-border bg-muted/5 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-radius-md bg-primary/10 flex items-center justify-center">
+                <ShieldCheck size={16} className="text-primary" />
               </div>
-              <h3 className="text-base sm:text-lg font-black text-foreground uppercase tracking-tight">
+              <h3 className="text-sm sm:text-base font-black text-foreground uppercase tracking-tight">
                 تأكيد <span className="text-primary">البيانات والدفع</span>
               </h3>
             </div>
@@ -261,28 +261,28 @@ function CheckoutBtn() {
 
           <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x md:divide-border rtl:divide-x-reverse">
             {/* Payment Section */}
-            <div className="flex-1 p-4 sm:p-5 space-y-5">
+            <div className="flex-1 p-3 sm:p-4 space-y-4">
               <div className="space-y-5">
                 <div>
                   <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-3">
                     1. المبلغ ووسيلة الدفع
                   </h4>
-                  <div className="bg-primary/5 rounded-radius-md p-4 border border-primary/10 shadow-inner">
-                    <div className="flex items-center gap-3 bg-background p-3 rounded-radius-sm border border-primary/20 shadow-sm">
-                      <span className="font-mono font-black flex-1 text-center text-2xl tracking-tighter text-foreground">
+                  <div className="bg-primary/5 rounded-radius-md p-3 border border-primary/10 shadow-inner">
+                    <div className="flex items-center gap-2 bg-background p-2 rounded-radius-sm border border-primary/20 shadow-sm">
+                      <span className="font-mono font-black flex-1 text-center text-xl tracking-tighter text-foreground">
                         {total.toLocaleString()}{" "}
-                        <span className="text-xs">جنية</span>
+                        <span className="text-[10px]">جنية</span>
                       </span>
                       <button
                         onClick={() =>
                           copyToClipboard(total.toString(), "amount")
                         }
-                        className="p-2.5 hover:bg-primary/10 rounded-radius-sm transition-colors text-primary"
+                        className="p-2 hover:bg-primary/10 rounded-radius-sm transition-colors text-primary"
                       >
                         {copiedField === "amount" ? (
-                          <Check size={20} />
+                          <Check size={16} />
                         ) : (
-                          <Copy size={20} />
+                          <Copy size={16} />
                         )}
                       </button>
                     </div>
@@ -293,83 +293,85 @@ function CheckoutBtn() {
                   <button
                     onClick={() => setPaymentMethod("stripe")}
                     className={cn(
-                      "p-3 rounded-radius-md border-2 flex flex-col items-center justify-center gap-2 transition-all",
+                      "p-2 rounded-radius-md border-2 flex flex-row items-center justify-center gap-2 transition-all",
                       paymentMethod === "stripe"
                         ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
                         : "border-border hover:bg-muted text-muted-foreground",
                     )}
                   >
-                    <CreditCard size={20} />
+                    <CreditCard size={16} />
                     <span className="text-[10px] font-bold">بطاقة</span>
                   </button>
                   <button
                     onClick={() => setPaymentMethod("bankak")}
                     className={cn(
-                      "p-3 rounded-radius-md border-2 flex flex-col items-center justify-center gap-2 transition-all",
+                      "p-2 rounded-radius-md border-2 flex flex-row items-center justify-center gap-2 transition-all",
                       paymentMethod === "bankak"
                         ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
                         : "border-border hover:bg-muted text-muted-foreground",
                     )}
                   >
-                    <span className="font-black text-xl leading-none">B</span>
+                    <span className="font-black text-base leading-none">B</span>
                     <span className="text-[10px] font-bold">بنكك</span>
                   </button>
                   <button
                     onClick={() => setPaymentMethod("mycashi")}
                     className={cn(
-                      "p-3 rounded-radius-md border-2 flex flex-col items-center justify-center gap-2 transition-all",
+                      "p-2 rounded-radius-md border-2 flex flex-row items-center justify-center gap-2 transition-all",
                       paymentMethod === "mycashi"
                         ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
                         : "border-border hover:bg-muted text-muted-foreground",
                     )}
                   >
-                    <span className="font-black text-xl leading-none">C</span>
+                    <span className="font-black text-base leading-none">C</span>
                     <span className="text-[10px] font-bold">كاشي</span>
                   </button>
                 </div>
 
                 {paymentMethod !== "stripe" && (
-                  <div className="bg-muted/30 rounded-radius-md p-4 border border-border space-y-4 animate-in fade-in slide-in-from-top-3 duration-300">
-                    <div className="space-y-2">
-                      <p className="text-[10px] text-muted-foreground">
-                        حول المبلغ إلى:
-                      </p>
-                      <div className="flex items-center gap-2 bg-background p-3 rounded-radius-sm border border-border">
-                        <span className="font-mono font-bold flex-1 text-center text-sm tracking-wider">
-                          {paymentMethod === "bankak"
-                            ? BANKAK_ACCOUNT
-                            : MYCASHI_ACCOUNT}
-                        </span>
-                        <button
-                          onClick={() =>
-                            copyToClipboard(
-                              paymentMethod === "bankak"
-                                ? BANKAK_ACCOUNT
-                                : MYCASHI_ACCOUNT,
-                              "account",
-                            )
-                          }
-                          className="p-1.5 hover:bg-muted rounded-radius-sm transition-colors text-muted-foreground"
-                        >
-                          {copiedField === "account" ? (
-                            <Check size={16} />
-                          ) : (
-                            <Copy size={16} />
-                          )}
-                        </button>
+                  <div className="bg-muted/30 rounded-radius-md p-3 border border-border animate-in fade-in slide-in-from-top-3 duration-300">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1.5">
+                        <p className="text-[10px] text-muted-foreground">
+                          حول المبلغ إلى:
+                        </p>
+                        <div className="flex items-center gap-2 bg-background p-2 rounded-radius-sm border border-border h-[42px]">
+                          <span className="font-mono font-bold flex-1 text-center text-xs tracking-wider truncate">
+                            {paymentMethod === "bankak"
+                              ? BANKAK_ACCOUNT
+                              : MYCASHI_ACCOUNT}
+                          </span>
+                          <button
+                            onClick={() =>
+                              copyToClipboard(
+                                paymentMethod === "bankak"
+                                  ? BANKAK_ACCOUNT
+                                  : MYCASHI_ACCOUNT,
+                                "account",
+                              )
+                            }
+                            className="p-1.5 hover:bg-muted rounded-radius-sm transition-colors text-muted-foreground shrink-0"
+                          >
+                            {copiedField === "account" ? (
+                              <Check size={14} />
+                            ) : (
+                              <Copy size={14} />
+                            )}
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-bold">
-                        رقم المعاملة
-                      </label>
-                      <input
-                        type="text"
-                        value={transactionRef}
-                        onChange={(e) => setTransactionRef(e.target.value)}
-                        placeholder="رقم العملية هنا..."
-                        className="w-full bg-background border border-border rounded-radius-sm px-3 py-2 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                      />
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold">
+                          رقم المعاملة
+                        </label>
+                        <input
+                          type="number"
+                          value={transactionRef}
+                          onChange={(e) => setTransactionRef(e.target.value)}
+                          placeholder="الرقم..."
+                          className="w-full h-[42px] bg-background border border-border rounded-radius-sm px-3 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
@@ -377,8 +379,8 @@ function CheckoutBtn() {
             </div>
 
             {/* Delivery & Action Section */}
-            <div className="flex-1 p-4 sm:p-5 space-y-5 bg-muted/5 flex flex-col">
-              <div className="flex-1 space-y-5">
+            <div className="flex-1 p-3 sm:p-4 space-y-4 bg-muted/5 flex flex-col">
+              <div className="flex-1 space-y-4">
                 <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-3">
                   2. معلومات التوصيل
                 </h4>
@@ -413,25 +415,25 @@ function CheckoutBtn() {
                 </div>
               </div>
 
-              <div className="pt-6 space-y-3">
+              <div className="pt-4 space-y-2">
                 <button
                   onClick={handleConfirmPayment}
                   disabled={isPending}
-                  className="w-full bg-primary hover:opacity-95 text-primary-foreground font-black py-3 rounded-radius-md shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex justify-center items-center gap-3 text-lg"
+                  className="w-full bg-primary hover:opacity-95 text-primary-foreground font-black py-2.5 rounded-radius-md shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex justify-center items-center gap-2 text-base"
                 >
                   {isPending ? (
                     <Spinner size="sm" />
                   ) : (
-                    <ShieldCheck size={24} />
+                    <ShieldCheck size={20} />
                   )}
                   {isPending ? "جاري المعالجة..." : "تأكيد الطلب الآن"}
                 </button>
 
                 <button
                   onClick={() => router.push("/profile/edit")}
-                  className="w-full bg-background hover:bg-muted text-foreground font-bold py-3 rounded-radius-md border border-border transition-all active:scale-[0.98] flex justify-center items-center gap-2 text-xs"
+                  className="w-full bg-background hover:bg-muted text-foreground font-bold py-2.5 rounded-radius-md border border-border transition-all active:scale-[0.98] flex justify-center items-center gap-2 text-[10px]"
                 >
-                  <Edit size={16} />
+                  <Edit size={14} />
                   <span>تعديل بيانات الشحن</span>
                 </button>
               </div>

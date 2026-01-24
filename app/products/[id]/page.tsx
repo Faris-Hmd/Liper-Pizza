@@ -62,17 +62,6 @@ export default async function ProductsDetails(props: {
   return (
     <div className="min-h-screen bg-background transition-colors pb-20">
       {/* Top Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
-        <Link
-          href={("/products/categories/" + product?.p_cat) as any}
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-        >
-          <ChevronLeft size={16} className="rotate-180" />
-          <span className="text-[10px] font-black uppercase tracking-widest">
-            العودة للقائمة
-          </span>
-        </Link>
-      </div>
 
       <div className="container mx-auto px-0 md:px-6 max-w-7xl">
         {/* Main Product Card */}
@@ -82,9 +71,9 @@ export default async function ProductsDetails(props: {
             <div className="relative bg-card flex items-center justify-center border-b md:border-b-0 md:border-r border-border">
               <div className="w-full h-full">
                 <ProductImgCarousel
-                  imgH={"h-[400px] md:h-[550px]"}
+                  imgH={"h-[250px] md:h-[350px]"}
                   imgs={product.p_imgs}
-                  imgFill={"object-cover"}
+                  imgFill={"object-contain"}
                 />
               </div>
               <div className="absolute top-6 right-6 hidden md:block">
@@ -95,7 +84,7 @@ export default async function ProductsDetails(props: {
             </div>
 
             {/* Right: Technical Details */}
-            <div className="space-y-6 lg:sticky lg:top-24 w-full mx-auto lg:mx-0">
+            <div className="space-y-6 lg:sticky lg:top-6 w-full mx-auto lg:mx-0 p-6 md:p-8">
               <div className="flex-1 space-y-8">
                 {/* Product Meta */}
                 <div className="space-y-4">

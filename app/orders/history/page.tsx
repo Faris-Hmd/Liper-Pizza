@@ -74,16 +74,16 @@ export default function HistoryPage() {
             {/* --- COMPACT MINIFIED STATS BAR --- */}
             <div className="grid grid-cols-3 gap-2 bg-card border border-border p-2 pb-0   rounded shadow-sm">
               <div className="flex flex-col items-center justify-center py-1 border-border">
-                <span className="text-[12px] font-black text-muted-foreground uppercase tracking-tighter">
+                <span className="text-xs font-black text-muted-foreground uppercase tracking-tighter">
                   الإنفاق
                 </span>
                 <p className="text-xs font-black text-foreground">
                   {Math.round(stats.totalSpend / 1000)}k{" "}
-                  <span className="text-[7px] text-primary">جنية</span>
+                  <span className="text-xs text-primary">جنية</span>
                 </p>
               </div>
               <div className="flex flex-col items-center justify-center py-1 border-border">
-                <span className="text-[12px] font-black text-muted-foreground uppercase tracking-tighter">
+                <span className="text-xs font-black text-muted-foreground uppercase tracking-tighter">
                   الوحدات
                 </span>
                 <p className="text-xs font-black text-foreground">
@@ -91,7 +91,7 @@ export default function HistoryPage() {
                 </p>
               </div>
               <div className="flex flex-col items-center justify-center py-1">
-                <span className="text-[12px] font-black text-muted-foreground uppercase tracking-tighter">
+                <span className="text-xs font-black text-muted-foreground uppercase tracking-tighter">
                   الطلبات
                 </span>
                 <p className="text-xs font-black text-foreground">
@@ -102,16 +102,16 @@ export default function HistoryPage() {
 
             {/* List Header */}
             <div className="flex items-center justify-between px-1">
-              <h2 className="text-[12px] font-black text-muted-foreground uppercase tracking-[0.2em]">
+              <h2 className="text-xs font-black text-muted-foreground uppercase tracking-[0.2em]">
                 سجل الطلبات المستلمة
               </h2>
-              <span className="text-[12px] font-bold text-muted-foreground bg-muted px-2 py-1 rounded-md">
+              <span className="text-xs font-bold text-muted-foreground bg-muted px-2 py-1 rounded-md">
                 {stats.count} إجمالي
               </span>
             </div>
 
             {/* History List */}
-            <div className="grid gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {orders.map((order) => (
                 <OrderList key={order.id} order={order} />
               ))}

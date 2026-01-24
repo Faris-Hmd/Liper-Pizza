@@ -2,13 +2,13 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getOffers } from "@/services/offersServices";
-import { Sparkles, ArrowLeft, PlusCircle } from "lucide-react";
+import { Sparkles, ArrowLeft } from "lucide-react";
 
 export const metadata = {
   title: "لييبر بيتزا | العروض",
   description: "استكشف عروضنا الحصرية والوفيرة",
 };
-
+export const revalidate = 60;
 export default async function OffersPage() {
   const offers = await getOffers();
 
@@ -40,7 +40,7 @@ export default async function OffersPage() {
       </div>
 
       <main className="container mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-screen-2xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-screen-2xl mx-auto">
           {offers.map((offer) => {
             const individualTotal = offer.products.reduce(
               (acc, p) => acc + (Number(p.p_cost) || 0),
@@ -64,12 +64,12 @@ export default async function OffersPage() {
                   {/* Badge Overlay */}
                   <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
                     {offer.badge && (
-                      <span className="px-2 py-1 bg-primary text-primary-foreground text-[8px] font-black uppercase tracking-widest rounded-radius-sm shadow-sm">
+                      <span className="px-2 py-1 bg-primary text-primary-foreground text-xs font-black uppercase tracking-widest rounded-radius-sm shadow-sm">
                         {offer.badge}
                       </span>
                     )}
                     {savings > 0 && (
-                      <span className="px-2 py-1 bg-success text-success-foreground text-[8px] font-black uppercase tracking-widest rounded-radius-sm shadow-sm">
+                      <span className="px-2 py-1 bg-success text-success-foreground text-xs font-black uppercase tracking-widest rounded-radius-sm shadow-sm">
                         وفر {savings.toLocaleString()} جنية
                       </span>
                     )}
@@ -89,13 +89,13 @@ export default async function OffersPage() {
 
                   <div className="mt-auto space-y-4">
                     {/* Price & Action */}
-                    <div className="flex items-center justify-between pt-4 border-t border-border">
+                    <div className="flex flex-col gap-2 justify-between pt-4 border-t border-border">
                       <div className="flex flex-col">
                         <span className="text-[10px] text-muted-foreground line-through font-bold leading-none mb-1">
                           {individualTotal.toLocaleString()}
                         </span>
                         <div className="flex items-baseline gap-1">
-                          <span className="text-2xl font-black text-foreground tracking-tighter leading-none">
+                          <span className="text-xl font-black text-foreground tracking-tighter leading-none">
                             {offer.price}
                           </span>
                           <span className="text-[9px] font-bold text-muted-foreground uppercase">
@@ -106,7 +106,7 @@ export default async function OffersPage() {
 
                       <Link
                         href={`/offers/${offer.id}` as any}
-                        className="bg-primary text-primary-foreground px-4 py-2.5 rounded-radius-sm font-black text-[10px] uppercase tracking-widest shadow-sm hover:opacity-90 active:scale-95 transition-all"
+                        className="bg-primary text-primary-foreground px-4 py-2.5 rounded-radius-sm font-black text-sm text-center uppercase tracking-widest shadow-sm hover:opacity-90 active:scale-95 transition-all"
                       >
                         عرض التفاصيل
                       </Link>
