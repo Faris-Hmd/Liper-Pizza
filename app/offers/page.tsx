@@ -60,6 +60,7 @@ export default async function OffersPage() {
                     src={offer.image}
                     alt={offer.title}
                     fill
+                    sizes="(max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                     className="object-cover transition-none"
                   />
                   {/* Badge Overlay */}
