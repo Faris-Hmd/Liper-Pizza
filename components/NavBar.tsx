@@ -23,7 +23,7 @@ export default function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <nav className="sticky top-0 z-[100] bg-background border-b border-border py-3">
+    <nav className="sticky top-0 z-[100] bg-white dark:bg-background border-b border-border py-3">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
         {/* Brand Logo */}
         <div className="flex items-center gap-8">

@@ -33,7 +33,7 @@ export default function BtmNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t border-border bg-background pb-safe md:hidden h-16 px-2">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t border-border bg-white dark:bg-background pb-safe md:hidden h-16 px-2">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive =
