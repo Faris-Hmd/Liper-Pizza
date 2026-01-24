@@ -106,11 +106,11 @@ export default function OrderDetailsPage() {
   return (
     <div className="min-h-screen bg-background pb-32">
       {/* Header */}
-      <header className="page-header sticky top-0 z-10 bg-background/80 md:backdrop-blur-md border-b border-border">
+      <header className="page-header sticky top-0 z-40 bg-background border-b border-border">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center gap-4">
           <button
             onClick={() => router.back()}
-            className="p-2 hover:bg-muted rounded-xl transition-colors"
+            className="p-2 hover:bg-muted rounded-radius-md transition-colors"
           >
             <ArrowRight size={20} />
           </button>
@@ -145,11 +145,11 @@ export default function OrderDetailsPage() {
 
       <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
         {/* Status Card */}
-        <div className="bg-card border border-border rounded-3xl p-6 shadow-sm">
+        <div className="bg-card border border-border rounded-radius-lg p-6 shadow-sm">
           <div className="flex items-center gap-4">
             <div
               className={cn(
-                "w-14 h-14 rounded-2xl flex items-center justify-center",
+                "w-14 h-14 rounded-radius-lg flex items-center justify-center",
                 statusConfig.bg,
                 statusConfig.color,
               )}
@@ -175,13 +175,13 @@ export default function OrderDetailsPage() {
 
         {/* Driver Info */}
         {driver && (
-          <div className="bg-card border border-border rounded-3xl p-6 shadow-sm">
+          <div className="bg-card border border-border rounded-radius-lg p-6 shadow-sm">
             <h3 className="text-xs font-black text-muted-foreground uppercase tracking-widest mb-4">
               بيانات المندوب
             </h3>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-primary/10 text-primary rounded-radius-md flex items-center justify-center">
                   <Truck size={24} />
                 </div>
                 <div>
@@ -196,14 +196,14 @@ export default function OrderDetailsPage() {
               <div className="flex gap-2">
                 <a
                   href={`tel:${driver.phone}`}
-                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-muted text-foreground/70 hover:bg-muted/80 transition-colors"
+                  className="w-10 h-10 flex items-center justify-center rounded-radius-md bg-muted text-foreground/70 hover:bg-muted/80 transition-colors"
                 >
                   <Phone size={18} />
                 </a>
                 <a
                   href={`https://wa.me/${driver.phone.replace(/\+/g, "")}`}
                   target="_blank"
-                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#25D366] text-white shadow-lg hover:opacity-90 transition-opacity"
+                  className="w-10 h-10 flex items-center justify-center rounded-radius-md bg-[#25D366] text-white shadow-lg hover:opacity-90 transition-opacity"
                 >
                   <MessageSquare size={18} />
                 </a>
@@ -213,7 +213,7 @@ export default function OrderDetailsPage() {
         )}
 
         {/* Order Items */}
-        <div className="bg-card border border-border rounded-3xl overflow-hidden shadow-sm">
+        <div className="bg-card border border-border rounded-radius-lg overflow-hidden shadow-sm">
           <div className="p-6 border-b border-border/50">
             <h3 className="text-xs font-black text-muted-foreground uppercase tracking-widest flex items-center gap-2">
               <ReceiptText size={14} />
@@ -224,7 +224,7 @@ export default function OrderDetailsPage() {
             {order.isOffer &&
             (!order.productsList || order.productsList.length === 0) ? (
               <div className="p-6 flex items-center gap-6">
-                <div className="relative w-24 h-24 rounded-2xl overflow-hidden shadow-md border border-border">
+                <div className="relative w-24 h-24 rounded-radius-md overflow-hidden shadow-md border border-border">
                   <img
                     src={order.offerImage || "/placeholder.png"}
                     alt={order.offerTitle}
@@ -253,7 +253,7 @@ export default function OrderDetailsPage() {
                   className="p-4 flex items-center justify-between hover:bg-muted/5 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-muted rounded-lg  object-cover overflow-hidden">
+                    <div className="w-10 h-10 bg-muted rounded-radius-sm  object-cover overflow-hidden">
                       {product.p_imgs?.[0]?.url ? (
                         <img
                           src={product.p_imgs[0].url}
@@ -308,9 +308,9 @@ export default function OrderDetailsPage() {
 
         {/* Shipping Info */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-card border border-border rounded-3xl p-6 shadow-sm">
+          <div className="bg-card border border-border rounded-radius-lg p-6 shadow-sm">
             <div className="flex items-start gap-4">
-              <div className="bg-primary/10 p-3 rounded-xl text-primary mt-1">
+              <div className="bg-primary/10 p-3 rounded-radius-md text-primary mt-1">
                 <MapPin size={20} />
               </div>
               <div>
@@ -327,7 +327,7 @@ export default function OrderDetailsPage() {
                   <a
                     href={order.shippingInfo.googleMapsLink}
                     target="_blank"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-500 hover:text-blue-600 transition-colors bg-blue-500/10 px-3 py-1.5 rounded-lg"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-500 hover:text-blue-600 transition-colors bg-blue-500/10 px-3 py-1.5 rounded-radius-sm"
                   >
                     <span>فتح في الخرائط</span>
                     <ArrowRight size={12} className="-rotate-45" />
@@ -337,9 +337,9 @@ export default function OrderDetailsPage() {
             </div>
           </div>
 
-          <div className="bg-card border border-border rounded-3xl p-6 shadow-sm">
+          <div className="bg-card border border-border rounded-radius-lg p-6 shadow-sm">
             <div className="flex items-start gap-4">
-              <div className="bg-green-500/10 p-3 rounded-xl text-green-600 mt-1">
+              <div className="bg-green-500/10 p-3 rounded-radius-md text-green-600 mt-1">
                 <Phone size={20} />
               </div>
               <div>
@@ -356,9 +356,9 @@ export default function OrderDetailsPage() {
 
         {/* Payment Info */}
         {(order.paymentMethod || order.transactionReference) && (
-          <div className="bg-card border border-border rounded-3xl p-6 shadow-sm">
+          <div className="bg-card border border-border rounded-radius-lg p-6 shadow-sm">
             <div className="flex items-start gap-4">
-              <div className="bg-purple-500/10 p-3 rounded-xl text-purple-600 mt-1">
+              <div className="bg-purple-500/10 p-3 rounded-radius-md text-purple-600 mt-1">
                 {/* Import CreditCard if not already imported or use another icon */}
                 <ReceiptText size={20} />
               </div>
@@ -387,7 +387,7 @@ export default function OrderDetailsPage() {
                     <p className="text-[10px] text-muted-foreground font-bold">
                       رقم المعاملة
                     </p>
-                    <p className="text-sm font-mono font-bold text-foreground bg-muted/50 px-2 py-1 rounded select-all w-fit">
+                    <p className="text-sm font-mono font-bold text-foreground bg-muted/50 px-2 py-1 rounded-radius-sm select-all w-fit">
                       {order.transactionReference}
                     </p>
                   </div>

@@ -20,7 +20,7 @@ export default async function Home() {
     <>
       <Hero />
 
-      <div className="container mx-auto px-1 py-6 space-y-16">
+      <div className="container mx-auto px-1 pt-2 pb-6 space-y-10">
         {offers.length > 0 && (
           <section className="scroll-mt-24">
             <OffersCarousel offers={offers} />

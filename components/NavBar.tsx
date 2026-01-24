@@ -23,7 +23,7 @@ export default function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <nav className={`sticky top-0 z-50 glass py-3 border-b border-border`}>
+    <nav className="sticky top-0 z-[100] bg-background border-b border-border py-3">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
         {/* Brand Logo */}
         <div className="flex items-center gap-8">
@@ -31,7 +31,7 @@ export default function Navbar() {
             href="/"
             className="group flex items-center gap-2.5 transition-transform active:scale-95"
           >
-            <div className="relative w-10 h-10 overflow-hidden rounded-xl border-2 border-border transition-transform">
+            <div className="relative w-10 h-10 overflow-hidden rounded-radius-md border-2 border-border transition-transform">
               <Image
                 src="/brand/logo.png"
                 alt="Liper Logo"
@@ -59,7 +59,7 @@ export default function Navbar() {
                 <Link
                   key={item.title}
                   href={item.href as any}
-                  className={`relative px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-2 ${
+                  className={`relative px-4 py-2 rounded-radius-md text-sm font-bold transition-all duration-300 flex items-center gap-2 ${
                     isActive
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -85,7 +85,7 @@ export default function Navbar() {
           <ModeToggle />
           <Link
             href="/products"
-            className="p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-xl transition-all active:scale-95"
+            className="p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-radius-md transition-all active:scale-95"
           >
             <Search size={22} strokeWidth={2.5} />
           </Link>
@@ -97,7 +97,7 @@ export default function Navbar() {
               href="/profile"
               className="transition-transform active:scale-90"
             >
-              <Avatar className="h-10 w-10 overflow-hidden rounded-xl border-2 border-border shadow-sm flex items-center justify-center bg-card transition-colors">
+              <Avatar className="h-10 w-10 overflow-hidden rounded-radius-md border-2 border-border shadow-sm flex items-center justify-center bg-card transition-colors">
                 <AvatarImage
                   src={session.user?.image || ""}
                   className="h-full w-full object-cover"
@@ -110,7 +110,7 @@ export default function Navbar() {
           ) : (
             <button
               onClick={() => signIn("google")}
-              className="px-6 py-2.5 text-xs font-black text-primary-foreground bg-primary rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20 active:scale-95"
+              className="px-6 py-2.5 text-xs font-black text-primary-foreground bg-primary rounded-radius-md hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/20 active:scale-95"
             >
               دخول
             </button>

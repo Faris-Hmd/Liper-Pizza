@@ -77,7 +77,7 @@ export default async function ProductsDetails({
 
       <div className="container mx-auto px-0 md:px-6 max-w-7xl">
         {/* Main Product Card */}
-        <div className="bg-card md:rounded-[2.5rem] shadow-2xl shadow-primary/5 border-y md:border border-border overflow-hidden transition-all">
+        <div className="bg-card md:rounded-radius-lg shadow-2xl shadow-primary/5 border-y md:border border-border overflow-hidden transition-all">
           <div className="grid md:grid-cols-2">
             {/* Left: Interactive Gallery */}
             <div className="relative bg-card flex items-center justify-center border-b md:border-b-0 md:border-r border-border">
@@ -85,23 +85,23 @@ export default async function ProductsDetails({
                 <ProductImgCarousel
                   imgH={"h-[400px] md:h-[550px]"}
                   imgs={product.p_imgs}
-                  imgFill={"object-cover p-4 md:p-12"}
+                  imgFill={"object-cover"}
                 />
               </div>
               <div className="absolute top-6 right-6 hidden md:block">
-                <span className="px-3 py-1 text-[9px] font-black text-info bg-info/10 rounded-full uppercase tracking-tighter">
+                <span className="px-3 py-1 text-[9px] font-black text-info bg-info/10 rounded-radius-sm uppercase tracking-tighter">
                   منتج أصلي
                 </span>
               </div>
             </div>
 
             {/* Right: Technical Details */}
-            <div className="p-6 md:p-12 flex flex-col">
+            <div className="space-y-6 lg:sticky lg:top-24 w-full mx-auto lg:mx-0">
               <div className="flex-1 space-y-8">
                 {/* Product Meta */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-1 text-[9px] font-black text-primary-foreground bg-primary rounded-md uppercase tracking-widest">
+                    <span className="px-2 py-1 text-[9px] font-black text-primary-foreground bg-primary rounded-radius-sm uppercase tracking-widest">
                       {LabelMap[product.p_cat] || product.p_cat}
                     </span>
                     <div className="h-[1px] w-8 bg-border" />

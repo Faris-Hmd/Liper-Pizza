@@ -136,14 +136,14 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
   }
 
   return (
-    <div className="bg-card rounded-[2rem] border border-border shadow overflow-hidden transition-all duration-500">
+    <div className="bg-card rounded-radius-lg border border-border shadow overflow-hidden transition-all duration-500">
       {!showConfirm ? (
-        <div className="p-6 sm:p-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="p-4 sm:p-5 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-radius-md bg-primary/10 flex items-center justify-center">
               <CreditCard size={24} className="text-primary" />
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-foreground uppercase tracking-tight">
+            <h2 className="text-lg sm:text-xl font-black text-foreground uppercase tracking-tight">
               ملخص <span className="text-primary">العرض</span>
             </h2>
           </div>
@@ -163,16 +163,16 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
             </div>
           </div>
 
-          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-6" />
+          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-4" />
 
           <div className="flex justify-between items-end mb-8">
             <div className="space-y-1">
               <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
                 المبلغ الإجمالي كلياً
               </p>
-              <span className="text-3xl sm:text-4xl font-black text-primary tracking-tighter">
+              <span className="text-2xl sm:text-3xl font-black text-primary tracking-tighter">
                 {total.toLocaleString()}{" "}
-                <span className="text-sm font-bold text-muted-foreground/50">
+                <span className="text-xs font-bold text-muted-foreground/50">
                   جنية
                 </span>
               </span>
@@ -183,9 +183,9 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
             <button
               disabled={isPending}
               className={cn(
-                "group w-full py-5 px-8 flex items-center justify-center gap-4",
+                "group w-full py-3 px-6 flex items-center justify-center gap-4",
                 "bg-primary hover:opacity-95 disabled:bg-muted disabled:cursor-not-allowed",
-                "text-primary-foreground text-xl font-black rounded-2xl shadow-xl shadow-primary/20",
+                "text-primary-foreground text-lg font-black rounded-radius-md shadow-xl shadow-primary/20",
                 "transition-all duration-300 active:scale-[0.98]",
               )}
               type="submit"
@@ -205,9 +205,9 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
         </div>
       ) : (
         <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-          <div className="p-5 border-b border-border bg-muted/5 flex items-center justify-between">
+          <div className="p-4 border-b border-border bg-muted/5 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-radius-md bg-primary/10 flex items-center justify-center">
                 <ShieldCheck size={20} className="text-primary" />
               </div>
               <h3 className="text-base sm:text-lg font-black text-foreground uppercase tracking-tight">
@@ -216,7 +216,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
             </div>
             <button
               onClick={() => setShowConfirm(false)}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-muted-foreground hover:text-foreground transition-colors bg-muted/50 rounded-lg border border-border/50"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-muted-foreground hover:text-foreground transition-colors bg-muted/50 rounded-radius-sm border border-border/50"
             >
               <span>رجوع</span>
               <X size={14} />
@@ -224,14 +224,14 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
           </div>
 
           <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x md:divide-border rtl:divide-x-reverse">
-            <div className="flex-1 p-5 sm:p-6 space-y-6">
+            <div className="flex-1 p-4 sm:p-5 space-y-5">
               <div className="space-y-5">
                 <div>
                   <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-3">
                     1. المبلغ ووسيلة الدفع
                   </h4>
-                  <div className="bg-primary/5 rounded-2xl p-4 border border-primary/10 shadow-inner">
-                    <div className="flex items-center gap-3 bg-background p-3 rounded-xl border border-primary/20 shadow-sm">
+                  <div className="bg-primary/5 rounded-radius-md p-4 border border-primary/10 shadow-inner">
+                    <div className="flex items-center gap-3 bg-background p-3 rounded-radius-sm border border-primary/20 shadow-sm">
                       <span className="font-mono font-black flex-1 text-center text-2xl tracking-tighter text-foreground">
                         {total.toLocaleString()}{" "}
                         <span className="text-xs">جنية</span>
@@ -240,7 +240,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
                         onClick={() =>
                           copyToClipboard(total.toString(), "amount")
                         }
-                        className="p-2.5 hover:bg-primary/10 rounded-lg transition-colors text-primary"
+                        className="p-2.5 hover:bg-primary/10 rounded-radius-sm transition-colors text-primary"
                       >
                         {copiedField === "amount" ? (
                           <Check size={20} />
@@ -256,7 +256,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
                   <button
                     onClick={() => setPaymentMethod("stripe")}
                     className={cn(
-                      "p-3 rounded-xl border-2 flex flex-col items-center justify-center gap-2 transition-all",
+                      "p-3 rounded-radius-md border-2 flex flex-col items-center justify-center gap-2 transition-all",
                       paymentMethod === "stripe"
                         ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
                         : "border-border hover:bg-muted text-muted-foreground",
@@ -268,7 +268,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
                   <button
                     onClick={() => setPaymentMethod("bankak")}
                     className={cn(
-                      "p-3 rounded-xl border-2 flex flex-col items-center justify-center gap-2 transition-all",
+                      "p-3 rounded-radius-md border-2 flex flex-col items-center justify-center gap-2 transition-all",
                       paymentMethod === "bankak"
                         ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
                         : "border-border hover:bg-muted text-muted-foreground",
@@ -280,7 +280,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
                   <button
                     onClick={() => setPaymentMethod("mycashi")}
                     className={cn(
-                      "p-3 rounded-xl border-2 flex flex-col items-center justify-center gap-2 transition-all",
+                      "p-3 rounded-radius-md border-2 flex flex-col items-center justify-center gap-2 transition-all",
                       paymentMethod === "mycashi"
                         ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
                         : "border-border hover:bg-muted text-muted-foreground",
@@ -292,12 +292,12 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
                 </div>
 
                 {paymentMethod !== "stripe" && (
-                  <div className="bg-muted/30 rounded-2xl p-4 border border-border space-y-4 animate-in fade-in slide-in-from-top-3 duration-300">
+                  <div className="bg-muted/30 rounded-radius-md p-4 border border-border space-y-4 animate-in fade-in slide-in-from-top-3 duration-300">
                     <div className="space-y-2">
                       <p className="text-[10px] text-muted-foreground">
                         حول المبلغ إلى:
                       </p>
-                      <div className="flex items-center gap-2 bg-background p-3 rounded-lg border border-border">
+                      <div className="flex items-center gap-2 bg-background p-3 rounded-radius-sm border border-border">
                         <span className="font-mono font-bold flex-1 text-center text-sm tracking-wider">
                           {paymentMethod === "bankak"
                             ? BANKAK_ACCOUNT
@@ -312,7 +312,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
                               "account",
                             )
                           }
-                          className="p-1.5 hover:bg-muted rounded-md transition-colors text-muted-foreground"
+                          className="p-1.5 hover:bg-muted rounded-radius-sm transition-colors text-muted-foreground"
                         >
                           {copiedField === "account" ? (
                             <Check size={16} />
@@ -331,7 +331,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
                         value={transactionRef}
                         onChange={(e) => setTransactionRef(e.target.value)}
                         placeholder="رقم العملية هنا..."
-                        className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                        className="w-full bg-background border border-border rounded-radius-sm px-3 py-2 text-sm focus:outline-none focus:border-primary/40 transition-colors"
                       />
                     </div>
                   </div>
@@ -339,14 +339,14 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
               </div>
             </div>
 
-            <div className="flex-1 p-5 sm:p-6 space-y-6 bg-muted/5 flex flex-col">
+            <div className="flex-1 p-4 sm:p-5 space-y-5 bg-muted/5 flex flex-col">
               <div className="flex-1 space-y-5">
                 <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-3">
                   2. معلومات التوصيل
                 </h4>
-                <div className="bg-background rounded-2xl p-4 border border-border shadow-sm space-y-4">
+                <div className="bg-background rounded-radius-md p-4 border border-border shadow-sm space-y-4">
                   <div className="flex items-start gap-3">
-                    <div className="p-2 bg-secondary/10 rounded-xl text-secondary">
+                    <div className="p-2 bg-secondary/10 rounded-radius-md text-secondary">
                       <MapPin size={20} />
                     </div>
                     <div className="flex-1">
@@ -360,7 +360,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="p-2 bg-secondary/10 rounded-xl text-secondary">
+                    <div className="p-2 bg-secondary/10 rounded-radius-md text-secondary">
                       <Phone size={20} />
                     </div>
                     <div className="flex-1">
@@ -379,7 +379,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
                 <button
                   onClick={handleConfirmPayment}
                   disabled={isPending}
-                  className="w-full bg-primary hover:opacity-95 text-primary-foreground font-black py-4 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex justify-center items-center gap-3 text-lg"
+                  className="w-full bg-primary hover:opacity-95 text-primary-foreground font-black py-3 rounded-radius-md shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex justify-center items-center gap-3 text-lg"
                 >
                   {isPending ? (
                     <Spinner size="sm" />
@@ -391,7 +391,7 @@ export default function OfferCheckout({ offer }: { offer: Offer }) {
 
                 <button
                   onClick={() => router.push("/profile/edit")}
-                  className="w-full bg-background hover:bg-muted text-foreground font-bold py-3 rounded-xl border border-border transition-all active:scale-[0.98] flex justify-center items-center gap-2 text-xs"
+                  className="w-full bg-background hover:bg-muted text-foreground font-bold py-3 rounded-radius-md border border-border transition-all active:scale-[0.98] flex justify-center items-center gap-2 text-xs"
                 >
                   <Edit size={16} />
                   <span>تعديل بيانات الشحن</span>

@@ -70,9 +70,9 @@ export default function Categories() {
               <Link
                 key={cat}
                 href={`/products/categories/${cat}`}
-                className="group flex flex-col items-center gap-3 p-4 rounded-[2.5rem] bg-card/50 border border-border transition-all duration-300 hover:bg-card hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1.5"
+                className="group flex flex-col items-center gap-3 p-4 rounded-radius-lg bg-card/50 border border-border transition-all duration-300 hover:bg-card hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1.5"
               >
-                <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center bg-card rounded-[1.5rem] shadow-sm border border-border group-hover:bg-primary/10 group-hover:border-primary/20 transition-all duration-300">
+                <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center bg-card rounded-radius-md shadow-sm border border-border group-hover:bg-primary/10 group-hover:border-primary/20 transition-all duration-300">
                   {Icon ? (
                     <Icon className="w-8 h-8 md:w-10 md:h-10 text-muted-foreground group-hover:text-primary transition-all" />
                   ) : (

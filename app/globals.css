@@ -10,8 +10,8 @@
   --secondary-color: #1a1a1a; /* Charcoal/Black */
   --accent-color: #a52a2a; /* Brownish Red Accent */
 
-  --bg-light: #fffcf9; /* Off-white warm background */
-  --fg-light: #1a0f0a; /* Dark chocolate/burnt crust text */
+  --bg-light: #ffffff; /* Pure white background */
+  --fg-light: #09090b; /* Dark neutral text */
 
   --bg-dark: #000000; /* Pure black for maximum contrast */
   --fg-dark: #ffffff;
@@ -38,14 +38,14 @@
   --card-foreground: var(--fg-light);
   --popover: #ffffff;
   --popover-foreground: var(--fg-light);
-  --muted: #fff5f5; /* Subtle maroon hint */
-  --muted-foreground: #800000; /* Maroon */
-  --accent: #fff5f5;
+  --muted: #f4f4f5; /* Neutral light gray */
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
   --accent-foreground: var(--fg-light);
   --destructive: #800000;
   --destructive-foreground: #ffffff;
-  --border: #ebdada; /* Subtle maroon-tinted border */
-  --input: #ebdada;
+  --border: #e4e4e7; /* Neutral border */
+  --input: #e4e4e7;
   --ring: var(--primary-color);
 
   /* Status Colors */
@@ -54,20 +54,20 @@
   --error: #800000;
   --info: #3b82f6;
 
-  --card-alt: #fff9f2;
+  --card-alt: #fafafa;
 
-  /* Radius Configuration */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  /* Radius Configuration - More Boxy */
+  --radius-sm: 0.125rem; /* 2px */
+  --radius-md: 0.25rem; /* 4px */
+  --radius-lg: 0.5rem; /* 8px */
+  --radius-xl: 0.75rem; /* 12px */
   --radius: var(--radius-md);
 
   /* Custom Shadows with Maroon Tint */
   --shadow-maroon:
-    0 4px 6px -1px rgba(128, 0, 0, 0.1), 0 2px 4px -1px rgba(128, 0, 0, 0.06);
+    0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
   --shadow-maroon-lg:
-    0 10px 15px -3px rgba(128, 0, 0, 0.1), 0 4px 6px -2px rgba(128, 0, 0, 0.05);
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 }
 
 .dark {
@@ -98,8 +98,8 @@
   --card-alt: #111111;
 
   /* Custom Shadows for Dark Mode */
-  --shadow-maroon: 0 0 15px rgba(185, 28, 28, 0.1);
-  --shadow-maroon-lg: 0 0 25px rgba(185, 28, 28, 0.15);
+  --shadow-maroon: 0 0 15px rgba(0, 0, 0, 0.2);
+  --shadow-maroon-lg: 0 0 25px rgba(0, 0, 0, 0.3);
 }
 
 @theme inline {
@@ -145,11 +145,11 @@
   --color-card-alt: var(--card-alt);
 
   /* Radius */
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --radius-xl: var(--radius-xl);
-  --radius: var(--radius);
+  --radius-radius: var(--radius);
+  --radius-radius-sm: var(--radius-sm);
+  --radius-radius-md: var(--radius-md);
+  --radius-radius-lg: var(--radius-lg);
+  --radius-radius-xl: var(--radius-xl);
 
   /* Shadows */
   --shadow-maroon: var(--shadow-maroon);
@@ -212,13 +212,13 @@
 
   /* Blur Utility Restricted to md screens */
   .glass {
-    @apply bg-background/95; /* Nearly opaque on mobile */
+    @apply bg-background border-b border-border;
     backdrop-filter: none;
   }
 
   @media (min-width: 768px) {
     .glass {
-      @apply bg-background/80 backdrop-blur-md;
+      @apply bg-background; /* Fully opaque, no blur */
     }
   }
 }

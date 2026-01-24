@@ -50,7 +50,7 @@ export default function BtmNav() {
           >
             <div
               className={cn(
-                "relative flex items-center justify-center rounded-full py-1 px-4 transition-all duration-300",
+                "relative flex items-center justify-center rounded-radius-md py-1 px-4 transition-all duration-300",
                 isActive ? "bg-primary/10" : "bg-transparent",
               )}
             >

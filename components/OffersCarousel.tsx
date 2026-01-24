@@ -22,33 +22,11 @@ interface OffersCarouselProps {
 const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
   const { cart } = useCart();
 
-  const handleAddOffer = (e: React.MouseEvent, offer: Offer) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    let currentCart = [...cart];
-
-    offer.products.forEach((product) => {
-      const existing = currentCart.find((p) => p.id === product.id);
-      if (existing) {
-        existing.p_qu = (existing.p_qu || 1) + 1;
-      } else {
-        currentCart.push({ ...product, p_qu: 1 });
-      }
-    });
-
-    localStorage.setItem("sh", JSON.stringify(currentCart));
-    dispatchCartUpdate();
-    toast.success(`تم إضافة عرض "${offer.title}" إلى السلة!`, {
-      description: "تم تحديث سلة التسوق الخاصة بك بنجاح",
-    });
-  };
-
   return (
-    <div className="relative w-full max-w-screen-2xl mx-auto px-4 py-8">
+    <div className="relative w-full max-w-screen-2xl mx-auto px-4 py-4">
       <div className="flex items-center justify-between mb-8 group/header">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-primary/10 rounded-2xl text-primary shadow-sm ring-1 ring-primary/20">
+          <div className="p-2.5 bg-primary/10 rounded-radius-lg text-primary shadow-sm ring-1 ring-primary/20">
             <Sparkles size={24} className="animate-pulse" />
           </div>
           <div>
@@ -89,11 +67,11 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
             return (
               <CarouselItem
                 key={offer.id}
-                className="pl-4 basis-full md:basis-1/2 lg:basis-1/2 xl:basis-1/3"
+                className="pl-4 basis-[88%] md:basis-[48%] lg:basis-[45%] xl:basis-[31%]"
               >
                 <Link
                   href={`/offers/${offer.id}` as any}
-                  className="group/card relative block aspect-[16/9] overflow-hidden rounded-3xl border border-border bg-card cursor-pointer transition-all duration-500 hover:shadow-2xl hover:shadow-primary/15 hover:border-primary/40"
+                  className="group/card relative block aspect-[16/9] overflow-hidden rounded-radius-lg border border-border bg-card cursor-pointer transition-all duration-500 hover:shadow-2xl hover:shadow-primary/15 hover:border-primary/40"
                 >
                   {/* Image Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-opacity duration-500 group-hover/card:opacity-95" />
@@ -129,26 +107,25 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
                       {offer.description}
                     </p>
 
-                    <div className="flex items-center justify-between">
-                      <button
-                        onClick={(e) => handleAddOffer(e, offer)}
-                        className="flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-2xl font-black text-xs shadow-lg shadow-primary/20 hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all"
-                      >
-                        <PlusCircle size={18} />
-                        <span>اطلب الآن</span>
-                      </button>
-
+                    <div className="flex items-center justify-between mt-auto">
                       {offer.price && (
-                        <div className="flex flex-col items-end">
-                          <span className="text-white/50 text-[10px] line-through font-bold">
-                            {individualTotal.toLocaleString()}
-                          </span>
-                          <span className="text-white font-black text-lg leading-none">
-                            {offer.price}{" "}
-                            <span className="text-xs opacity-70">جنية</span>
+                        <div className="flex flex-col items-start gap-0.5">
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-white font-black text-2xl tracking-tighter">
+                              {offer.price}
+                            </span>
+                            <span className="text-[10px] text-white/70 font-bold uppercase">
+                              جنية
+                            </span>
+                          </div>
+                          <span className="text-white/40 text-xs line-through font-bold">
+                            {individualTotal.toLocaleString()} جنية
                           </span>
                         </div>
                       )}
+                      <div className="p-2 bg-white/10 rounded-radius-md backdrop-blur-sm group-hover/card:bg-primary transition-colors">
+                        <ArrowRight size={18} className="text-white" />
+                      </div>
                     </div>
                   </div>
 

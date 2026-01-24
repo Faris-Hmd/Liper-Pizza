@@ -56,7 +56,7 @@ export default function ProductsCarousel({
   if (!products || products.length === 0) return null;
 
   return (
-    <section className="relative py-8 md:py-16 overflow-hidden bg-muted/20 border border-border rounded-sm">
+    <section className="relative py-8 md:py-16 overflow-hidden bg-muted/20 border border-border rounded-radius-sm">
       {/* Subtle Background Glows */}
       <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-primary/5 blur-[100px] rounded-full pointer-events-none hidden md:block" />
       <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-96 h-96 bg-secondary/5 blur-[100px] rounded-full pointer-events-none hidden md:block" />
@@ -136,7 +136,7 @@ export default function ProductsCarousel({
                     </Link>
 
                     <div className="absolute top-3 left-3">
-                      <span className="px-2 py-0.5 bg-background/90  border rounded-xl border-border text-[9px] font-black text-primary uppercase tracking-widest">
+                      <span className="px-2 py-0.5 bg-background/90  border rounded-radius-sm border-border text-[9px] font-black text-primary uppercase tracking-widest">
                         {LabelMap[product.p_cat] || product.p_cat}
                       </span>
                     </div>

@@ -13,9 +13,9 @@ export default function AppFooter() {
               href="/"
               className="group flex items-center gap-3 text-xl font-bold tracking-tighter uppercase"
             >
-              <div className="relative w-10 h-10 overflow-hidden rounded-xl border-2 border-border transition-transform group-hover:scale-105">
+              <div className="relative w-10 h-10 overflow-hidden rounded-md border-2 border-border transition-transform group-hover:scale-105">
                 <Image
-                  src="/brand/logo-p.png"
+                  src="/brand/logo.png"
                   alt="Liper Logo"
                   fill
                   className="object-contain"

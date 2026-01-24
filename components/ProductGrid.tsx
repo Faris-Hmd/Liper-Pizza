@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const imageUrl = product.p_imgs?.[0]?.url || "/placeholder.png";
 
   return (
-    <div className="group relative flex flex-col bg-card border border-border rounded overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/50">
+    <div className="group relative flex flex-col bg-card border border-border rounded-radius-sm overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/50">
       {/* Visual Area */}
       <Link
         href={`/products/${product.id}`}
@@ -43,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
 
         <div className="absolute top-1 left-3 overflow-hidden z-10">
-          <span className="px-2 py-0.5 bg-background/90 border border-border rounded-md text-[9px] font-black text-primary uppercase tracking-widest">
+          <span className="px-2 py-0.5 bg-background/90 border border-border rounded-radius-sm text-[9px] font-black text-primary uppercase tracking-widest">
             {LabelMap[product.p_cat] || product.p_cat}
           </span>
         </div>

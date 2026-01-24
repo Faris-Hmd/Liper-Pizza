@@ -15,38 +15,31 @@ export default async function OffersPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="sticky top-0 z-30 w-full bg-background/80 backdrop-blur-md border-b border-border">
+      <div className="sticky top-0 z-40 w-full bg-card border-b border-border">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
               href={"/" as any}
-              className="p-2 hover:bg-muted rounded-full transition-colors"
+              className="p-2 bg-muted rounded-radius-sm text-foreground transition-none"
             >
-              <ArrowLeft size={20} />
+              <ArrowLeft size={18} />
             </Link>
-            <h1 className="text-xl font-black tracking-tight">
-              العروض الحصرية
-            </h1>
+            <div>
+              <h1 className="text-lg font-black tracking-tighter uppercase">
+                باقات <span className="text-primary">التوفير</span>
+              </h1>
+              <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest leading-none">
+                عروض حصرية لفترة محدودة
+              </p>
+            </div>
           </div>
-          <div className="p-2 bg-primary/10 rounded-xl text-primary">
-            <Sparkles size={20} className="animate-pulse" />
+          <div className="p-2 bg-primary text-primary-foreground rounded-radius-sm shadow-sm group">
+            <Sparkles size={18} className="transition-none" />
           </div>
         </div>
       </div>
 
       <main className="container mx-auto px-4 py-8 md:py-12">
-        <div className="max-w-4xl mx-auto space-y-6 text-center mb-10 md:mb-16">
-          <div className="space-y-3">
-            <h2 className="text-4xl md:text-6xl font-black text-foreground tracking-tighter">
-              وفر أكثر مع <span className="text-primary italic">باقاتنا</span>
-            </h2>
-            <p className="text-muted-foreground text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed">
-              لقد قمنا بتجميع ألذ الوجبات في باقات خاصة لتجربة طعام استثنائية
-              وبسعر أفضل.
-            </p>
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-screen-2xl mx-auto">
           {offers.map((offer) => {
             const individualTotal = offer.products.reduce(
@@ -56,88 +49,71 @@ export default async function OffersPage() {
             const savings = individualTotal - (offer.price || 0);
 
             return (
-              <Link
+              <div
                 key={offer.id}
-                href={`/offers/${offer.id}` as any}
-                className="group relative flex flex-col bg-card border border-border rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30"
+                className="relative flex flex-col bg-card border border-border rounded-radius-md overflow-hidden"
               >
-                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                {/* Visual Area */}
+                <div className="relative aspect-video w-full overflow-hidden border-b border-border">
                   <Image
                     src={offer.image}
                     alt={offer.title}
                     fill
-                    className="object-cover transition-transform duration-700"
+                    className="object-cover transition-none"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
-
-                  <div className="absolute  top-4 right-4 flex flex-col items-start gap-2">
+                  {/* Badge Overlay */}
+                  <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
                     {offer.badge && (
-                      <span className="px-3 py-1.5 bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                      <span className="px-2 py-1 bg-primary text-primary-foreground text-[8px] font-black uppercase tracking-widest rounded-radius-sm shadow-sm">
                         {offer.badge}
                       </span>
                     )}
                     {savings > 0 && (
-                      <span className="px-3 py-1 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                      <span className="px-2 py-1 bg-success text-success-foreground text-[8px] font-black uppercase tracking-widest rounded-radius-sm shadow-sm">
                         وفر {savings.toLocaleString()} جنية
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div className="p-5 flex flex-col flex-1 gap-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="space-y-1">
-                      <h3 className="text-xl font-black text-foreground group-hover:text-primary transition-colors italic line-clamp-1">
-                        {offer.title}
-                      </h3>
-                      <p className="text-muted-foreground text-xs font-medium line-clamp-2 leading-relaxed">
-                        {offer.description}
-                      </p>
-                    </div>
+                {/* Content Area */}
+                <div className="p-5 flex flex-col flex-1">
+                  <div className="space-y-1.5 mb-5">
+                    <h3 className="text-lg font-black text-foreground uppercase tracking-tight line-clamp-1">
+                      {offer.title}
+                    </h3>
+                    <p className="text-muted-foreground text-xs font-medium line-clamp-2 leading-relaxed">
+                      {offer.description}
+                    </p>
                   </div>
 
-                  <div className="mt-auto pt-4 border-t border-border/50 flex items-center justify-between">
-                    <div className="flex -space-x-2 rtl:space-x-reverse overflow-hidden">
-                      {offer.products.slice(0, 3).map((p, i) => (
-                        <div
-                          key={p.id}
-                          className="inline-block relative h-8 w-8 rounded-full ring-2 ring-card overflow-hidden bg-muted"
-                        >
-                          <Image
-                            src={p.p_imgs[0]?.url || "/placeholder.png"}
-                            alt={p.p_name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      ))}
-                      {offer.products.length > 3 && (
-                        <div className="flex items-center justify-center h-8 w-8 rounded-full ring-2 ring-card bg-muted text-[10px] font-bold">
-                          +{offer.products.length - 3}
-                        </div>
-                      )}
-                    </div>
-
-                    {offer.price && (
-                      <div className="text-right">
-                        <span className="block text-[10px] text-muted-foreground line-through font-bold">
+                  <div className="mt-auto space-y-4">
+                    {/* Price & Action */}
+                    <div className="flex items-center justify-between pt-4 border-t border-border">
+                      <div className="flex flex-col">
+                        <span className="text-[10px] text-muted-foreground line-through font-bold leading-none mb-1">
                           {individualTotal.toLocaleString()}
                         </span>
-                        <span className="text-lg font-black text-foreground">
-                          {offer.price}
-                          <span className="text-[10px] mr-1 opacity-60 font-bold">
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-2xl font-black text-foreground tracking-tighter leading-none">
+                            {offer.price}
+                          </span>
+                          <span className="text-[9px] font-bold text-muted-foreground uppercase">
                             جنية
                           </span>
-                        </span>
+                        </div>
                       </div>
-                    )}
-                  </div>
 
-                  <div className="w-full flex items-center justify-center gap-2 bg-muted group-hover:bg-primary group-hover:text-primary-foreground py-3 rounded-xl font-black text-xs transition-all uppercase tracking-wider">
-                    <span>طلب العرض</span>
+                      <Link
+                        href={`/offers/${offer.id}` as any}
+                        className="bg-primary text-primary-foreground px-4 py-2.5 rounded-radius-sm font-black text-[10px] uppercase tracking-widest shadow-sm hover:opacity-90 active:scale-95 transition-all"
+                      >
+                        عرض التفاصيل
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>

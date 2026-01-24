@@ -43,7 +43,7 @@ export default async function OfferDetailPage({
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <div className="sticky shadow-sm top-0 z-50 w-full py-5 bg-background border-b border-white/10 px-4 h-18 flex items-center justify-between">
+      <div className="sticky shadow-sm top-0 z-40 w-full py-5 bg-background border-b border-border px-4 h-18 flex items-center justify-between">
         <Link
           href={"/offers" as any}
           className="p-2 hover:bg-muted rounded-full transition-colors flex items-center gap-2 font-bold"
@@ -67,8 +67,8 @@ export default async function OfferDetailPage({
       <main className="container mx-auto px-4 pt-20 pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           {/* Visual Section */}
-          <div className="space-y-6 lg:sticky lg:top-24 w-full max-w-lg mx-auto lg:mx-0">
-            <div className="relative aspect-[4/3] w-full rounded-[2.5rem] overflow-hidden shadow-2xl ring-1 ring-border">
+          <div className="space-y-6 lg:sticky lg:top-24 w-full mx-auto lg:mx-0">
+            <div className="relative aspect-video w-full rounded-radius-lg overflow-hidden shadow-2xl ring-1 ring-border">
               <Image
                 src={offer.image}
                 alt={offer.title}
@@ -91,7 +91,7 @@ export default async function OfferDetailPage({
                 <Link
                   key={`${p.id}-${i}`}
                   href={`/products/${p.id}` as any}
-                  className="relative aspect-square rounded-2xl overflow-hidden border border-border group bg-muted/30 shadow-sm transition-all hover:border-primary/50 active:scale-95"
+                  className="relative aspect-square rounded-radius-md overflow-hidden border border-border group bg-muted/30 shadow-sm transition-all hover:border-primary/50 active:scale-95"
                 >
                   <Image
                     src={p.p_imgs[0]?.url || "/placeholder.png"}
@@ -105,7 +105,7 @@ export default async function OfferDetailPage({
             </div>
 
             {savings > 0 && (
-              <div className="p-4 bg-success/5 rounded-2xl border border-success/20 flex items-center justify-between">
+              <div className="p-4 bg-success/5 rounded-radius-md border border-success/20 flex items-center justify-between">
                 <div>
                   <p className="text-[10px] font-black text-success uppercase tracking-widest">
                     إجمالي سعر الأصناف منفردة
@@ -137,8 +137,6 @@ export default async function OfferDetailPage({
               </p>
             </div>
 
-            <OfferCheckout offer={offer} />
-
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-black flex items-center gap-2">
@@ -154,21 +152,16 @@ export default async function OfferDetailPage({
                   <Link
                     key={`${product.id}-${index}`}
                     href={`/products/${product.id}` as any}
-                    className="flex items-center justify-between p-4 bg-card rounded-2xl border border-border hover:border-primary/30 hover:shadow-md transition-all group active:scale-[0.98]"
+                    className="flex items-center justify-between p-4 bg-card rounded-radius-md border border-border hover:border-primary/30 hover:shadow-md transition-all group active:scale-[0.98]"
                   >
                     <div className="flex items-center gap-4 flex-1">
-                      <div className="relative h-14 w-14 rounded-xl overflow-hidden shadow-sm ring-1 ring-border">
+                      <div className="relative h-14 w-14 rounded-radius-sm overflow-hidden shadow-sm ring-1 ring-border">
                         <Image
                           src={product.p_imgs[0]?.url || "/placeholder.png"}
                           alt={product.p_name}
                           fill
                           className="object-cover transition-transform group-hover:scale-110"
                         />
-                        {(product.p_qu || 1) > 1 && (
-                          <div className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-tiny font-black w-6 h-6 rounded-full flex items-center justify-center shadow-lg border-2 border-background">
-                            {product.p_qu || 1}
-                          </div>
-                        )}
                       </div>
                       <div className="flex-1">
                         <h4 className="font-bold text-foreground group-hover:text-primary transition-colors mb-0.5">
@@ -216,11 +209,15 @@ export default async function OfferDetailPage({
               </div>
             </div>
 
-            <div className="p-6 bg-primary/5 rounded-3xl border border-primary/10">
+            <div className="p-6 bg-primary/5 rounded-radius-lg border border-primary/10">
               <p className="text-sm font-bold text-primary/80 flex items-center gap-2 italic">
                 <ShoppingCart size={16} />
                 هذا العرض يتم طلبه بشكل مستقل ومباشر كطلب جديد.
               </p>
+            </div>
+
+            <div id="checkout-section">
+              <OfferCheckout offer={offer} />
             </div>
           </div>
         </div>
