@@ -7,12 +7,11 @@ export const metadata = {
   description: "ابحث عن ألذ أنواع البيتزا والمقبلات في لييبر بيتزا",
 };
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: { search_word?: string };
+export default async function Home(props: {
+  searchParams: Promise<{ search_word?: string }>;
 }) {
-  const { search_word } = await searchParams;
+  const searchParams = await props.searchParams;
+  const { search_word } = searchParams;
   let products = [] as Awaited<ReturnType<typeof getProducts>>;
 
   if (search_word !== undefined) {

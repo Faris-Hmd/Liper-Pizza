@@ -34,12 +34,11 @@ export const metadata = {
   description: "تفاصيل وجبة البيتزا والمكونات",
 };
 
-export default async function ProductsDetails({
-  params,
-}: {
-  params: { id: string };
+export default async function ProductsDetails(props: {
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
+  const params = await props.params;
+  const { id } = params;
   const product = await getProduct(id);
   const prodSameCate = await getProducts("p_cat", product?.p_cat, 7);
 

@@ -8,14 +8,15 @@ import SearchForm from "@/components/SearchForm";
 import { categories } from "@/data/categories";
 import ProductGrid from "@/components/ProductGrid";
 import { getProducts } from "@/services/productsServices";
-async function page({ params }: { params: { category: string } }) {
-  const { category } = await params;
+async function page(props: { params: Promise<{ category: string }> }) {
+  const params = await props.params;
+  const { category } = params;
   const products = await getProducts("p_cat", category);
 
   return (
     <div className="px-2">
       <SearchForm />
-      <ProductGrid products={products}   showSort={true} />
+      <ProductGrid products={products} showSort={true} />
     </div>
   );
 }
