@@ -128,10 +128,12 @@ export default function ProductsCarousel({
                       className="block h-full"
                     >
                       <Image
+                        priority={idx === 0}
+                        loading={idx === 0 ? "eager" : "lazy"}
                         src={product.p_imgs[0].url}
                         alt={product.p_name}
                         fill
-                        loading="lazy"
+                        sizes="(max-width: 768px) 85vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover transition-transform duration-700"
                       />
                     </Link>

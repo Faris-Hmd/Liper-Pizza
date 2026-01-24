@@ -57,7 +57,7 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
         className="w-full relative group"
       >
         <CarouselContent className="-ml-4">
-          {offers.map((offer) => {
+          {offers.map((offer, index) => {
             const individualTotal = offer.products.reduce(
               (acc, p) => acc + (Number(p.p_cost) || 0),
               0,
@@ -78,10 +78,12 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
 
                   {/* Image */}
                   <Image
-                    loading="lazy"
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
                     src={offer.image}
                     alt={offer.title}
                     fill
+                    sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-1000"
                   />
 
