@@ -130,6 +130,7 @@ export default function ProductsCarousel({
                       <Image
                         priority={idx === 0}
                         loading={idx === 0 ? "eager" : "lazy"}
+                        fetchPriority={idx === 0 ? "high" : "auto"}
                         src={product.p_imgs[0].url}
                         alt={product.p_name}
                         fill

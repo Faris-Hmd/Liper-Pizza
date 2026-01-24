@@ -80,6 +80,7 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
                   <Image
                     priority={index === 0}
                     loading={index === 0 ? "eager" : "lazy"}
+                    fetchPriority={index === 0 ? "high" : "auto"}
                     src={offer.image}
                     alt={offer.title}
                     fill
