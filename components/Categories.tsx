@@ -81,6 +81,7 @@ export default function Categories() {
                         src={imageUrl}
                         alt={label}
                         fill
+                        sizes="(max-width: 768px) 20vw, 10vw"
                         className="object-contain opacity-80 dark:opacity-60 dark:invert dark:brightness-200 group-hover:opacity-100 group-hover:brightness-100 transition-all"
                       />
                     </div>

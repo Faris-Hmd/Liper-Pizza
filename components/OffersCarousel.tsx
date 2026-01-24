@@ -84,7 +84,7 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
                     src={offer.image}
                     alt={offer.title}
                     fill
-                    sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-1000"
                   />
 

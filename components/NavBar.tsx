@@ -36,6 +36,7 @@ export default function Navbar() {
                 src="/brand/logo.png"
                 alt="Liper Logo"
                 fill
+                sizes="50px"
                 className="object-contain"
               />
             </div>
