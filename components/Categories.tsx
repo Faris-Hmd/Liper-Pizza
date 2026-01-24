@@ -33,12 +33,12 @@ const IconMap: Record<string, any> = {
 
 const LabelMap: Record<string, string> = {
   PC: "بيتزا",
+  HARD_DRIVES: "مشروب بارد",
+  HEADSETS: "مشروب ساخن",
+  SPEAKERS: "سلطة",
+  KEYBOARDS: "حلوى",
   LAPTOP: "ساندوتشات",
   WEBCAMS: "مقبلات",
-  HARD_DRIVES: "مشروبات باردة",
-  HEADSETS: "مشروبات ساخنة",
-  KEYBOARDS: "حلويات",
-  SPEAKERS: "سلطات",
   PRINTERS: "وجبات عائلية",
   MICROPHONES: "إضافات",
   MONITORS: "بيتزا إيطالية",

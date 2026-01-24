@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       static: 30000,
     },
   },
+  serverExternalPackages: ["sharp"],
   images: {
     remotePatterns: [
       {
