@@ -45,7 +45,7 @@ function page() {
               className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 overflow-hidden rounded-xl border border-border bg-muted/50"
             >
               <Image
-                loading="eager"
+                loading="lazy"
                 className="object-cover transition-transform duration-500"
                 sizes="(max-width: 640px) 100px, 120px"
                 fill

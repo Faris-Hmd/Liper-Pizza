@@ -78,6 +78,7 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
 
                   {/* Image */}
                   <Image
+                    loading="lazy"
                     src={offer.image}
                     alt={offer.title}
                     fill

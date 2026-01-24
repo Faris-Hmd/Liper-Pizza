@@ -131,6 +131,7 @@ export default function ProductsCarousel({
                         src={product.p_imgs[0].url}
                         alt={product.p_name}
                         fill
+                        loading="lazy"
                         className="object-cover transition-transform duration-700"
                       />
                     </Link>

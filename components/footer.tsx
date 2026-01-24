@@ -15,6 +15,7 @@ export default function AppFooter() {
             >
               <div className="relative w-10 h-10 overflow-hidden rounded-md border-2 border-border transition-transform group-hover:scale-105">
                 <Image
+                  loading="lazy"
                   src="/brand/logo.png"
                   alt="Liper Logo"
                   fill

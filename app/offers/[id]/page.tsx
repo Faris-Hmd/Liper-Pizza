@@ -74,7 +74,7 @@ export default async function OfferDetailPage({
                 alt={offer.title}
                 fill
                 className="object-cover"
-                priority
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               {offer.badge && (
@@ -94,6 +94,7 @@ export default async function OfferDetailPage({
                   className="relative aspect-square rounded-radius-md overflow-hidden border border-border group bg-muted/30 shadow-sm transition-all hover:border-primary/50 active:scale-95"
                 >
                   <Image
+                    loading="lazy"
                     src={p.p_imgs[0]?.url || "/placeholder.png"}
                     alt={p.p_name}
                     fill
@@ -157,6 +158,7 @@ export default async function OfferDetailPage({
                     <div className="flex items-center gap-4 flex-1">
                       <div className="relative h-14 w-14 rounded-radius-sm overflow-hidden shadow-sm ring-1 ring-border">
                         <Image
+                          loading="lazy"
                           src={product.p_imgs[0]?.url || "/placeholder.png"}
                           alt={product.p_name}
                           fill

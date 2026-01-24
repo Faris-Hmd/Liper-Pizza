@@ -56,6 +56,7 @@ export default async function OffersPage() {
                 {/* Visual Area */}
                 <div className="relative aspect-video w-full overflow-hidden border-b border-border">
                   <Image
+                    loading="lazy"
                     src={offer.image}
                     alt={offer.title}
                     fill
