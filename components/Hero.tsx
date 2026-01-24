@@ -1,8 +1,5 @@
-"use client";
-
 import React from "react";
-import { Pizza, Flame, Utensils, ArrowRight, Grid2X2 } from "lucide-react";
-import Link from "next/link";
+import { ArrowRight, Grid2X2 } from "lucide-react";
 
 function Hero() {
   return (
@@ -30,25 +27,6 @@ function Hero() {
         <div
           className="absolute -bottom-40 -right-40 h-[30rem] w-[30rem] rounded-full bg-accent/10 blur-[80px] hidden md:block animate-pulse [animation-delay:2s]"
           style={{ willChange: "transform" }}
-        />
-      </div>
-
-      {/* Floating Icons */}
-      <div className="pointer-events-none absolute inset-0 z-0 hidden md:block">
-        <FloatingIcon
-          icon={Pizza}
-          className="top-1/4 left-10 text-primary/40"
-          delay={0}
-        />
-        <FloatingIcon
-          icon={Flame}
-          className="top-1/3 right-20 text-secondary/40"
-          delay={2}
-        />
-        <FloatingIcon
-          icon={Utensils}
-          className="bottom-1/4 left-20 text-primary/30"
-          delay={4}
         />
       </div>
 
@@ -101,26 +79,6 @@ function Hero() {
         </div>
       </div>
     </section>
-  );
-}
-
-// Helper for floating icons
-function FloatingIcon({
-  icon: Icon,
-  className,
-  delay,
-}: {
-  icon: any;
-  className: string;
-  delay: number;
-}) {
-  return (
-    <div
-      className={`absolute opacity-20 animate-bounce ${className}`}
-      style={{ animationDelay: `${delay}s`, animationDuration: "3s" }}
-    >
-      <Icon className="h-24 w-24" />
-    </div>
   );
 }
 
