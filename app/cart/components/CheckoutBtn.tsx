@@ -259,7 +259,7 @@ function CheckoutBtn() {
             </button>
           </div>
 
-          <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x md:divide-border rtl:divide-x-reverse">
+          <div className="flex flex-col md:flex-row lg:flex-col divide-y md:divide-y-0 lg:divide-y md:divide-x lg:divide-x-0 md:divide-border rtl:divide-x-reverse">
             {/* Payment Section */}
             <div className="flex-1 p-3 sm:p-4 space-y-4">
               <div className="space-y-5">

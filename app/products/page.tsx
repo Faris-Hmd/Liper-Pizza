@@ -14,8 +14,10 @@ export default async function Home(props: {
   const { search_word } = searchParams;
   let products = [] as Awaited<ReturnType<typeof getProducts>>;
 
-  if (search_word !== undefined) {
-    products = await getProducts("p_name", search_word);
+  if (search_word) {
+    products = await getProducts("p_name", search_word, 50);
+  } else {
+    products = await getProducts("all", "", 100);
   }
 
   return (
@@ -26,22 +28,8 @@ export default async function Home(props: {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        {search_word ? (
-          <ProductGrid products={products} showSort={true} />
-        ) : (
-          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[2rem] bg-card border border-border border-dashed px-4 py-12 text-center">
-            <div className="bg-primary/10 mb-6 flex h-16 w-16 items-center justify-center rounded-2xl shadow-sm transition-colors animate-pulse">
-              <Search className="h-8 w-8 text-primary" />
-            </div>
-            <h2 className="max-w-xs text-xl font-black text-foreground">
-              جاهز لاختيار وجبتك؟
-            </h2>
-            <p className="mt-2 max-w-sm text-sm text-muted-foreground font-medium">
-              أدخل كلمة بحث أو اسم البيتزا أعلاه لبدء استكشاف قائمتنا.
-            </p>
-          </div>
-        )}
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8">
+        <ProductGrid products={products} showSort={true} />
       </div>
     </div>
   );

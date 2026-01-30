@@ -94,8 +94,8 @@ function CartBtn({ product }: { product: ProductType }) {
           className={cn(
             "relative flex-1 h-12 flex items-center justify-center gap-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all active:scale-[0.97] overflow-hidden",
             inCart
-              ? "bg-primary/90 text-primary-foreground shadow-xl shadow-primary/20 ring-2 ring-primary/20"
-              : "bg-primary text-primary-foreground shadow-xl shadow-primary/20 hover:opacity-90",
+              ? "bg-primary/90 text-primary-foreground shadow-md shadow-primary/10 ring-2 ring-primary/10"
+              : "bg-primary text-primary-foreground shadow-md shadow-primary/10 hover:opacity-90",
           )}
         >
           {isUpdating ? (

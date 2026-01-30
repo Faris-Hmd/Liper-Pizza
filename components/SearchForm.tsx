@@ -42,9 +42,13 @@ function SearchForm() {
 
   const handleCatChange = useCallback(
     (cat: string) => {
-      push(`/products/categories/${cat}`);
+      if (cat === "all") {
+        replace("/products");
+      } else {
+        push(`/products/categories/${cat}`);
+      }
     },
-    [push],
+    [push, replace],
   );
 
   const handleInputChange = useCallback(
