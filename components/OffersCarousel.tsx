@@ -47,7 +47,7 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
       >
         {offers.map((offer, index) => {
           const individualTotal = offer.products.reduce(
-            (acc, p) => acc + (Number(p.p_cost) || 0),
+            (acc, p) => acc + (Number(p.p_cost) || 0) * (p.p_qu || 1),
             0,
           );
           const savings = individualTotal - (offer.price || 0);
@@ -59,10 +59,10 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
             >
               <Link
                 href={`/offers/${offer.id}` as any}
-                className="group/card relative block aspect-[16/11] overflow-hidden rounded-radius-lg border border-border bg-card cursor-pointer transition-all duration-500 hover:shadow-2xl hover:shadow-primary/15 hover:border-primary/40"
+                className="group/card relative block aspect-[16/10] md:aspect-[16/9] overflow-hidden rounded-radius-lg border border-border bg-card cursor-pointer transition-all duration-500 hover:shadow-2xl hover:shadow-primary/15 hover:border-primary/40"
               >
                 {/* Image Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-opacity duration-500 group-hover/card:opacity-95" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent/10 z-10 transition-opacity duration-500 group-hover/card:opacity-95" />
 
                 {/* Image */}
                 <Image
@@ -77,7 +77,7 @@ const OffersCarousel: React.FC<OffersCarouselProps> = ({ offers }) => {
                 />
 
                 {/* Badges */}
-                <div className="absolute top-4 right-4 z-20 flex flex-col items-end gap-2">
+                <div className="absolute top-4 left-4 z-20 flex flex-col items-start gap-2">
                   {offer.badge && (
                     <span className="px-3 py-1.5 bg-primary text-primary-foreground text-xs font-black uppercase tracking-widest rounded-full shadow-xl">
                       {offer.badge}
