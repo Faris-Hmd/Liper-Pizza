@@ -12,7 +12,7 @@ import ScrollTop from "@/components/ScrollTop";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
-  weight: ["400", "500", "600", "700", "900"],
+  display: "swap", // Prevent render blocking
 });
 
 export const metadata: Metadata = {
