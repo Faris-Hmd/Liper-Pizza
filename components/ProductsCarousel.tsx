@@ -1,16 +1,9 @@
 "use client";
 
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Zap, ChevronRight, ChevronLeft } from "lucide-react";
-import Autoplay from "embla-carousel-autoplay";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
+import { Zap } from "lucide-react";
 import { ProductType } from "@/types/productsTypes";
 import QuickAddBtn from "./quickAddBtn";
 import { cn } from "@/lib/utils";
@@ -35,24 +28,6 @@ export default function ProductsCarousel({
 }: {
   products: ProductType[];
 }) {
-  const [api, setApi] = useState<CarouselApi>();
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const plugin = useRef(
-    Autoplay({ delay: 6000, stopOnInteraction: false, stopOnMouseEnter: true }),
-  );
-
-  const onSelect = useCallback((api: CarouselApi) => {
-    if (!api) return;
-    setActiveIndex(api.selectedScrollSnap());
-  }, []);
-
-  useEffect(() => {
-    if (!api) return;
-    onSelect(api);
-    api.on("select", onSelect);
-  }, [api, onSelect]);
-
   if (!products || products.length === 0) return null;
 
   return (
@@ -76,109 +51,81 @@ export default function ProductsCarousel({
               <span className="text-primary italic"> الوجبات</span>
             </h2>
           </div>
-
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2">
-              <button
-                onClick={() => api?.scrollNext()}
-                className="w-10 h-10 border border-border flex items-center justify-center hover:bg-card hover:border-primary transition-all active:scale-95"
-              >
-                <ChevronRight size={20} className="rotate-180" />
-              </button>
-              <button
-                onClick={() => api?.scrollPrev()}
-                className="w-10 h-10 border border-border flex items-center justify-center hover:bg-card hover:border-primary transition-all active:scale-95"
-              >
-                <ChevronLeft size={20} className="rotate-180" />
-              </button>
-            </div>
-            <div className="h-10 w-[1px] bg-border hidden md:block" />
-          </div>
         </div>
 
         {/* Carousel Component */}
-        <Carousel
-          setApi={setApi}
-          plugins={[plugin.current]}
-          opts={{
-            align: "start",
-            loop: true,
-            direction: "rtl",
-          }}
-          className="w-full"
+        {/* Carousel Component */}
+        <div
+          className="w-full flex gap-3 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-6 -mb-6 scrollbar-hide"
+          dir="rtl"
         >
-          <CarouselContent className="-ml-3 md:-ml-6">
-            {products.map((product, idx) => (
-              <CarouselItem
-                key={product.id}
-                className="pl-3 md:pl-6 basis-[85%] sm:basis-1/2 lg:basis-1/3"
+          {products.map((product, idx) => (
+            <div
+              key={product.id}
+              className="snap-start flex-shrink-0 w-[85%] sm:w-1/2 lg:w-1/3"
+            >
+              <div
+                className={cn(
+                  "group relative bg-card h-full border border-border rounded-sm p-3 md:p-5 transition-all duration-500 hover:border-primary/50",
+                )}
               >
-                <div
-                  className={cn(
-                    "group relative bg-card border border-border rounded-sm p-3 md:p-5 transition-all duration-500",
-                    idx === activeIndex
-                      ? "border-primary shadow-xl shadow-primary/5"
-                      : "hover:border-primary/50",
-                  )}
-                >
-                  {/* Product Media */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-muted mb-4 md:mb-6">
-                    <Link
-                      href={`/products/${product.id}`}
-                      className="block h-full"
-                    >
-                      <Image
-                        priority={idx === 0}
-                        loading={idx === 0 ? "eager" : "lazy"}
-                        fetchPriority={idx === 0 ? "high" : "auto"}
-                        src={product.p_imgs[0].url}
-                        alt={product.p_name}
-                        fill
-                        sizes="(max-width: 768px) 85vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-700"
-                      />
-                    </Link>
+                {/* Product Media */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-muted mb-4 md:mb-6">
+                  <Link
+                    href={`/products/${product.id}`}
+                    className="block h-full"
+                  >
+                    <Image
+                      priority={idx === 0}
+                      loading={idx === 0 ? "eager" : "lazy"}
+                      fetchPriority={idx === 0 ? "high" : "auto"}
+                      src={product.p_imgs[0].url}
+                      alt={product.p_name}
+                      fill
+                      sizes="(max-width: 768px) 85vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700"
+                    />
+                  </Link>
 
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2 py-0.5 bg-background/90  border rounded-radius-sm border-border text-tiny font-black text-primary uppercase tracking-widest">
-                        {LabelMap[product.p_cat] || product.p_cat}
-                      </span>
-                    </div>
+                  <div className="absolute top-3 left-3">
+                    <span className="px-2 py-0.5 bg-background/90  border rounded-radius-sm border-border text-tiny font-black text-primary uppercase tracking-widest">
+                      {LabelMap[product.p_cat] || product.p_cat}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content Area */}
+                <div className="space">
+                  <div className="">
+                    <h3 className="text-base md:text-xl font-black text-foreground leading-tight line-clamp-2 uppercase tracking-tight">
+                      {product.p_name}
+                    </h3>
                   </div>
 
-                  {/* Content Area */}
-                  <div className="space">
-                    <div className="">
-                      <h3 className="text-base md:text-xl font-black text-foreground leading-tight line-clamp-2 uppercase tracking-tight">
-                        {product.p_name}
-                      </h3>
+                  <div className="flex items-center justify-between pt-3 md:pt-4 border-t border-border">
+                    <div className="flex flex-col">
+                      <span className="text-tiny font-black text-muted-foreground uppercase tracking-widest mb-1 opacity-60">
+                        قيمة الوجبة
+                      </span>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-xl md:text-2xl font-black text-foreground tracking-tighter">
+                          {Number(product.p_cost).toLocaleString()}
+                        </span>
+                        <span className="text-tiny font-black text-primary uppercase">
+                          جنية
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-3 md:pt-4 border-t border-border">
-                      <div className="flex flex-col">
-                        <span className="text-tiny font-black text-muted-foreground uppercase tracking-widest mb-1 opacity-60">
-                          قيمة الوجبة
-                        </span>
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-xl md:text-2xl font-black text-foreground tracking-tighter">
-                            {Number(product.p_cost).toLocaleString()}
-                          </span>
-                          <span className="text-tiny font-black text-primary uppercase">
-                            جنية
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="shrink-0 scale-90 md:scale-100 origin-right">
-                        <QuickAddBtn product={product} />
-                      </div>
+                    <div className="shrink-0 scale-90 md:scale-100 origin-right">
+                      <QuickAddBtn product={product} />
                     </div>
                   </div>
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
