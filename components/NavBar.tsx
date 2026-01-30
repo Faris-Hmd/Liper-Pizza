@@ -44,7 +44,7 @@ export default function Navbar() {
               <span className="text-xl font-black text-foreground tracking-tight">
                 لييبر<span className="text-primary"> بيتزا</span>
               </span>
-              <span className="text-[10px] font-bold opacity-60 uppercase tracking-widest mt-0.5">
+              <span className="text-tiny font-bold opacity-60 uppercase tracking-widest mt-0.5">
                 مطعم بيتزا
               </span>
             </div>
@@ -69,7 +69,7 @@ export default function Navbar() {
                   <Icon size={18} strokeWidth={isActive ? 2.5 : 2} />
                   {item.title}
                   {item.href === "/cart" && cartCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] w-4 h-4 flex items-center justify-center rounded-full border-2 border-background font-bold animate-in zoom-in">
+                    <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-tiny w-4 h-4 flex items-center justify-center rounded-full border-2 border-background font-bold animate-in zoom-in">
                       {cartCount}
                     </span>
                   )}

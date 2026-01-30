@@ -42,7 +42,7 @@ const QuickAddBtn: React.FC<QuickAddBtnProps> = ({ product }) => {
       onClick={toggleCart}
       className={`group/btn relative h-9 w-9 flex items-center justify-center rounded-xl transition-all duration-300 border ${
         isInCart
-          ? "bg-primary border-primary text-primary-foreground shadow-lg shadow-primary/20"
+          ? "bg-primary border-primary text-primary-foreground"
           : "bg-transparent border-border text-muted-foreground hover:border-primary hover:text-primary"
       }`}
       title={isInCart ? "Remove from cart" : "Add to cart"}

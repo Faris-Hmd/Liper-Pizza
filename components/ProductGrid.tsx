@@ -44,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
 
         <div className="absolute top-1 left-3 overflow-hidden z-10">
-          <span className="px-2 py-0.5 bg-background/90 border border-border rounded-radius-sm text-[9px] font-black text-primary uppercase tracking-widest">
+          <span className="px-2 py-0.5 bg-background/90 border border-border rounded-radius-sm text-tiny font-black text-primary uppercase tracking-widest">
             {LabelMap[product.p_cat] || product.p_cat}
           </span>
         </div>
@@ -52,15 +52,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
       {/* Info Area */}
       <div className="p-2 md:p-3 flex flex-col flex-1 gap-1.5">
-        <h3 className="text-[11px] md:text-xs font-bold text-foreground leading-tight line-clamp-2 min-h-[2rem]">
+        <h3 className="text-small md:text-medium font-bold text-foreground leading-tight line-clamp-2 min-h-[2rem]">
           {product.p_name}
         </h3>
 
         <div className="mt-auto pt-2 border-t flex items-center justify-between gap-1.5">
           <div className="flex flex-col">
-            <span className="text-sm md:text-base font-black text-foreground leading-none">
+            <span className="text-medium md:text-base font-black text-foreground leading-none">
               {Number(product.p_cost).toLocaleString()}
-              <span className="text-[8px] mr-0.5 text-muted-foreground uppercase font-bold">
+              <span className="text-tiny mr-0.5 text-muted-foreground uppercase font-bold">
                 جنية
               </span>
             </span>
@@ -108,7 +108,7 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
             <div className="p-1.5 bg-primary rounded text-primary-foreground">
               <ArrowUpDown size={14} />
             </div>
-            <p className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
+            <p className="text-tiny font-black uppercase tracking-wider text-muted-foreground">
               ترتيب
             </p>
           </div>
@@ -117,7 +117,7 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
             <button
               onClick={() => setSortBy("name")}
               className={cn(
-                "px-3 py-1.5 text-[10px] font-black uppercase rounded-md transition-all",
+                "px-3 py-1.5 text-tiny font-black uppercase rounded-md transition-all",
                 sortBy === "name"
                   ? "bg-background text-primary shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
@@ -128,7 +128,7 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
             <button
               onClick={() => setSortBy("price_asc")}
               className={cn(
-                "px-3 py-1.5 text-[10px] font-black uppercase rounded-md transition-all",
+                "px-3 py-1.5 text-tiny font-black uppercase rounded-md transition-all",
                 sortBy === "price_asc"
                   ? "bg-background text-primary shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
@@ -139,7 +139,7 @@ const ProductGrid: React.FC<ExtendedGridProps> = ({
             <button
               onClick={() => setSortBy("price_desc")}
               className={cn(
-                "px-3 py-1.5 text-[10px] font-black uppercase rounded-md transition-all",
+                "px-3 py-1.5 text-tiny font-black uppercase rounded-md transition-all",
                 sortBy === "price_desc"
                   ? "bg-background text-primary shadow-sm"
                   : "text-muted-foreground hover:text-foreground",

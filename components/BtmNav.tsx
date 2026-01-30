@@ -60,14 +60,14 @@ export default function BtmNav() {
                 className={cn("transition-transform", isActive && "scale-110")}
               />
               {item.href === "/cart" && cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900 font-bold">
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-tiny w-4 h-4 flex items-center justify-center rounded-full border border-white dark:border-slate-900 font-bold">
                   {cartCount}
                 </span>
               )}
             </div>
             <span
               className={cn(
-                "text-[10px] font-semibold transition-all",
+                "text-tiny font-semibold transition-all",
                 isActive ? "opacity-100 translate-y-0" : "opacity-80",
               )}
             >

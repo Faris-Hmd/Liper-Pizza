@@ -67,7 +67,7 @@ export default function ProductsCarousel({
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-primary/10 border border-primary/20">
               <Zap size={12} className="text-primary animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+              <span className="text-tiny font-black uppercase tracking-[0.2em] text-primary">
                 أداء متميز
               </span>
             </div>
@@ -140,7 +140,7 @@ export default function ProductsCarousel({
                     </Link>
 
                     <div className="absolute top-3 left-3">
-                      <span className="px-2 py-0.5 bg-background/90  border rounded-radius-sm border-border text-[9px] font-black text-primary uppercase tracking-widest">
+                      <span className="px-2 py-0.5 bg-background/90  border rounded-radius-sm border-border text-tiny font-black text-primary uppercase tracking-widest">
                         {LabelMap[product.p_cat] || product.p_cat}
                       </span>
                     </div>
@@ -156,14 +156,14 @@ export default function ProductsCarousel({
 
                     <div className="flex items-center justify-between pt-3 md:pt-4 border-t border-border">
                       <div className="flex flex-col">
-                        <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest mb-1 opacity-60">
+                        <span className="text-tiny font-black text-muted-foreground uppercase tracking-widest mb-1 opacity-60">
                           قيمة الوجبة
                         </span>
                         <div className="flex items-baseline gap-1">
                           <span className="text-xl md:text-2xl font-black text-foreground tracking-tighter">
                             {Number(product.p_cost).toLocaleString()}
                           </span>
-                          <span className="text-[10px] font-black text-primary uppercase">
+                          <span className="text-tiny font-black text-primary uppercase">
                             جنية
                           </span>
                         </div>
